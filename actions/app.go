@@ -45,6 +45,7 @@ func App() *buffalo.App {
 		app.Use(T.Middleware())
 
 		app.GET("/", HomeHandler)
+		// app.GET("/auth/github", AuthHandler)
 
 		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
 	}

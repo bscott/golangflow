@@ -3,17 +3,38 @@
     <meta charset="utf-8">
     <title>Buffalo - Golangflow</title>
     <link rel="stylesheet" href="/assets/application.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v2.1.0/dist/mini-default.min.css">
     <meta name="csrf-param" content="authenticity_token" />
     <meta name="csrf-token" content="<%= authenticity_token %>" />
   </head>
   <body>
 
+  <header class="sticky">
+    <a href="#" class="logo">GolangFlow</a> <button href="#" class="fa fa-plus" aria-hidden="true"> Submit</button> <button class="fa fa-twitter" aria-hidden="true"> Twitter</button>
+  </header>
     <div class="container">
       <%= partial("flash.html") %>
 
       <%= yield %>
     </div>
+  <footer>
+    <p>&copy; 2017 Brian Scott | <a href="http://gobuffalo.io/">Powered by Buffalo</a>
+  </footer>
 
     <script src="/assets/application.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+      var _gauges = _gauges || [];
+      (function() {
+          var t   = document.createElement('script');
+          t.type  = 'text/javascript';
+          t.async = true;
+          t.id    = 'gauges-tracker';
+          t.setAttribute('data-site-id', '58f46b9ebb922a6e9002c714');
+          t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
+          t.src = 'https://d36ee2fcip1434.cloudfront.net/track.js';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(t, s);
+      })();
+  </script>
   </body>
 </html>
