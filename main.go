@@ -7,7 +7,12 @@ import (
 
 	"github.com/bscott/golangflow/actions"
 	"github.com/gobuffalo/envy"
+	"github.com/as27/setenv"
 )
+
+func init() {
+	setenv.File(".setenv")
+}
 
 func main() {
 	port := envy.Get("PORT", "3000")
