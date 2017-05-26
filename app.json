@@ -1,0 +1,17 @@
+{
+  "name": "golangflow",
+  "scripts": {
+    "postdeploy": "./bin/app migrate"
+  },
+  "env": {
+    "GO_ENV": "test"
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ]
+}
