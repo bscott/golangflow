@@ -1,7 +1,7 @@
 package: github.com/bscott/golangflow
 import:
 - package: github.com/gobuffalo/buffalo
-  version: v0.8.1
+  version: v0.9.0
   subpackages:
   - middleware
   - middleware/i18n
@@ -17,7 +17,8 @@ import:
   subpackages:
   - grift
 - package: github.com/markbates/pop
-  version: v3.18.0
 - package: github.com/as27/setenv
+- package: github.com/motemen/gore
+  version: ~0.2.6
 testImport:
 - package: github.com/gobuffalo/suite

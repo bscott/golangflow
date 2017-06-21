@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/as27/setenv"
 	"github.com/bscott/golangflow/actions"
 	"github.com/gobuffalo/envy"
-	"github.com/as27/setenv"
 )
 
 func init() {
