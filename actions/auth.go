@@ -38,7 +38,8 @@ func AuthCallback(c buffalo.Context) error {
 		Provider: user.Provider,
 	}
 
-	models.DB.Create(&u)
+
+
 
 	// Build Session
 	session := c.Session()
@@ -47,6 +48,15 @@ func AuthCallback(c buffalo.Context) error {
 	if err != nil {
 		return c.Error(401, err)
 	}
+
+	// check if user already exists
+
+	sUser := session.Get("userID")
+
+	if sUser != user.UserID {
+		models.DB.Create(&u)
+	}
+
 	// The default value jus renders the data we get by GitHub
 	// return c.Render(200, r.JSON(user))
 
