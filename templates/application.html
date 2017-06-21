@@ -10,10 +10,20 @@
   <body>
 
   <header class="sticky">
-    <a href="#" class="logo">GolangFlow</a> <button href="#" class="fa fa-plus" aria-hidden="true"> Submit</button> <button class="fa fa-twitter" aria-hidden="true"> Twitter</button> <a class="fa fa-login" href="/auth/github">Login</a>
+    <a href="#" class="logo">GolangFlow</a> <button href="#" class="fa fa-plus" aria-hidden="true"> Submit</button> <button class="fa fa-twitter" aria-hidden="true"> Twitter</button>
   </header>
     <div class="container">
       <%= partial("flash.html") %>
+      <center>
+      <div class="card fluid">
+        <div class="section">
+          <h3>Golang Community Linklog</h3>
+          <p>Made a library? Written a blog post? Found a useful tutorial? Share it with the Golang community here or just enjoy what everyone else has found!</p>
+        </div>
+      </div>
+      </center>
+    <br />
+      <br />
 
       <%= yield %>
     </div>
