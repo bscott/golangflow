@@ -11,7 +11,9 @@ import (
 	"github.com/markbates/goth/providers/github"
 	"github.com/bscott/golangflow/models"
 	"github.com/markbates/pop/nulls"
+	//"github.com/pkg/errors"
 
+	"github.com/markbates/pop"
 )
 
 func init() {
@@ -38,7 +40,39 @@ func AuthCallback(c buffalo.Context) error {
 		Provider: user.Provider,
 	}
 
-	models.DB.Create(&u)
+	// check if user already exists
+	// Get the DB connection from the context
+	tx := c.Value("tx").(*pop.Connection)
+	eu := models.User{}
+	var exists bool
+
+	// To find the User the parameter user_id is used.
+	query := tx.Where("provider = ?", user.Provider).Where("provider_userid = ?", user.UserID)
+	err = query.First(&eu)
+
+	if err != nil {
+		exists = bool(false)
+	}
+
+	//exists, err := query.Exists(&models.User{})
+	//
+	//if err != nil {
+	//	return c.Error(401, err)
+	//}
+
+		if exists == false && eu.Provider != user.Provider && eu.ProviderUserid != user.UserID {
+			models.DB.Create(&u)
+
+			// Build Session
+			session := c.Session()
+			session.Set("userID", user.UserID)
+			err = session.Save()
+			if err != nil {
+				return c.Error(401, err)
+			}
+			return c.Redirect(http.StatusMovedPermanently, "/")
+		}
+
 
 
 	// Build Session
@@ -48,15 +82,6 @@ func AuthCallback(c buffalo.Context) error {
 	if err != nil {
 		return c.Error(401, err)
 	}
-
-	// check if user already exists
-	// sUser := session.Get("userID")
-
-
-
-	//if sUser != user.UserID {
-	//	models.DB.Create(&u)
-	//}
 
 	// The default value jus renders the data we get by GitHub
 	// return c.Render(200, r.JSON(user))
