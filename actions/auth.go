@@ -2,14 +2,14 @@ package actions
 
 import (
 	"fmt"
-	"os"
 	"net/http"
+	"os"
 
+	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo"
 	"github.com/markbates/goth"
 	"github.com/markbates/goth/gothic"
 	"github.com/markbates/goth/providers/github"
-	"github.com/bscott/golangflow/models"
 	"github.com/markbates/pop/nulls"
 	//"github.com/pkg/errors"
 
@@ -24,6 +24,7 @@ func init() {
 	)
 }
 
+// TODO: Refactor this whole function...
 func AuthCallback(c buffalo.Context) error {
 	user, err := gothic.CompleteUserAuth(c.Response(), c.Request())
 	if err != nil {
@@ -33,11 +34,11 @@ func AuthCallback(c buffalo.Context) error {
 	// Adding the userID to the session to remember the logged in user
 
 	u := models.User{
-		Name: user.Name,
-		Email: nulls.NewString(user.Email),
+		Name:           user.Name,
+		Email:          nulls.NewString(user.Email),
 		ProviderUserid: user.UserID,
-		GravatarID: nulls.NewString(user.AvatarURL),
-		Provider: user.Provider,
+		GravatarID:     nulls.NewString(user.AvatarURL),
+		Provider:       user.Provider,
 	}
 
 	// check if user already exists
@@ -60,20 +61,18 @@ func AuthCallback(c buffalo.Context) error {
 	//	return c.Error(401, err)
 	//}
 
-		if exists == false && eu.Provider != user.Provider && eu.ProviderUserid != user.UserID {
-			models.DB.Create(&u)
+	if exists == false && eu.Provider != user.Provider && eu.ProviderUserid != user.UserID {
+		models.DB.Create(&u)
 
-			// Build Session
-			session := c.Session()
-			session.Set("userID", user.UserID)
-			err = session.Save()
-			if err != nil {
-				return c.Error(401, err)
-			}
-			return c.Redirect(http.StatusMovedPermanently, "/")
+		// Build Session
+		session := c.Session()
+		session.Set("userID", user.UserID)
+		err = session.Save()
+		if err != nil {
+			return c.Error(401, err)
 		}
-
-
+		return c.Redirect(http.StatusMovedPermanently, "/")
+	}
 
 	// Build Session
 	session := c.Session()

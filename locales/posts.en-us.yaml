@@ -1,0 +1,6 @@
+- id: "posts.created.success"
+  translation: "Post was successfully created."
+- id: "posts.updated.success"
+  translation: "Post was successfully updated."
+- id: "posts.destroyed.success"
+  translation: "Post was successfully destroyed."
