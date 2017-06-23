@@ -52,6 +52,10 @@ func App() *buffalo.App {
 		auth := app.Group("/auth")
 		auth.GET("/{provider}", buffalo.WrapHandlerFunc(gothic.BeginAuthHandler))
 		auth.GET("/{provider}/callback", AuthCallback)
+
+		app.Resource("/users", UsersResource{&buffalo.BaseResource{}})
+
+		app.Resource("/posts", PostsResource{&buffalo.BaseResource{}})
 	}
 
 	return app

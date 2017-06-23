@@ -1,0 +1,6 @@
+- id: "users.created.success"
+  translation: "User was successfully created."
+- id: "users.updated.success"
+  translation: "User was successfully updated."
+- id: "users.destroyed.success"
+  translation: "User was successfully destroyed."

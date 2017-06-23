@@ -1,0 +1,23 @@
+<h1>Users#Show</h1>
+
+<ul class="list-unstyled list-inline">
+  <li><a href="<%= usersPath() %>" class="btn btn-info">Back to all Users</a></li>
+  <li><a href="<%= editUserPath({ user_id: user.ID })%>" class="btn btn-warning">Edit</a></li>
+  <li><a href="<%= userPath({ user_id: user.ID })%>" data-method="DELETE" data-confirm="Are you sure?" class="btn btn-danger">Destroy</a>
+</ul>
+
+<p>
+  <strong>Name</strong>: <%= user.Name %>
+</p>
+<p>
+  <strong>Email</strong>: <%= user.Email %>
+</p>
+<p>
+  <strong>ProviderUserid</strong>: <%= user.ProviderUserid %>
+</p>
+<p>
+  <strong>GravatarID</strong>: <%= user.GravatarID %>
+</p>
+<p>
+  <strong>Provider</strong>: <%= user.Provider %>
+</p>
