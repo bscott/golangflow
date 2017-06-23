@@ -78,7 +78,7 @@ func AuthCallback(c buffalo.Context) error {
 	// Build Session
 	session := c.Session()
 	session.Set("userID", user.UserID)
-	session.Set("user_id", &u.ID)
+	session.Set("user_provider", user.Provider)
 	err = session.Save()
 	if err != nil {
 		return c.Error(401, err)
