@@ -90,3 +90,5 @@ func AuthCallback(c buffalo.Context) error {
 	// After the user is logged in we add a redirect
 	return c.Redirect(http.StatusMovedPermanently, "/")
 }
+
+
