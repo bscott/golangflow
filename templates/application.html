@@ -10,7 +10,7 @@
   <body>
 
   <header class="sticky">
-    <a href="#" class="logo">GolangFlow</a> <button href="#" class="fa fa-plus" aria-hidden="true"> Submit</button> <button class="fa fa-twitter" aria-hidden="true"> Twitter</button><a class="fa fa-login" href="/auth/github">Login</a>
+    <a href="#" class="logo">GolangFlow</a> <button onclick="location.href='/posts/new'" class="fa fa-plus" aria-hidden="true"> Submit</button> <button class="fa fa-twitter" onclick="location.href='https://twitter.com/golangflow'" aria-hidden="true"> Twitter</button><button onclick="location.href='/auth/github'" class="fa fa-github" aria-hidden="true"> Login</button>
   </header>
     <div class="container">
       <%= partial("flash.html") %>
