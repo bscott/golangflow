@@ -90,28 +90,32 @@ func (v PostsResource) Create(c buffalo.Context) error {
 	// Get the DB connection from the context
 	tx := c.Value("tx").(*pop.Connection)
 	// Allocate an empty User
-	usr := &models.User{}
+	usr := models.User{}
 	query := tx.Where("provider = ?", provider).Where("provider_userid = ?", providerID)
-	err := query.First(&usr)
-
-	if err != nil {
-		return errors.WithStack(err)
+	uerr := query.First(&usr)
+	if uerr != nil {
+		return errors.WithStack(uerr)
 	}
 
 	// Allocate an empty Post
 	post := &models.Post{UserID: usr.ID}
 	// Bind post to the html form elements
-	err = c.Bind(post)
+	err := c.Bind(post)
+
 	if err != nil {
 		return errors.WithStack(err)
 	}
+
+
 	// Get the DB connection from the context
-	// tx := c.Value("tx").(*pop.Connection)
+	//tx := c.Value("tx").(*pop.Connection)
 	// Validate the data from the html form
 	verrs, err := tx.ValidateAndCreate(post)
+
 	if err != nil {
 		return errors.WithStack(err)
 	}
+
 	if verrs.HasAny() {
 		// Make post available inside the html template
 		c.Set("post", post)
