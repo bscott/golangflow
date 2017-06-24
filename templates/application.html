@@ -3,9 +3,10 @@
     <meta charset="utf-8">
     <title>Buffalo - Golangflow</title>
     <link rel="stylesheet" href="/assets/application.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v2.1.0/dist/mini-default.min.css">
+    <link rel="stylesheet" href="https://gitcdn.link/repo/Chalarangelo/mini.css/master/dist/mini-default.min.css">
     <meta name="csrf-param" content="authenticity_token" />
     <meta name="csrf-token" content="<%= authenticity_token %>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
 
@@ -23,12 +24,11 @@
       </div>
       </center>
     <br />
-      <br />
 
       <%= yield %>
     </div>
   <footer>
-    <p>&copy; 2017 Brian Scott | <a href="http://gobuffalo.io/">Powered by Buffalo</a>
+    <p>2017 - Created by Brian Scott ( <a href="http://www.twitter.com/brainscott">Twitter</a> ), Inspired by <a href="http://www.rubyflow.com/">RubyFlow</a> | Powered by  <a href="http://gobuffalo.io/">Buffalo</a> | Hosted on <a href="http://www.heroku.com/">Heroku</a>
   </footer>
 
     <script src="/assets/application.js" type="text/javascript" charset="utf-8"></script>
@@ -46,6 +46,6 @@
           s.parentNode.insertBefore(t, s);
       })();
   </script>
-  <script src="https://unpkg.com/vue@2.3.3"></script>
+  <!--<script src="https://unpkg.com/vue@2.3.3"></script>-->
   </body>
 </html>

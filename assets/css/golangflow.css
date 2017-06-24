@@ -1,0 +1,6 @@
+.inner {
+    max-width: 50em;
+    min-width: 300px;
+    margin: 18px auto;
+    padding: 0 12px;
+}

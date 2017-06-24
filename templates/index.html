@@ -1,22 +1,22 @@
-<table class="table table-striped">
-    <thead>
-    <th>Title</th>
-    <th>Content</th>
-    <th>&nbsp;</th>
-    </thead>
-    <tbody>
+<section class="inner posts">
     <%= for (post) in posts { %>
-    <tr>
-        <td><%= post.Title %></td>
-        <td><%= post.Content %></td>
-        <td>
-            <div class="pull-right">
-                <a href="<%= postPath({ post_id: post.ID }) %>" class="btn btn-info">View</a>
-                <a href="<%= editPostPath({ post_id: post.ID }) %>" class="btn btn-warning">Edit</a>
-                <a href="<%= postPath({ post_id: post.ID }) %>" data-method="DELETE" data-confirm="Are you sure?" class="btn btn-danger">Destroy</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="blue-box"></div>
             </div>
-        </td>
-    </tr>
+            <div class="col-sm-8">
+                <div class="blue-box">
+                    <p><%= post.Title %></p>
+                    <p><%= post.Content %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <% } %>
-    </tbody>
-</table>
+</section>
+
+
+
+
