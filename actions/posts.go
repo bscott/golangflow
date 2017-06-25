@@ -49,12 +49,14 @@ func (v PostsResource) Show(c buffalo.Context) error {
 	tx := c.Value("tx").(*pop.Connection)
 	// Allocate an empty Post
 	post := &models.Post{}
+
 	// To find the Post the parameter post_id is used.
 	err := tx.Find(post, c.Param("post_id"))
 	if err != nil {
 		return errors.WithStack(err)
 	}
 	// Make post available inside the html template
+	post.Content = trimQuotes(post.Content)
 	c.Set("post", post)
 	return c.Render(200, r.HTML("posts/show.html"))
 }
@@ -62,6 +64,12 @@ func (v PostsResource) Show(c buffalo.Context) error {
 // New renders the formular for creating a new post.
 // This function is mapped to the path GET /posts/new
 func (v PostsResource) New(c buffalo.Context) error {
+
+	// Checkfor session
+	session := c.Session()
+	provider_id := session.Get("user_id")
+	c.Set("session", provider_id)
+
 	// Make post available inside the html template
 	c.Set("post", &models.Post{})
 	return c.Render(200, r.HTML("posts/new.html"))
@@ -74,7 +82,6 @@ func (v PostsResource) Create(c buffalo.Context) error {
 	// Grab current user from session
 	providerID := c.Session().Get("userID")
 	provider := c.Session().Get("user_provider")
-
 
 	if providerID == nil {
 		err := errors.New("Session ID can't be loaded, please re-login")
@@ -105,7 +112,6 @@ func (v PostsResource) Create(c buffalo.Context) error {
 	if err != nil {
 		return errors.WithStack(err)
 	}
-
 
 	// Get the DB connection from the context
 	//tx := c.Value("tx").(*pop.Connection)
@@ -202,4 +208,14 @@ func (v PostsResource) Destroy(c buffalo.Context) error {
 	c.Flash().Add("success", "Post was destroyed successfully")
 	// Redirect to the posts index page
 	return c.Redirect(302, "/posts")
+}
+
+// my own helper functions
+func trimQuotes(s string) string {
+	if len(s) >= 2 {
+		if s[0] == '"' && s[len(s)-1] == '"' {
+			return s[1 : len(s)-1]
+		}
+	}
+	return s
 }
