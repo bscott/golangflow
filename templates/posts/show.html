@@ -3,11 +3,10 @@
   <li><a href="<%= editPostPath({ post_id: post.ID })%>" class="btn btn-warning">Edit</a></li>
   <li><a href="<%= postPath({ post_id: post.ID })%>" data-method="DELETE" data-confirm="Are you sure?" class="btn btn-danger">Destroy</a>
 </ul>
-
+<div id="show-preview"> 
 <p>
   <strong>Title</strong>: <%= post.Title %>
 </p>
-<div id="show-preview"> 
 <p>
   <strong>Content:</strong> <div id="post-preview"><%= post.Content %></div>
 </p>

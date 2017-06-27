@@ -210,7 +210,7 @@ func (v PostsResource) Destroy(c buffalo.Context) error {
 	return c.Redirect(302, "/posts")
 }
 
-// my own helper functions
+// trimQuotes is my own helper function
 func trimQuotes(s string) string {
 	if len(s) >= 2 {
 		if s[0] == '"' && s[len(s)-1] == '"' {
