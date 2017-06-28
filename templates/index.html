@@ -1,18 +1,12 @@
 <section class="inner posts">
     <%= for (post) in posts { %>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="blue-box"></div>
-            </div>
-            <div class="col-sm-8">
-                <div class="blue-box">
+   <article class postwithavatar>
+    <div class="avatar"></div>
+    <div class="body">
                     <p><%= post.Title %></p>
                     <p><%= post.Content %></p>
-                </div>
-            </div>
-        </div>
-    </div>
+                    </div>
+ </article>     
 
     <% } %>
 </section>

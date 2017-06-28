@@ -68,6 +68,9 @@ func (v PostsResource) New(c buffalo.Context) error {
 	// Checkfor session
 	session := c.Session()
 	provider_id := session.Get("user_id")
+	if provider_id == nil {
+		return c.Redirect(301, "/auth/github")
+	}
 	c.Set("session", provider_id)
 
 	// Make post available inside the html template
