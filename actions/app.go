@@ -1,10 +1,11 @@
 package actions
 
 import (
+	"log"
+
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/middleware"
 	"github.com/gobuffalo/buffalo/middleware/i18n"
-	"log"
 
 	"github.com/bscott/golangflow/models"
 
@@ -45,7 +46,7 @@ func App() *buffalo.App {
 			log.Fatal(err)
 		}
 		app.Use(T.Middleware())
-
+		app.Use(UserExistsMW)
 		app.GET("/", HomeHandler)
 
 		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
@@ -60,3 +61,5 @@ func App() *buffalo.App {
 
 	return app
 }
+
+// middlewares
