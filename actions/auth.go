@@ -2,7 +2,6 @@ package actions
 
 import (
 	"fmt"
-	"net/http"
 	"os"
 
 	"github.com/bscott/golangflow/models"
@@ -10,10 +9,9 @@ import (
 	"github.com/markbates/goth"
 	"github.com/markbates/goth/gothic"
 	"github.com/markbates/goth/providers/github"
-	"github.com/markbates/pop/nulls"
-	//"github.com/pkg/errors"
-
 	"github.com/markbates/pop"
+	"github.com/markbates/pop/nulls"
+	"github.com/pkg/errors"
 )
 
 func init() {
@@ -25,6 +23,7 @@ func init() {
 }
 
 // TODO: Refactor this whole function...
+
 func AuthCallback(c buffalo.Context) error {
 	user, err := gothic.CompleteUserAuth(c.Response(), c.Request())
 	if err != nil {
@@ -33,62 +32,81 @@ func AuthCallback(c buffalo.Context) error {
 	// Do something with the user, maybe register them/sign them in
 	// Adding the userID to the session to remember the logged in user
 
-	u := models.User{
-		Name:           user.Name,
-		Email:          nulls.NewString(user.Email),
-		ProviderUserid: user.UserID,
-		GravatarID:     nulls.NewString(user.AvatarURL),
-		Provider:       user.Provider,
-	}
+	// u := models.User{
+	// 	Name:           user.Name,
+	// 	Email:          nulls.NewString(user.Email),
+	// 	ProviderUserid: user.UserID,
+	// 	GravatarID:     nulls.NewString(user.AvatarURL),
+	// 	Provider:       user.Provider,
+	// }
 
 	// check if user already exists
 	// Get the DB connection from the context
 	tx := c.Value("tx").(*pop.Connection)
-	eu := models.User{}
-	var exists bool
 
 	// To find the User the parameter user_id is used.
-	query := tx.Where("provider = ?", user.Provider).Where("provider_userid = ?", user.UserID)
-	err = query.First(&eu)
+	q := tx.Where("provider = ? and provider_userid = ?", user.Provider, user.UserID)
+	exists, err := q.Exists("users")
 
 	if err != nil {
-		exists = bool(false)
+		return errors.WithStack(err)
 	}
 
-	//exists, err := query.Exists(&models.User{})
-	//
-	//if err != nil {
-	//	return c.Error(401, err)
-	//}
+	u := &models.User{}
 
-	if exists == false && eu.Provider != user.Provider && eu.ProviderUserid != user.UserID {
-		models.DB.Create(&u)
+	if exists {
+		err := q.First(u)
+		if err != nil {
+			return errors.WithStack(err)
+		} else {
+			u.Name = user.Name
+			u.ProviderUserid = user.UserID
+			u.Provider = user.Provider
+			u.GravatarID = nulls.NewString(user.AvatarURL)
 
-		// Build Session
+			err = tx.Save(u)
+			if err != nil {
+				return errors.WithStack(err)
+			}
+		}
+
 		session := c.Session()
-		session.Set("userID", user.UserID)
-		session.Set("user_provider", user.Provider)
+		session.Set("current_user_id", u.ID)
+		session.Set("current_user_provider_id", u.ProviderUserid)
 		err = session.Save()
 		if err != nil {
-			return c.Error(401, err)
+			errors.WithStack(err)
 		}
-		return c.Redirect(http.StatusMovedPermanently, "/")
+
 	}
 
-	// Build Session
-	session := c.Session()
-	session.Set("userID", user.UserID)
-	session.Set("user_provider", user.Provider)
-	err = session.Save()
-	if err != nil {
-		return c.Error(401, err)
-	}
-
-	// The default value jus renders the data we get by GitHub
-	// return c.Render(200, r.JSON(user))
-
-	// After the user is logged in we add a redirect
-	return c.Redirect(http.StatusMovedPermanently, "/")
+	c.Flash().Add("success", "You have been successfully logged in")
+	return c.Redirect(302, "/")
 }
 
+// AuthDestroy deletes the user's session
+func AuthDestroy(c buffalo.Context) error {
+	c.Session().Clear()
+	err := c.Session().Save()
+	if err != nil {
+		errors.WithStack(err)
+	}
+	c.Flash().Add("success", "You have been logged out!")
+	return c.Redirect(302, "/")
+}
 
+// SetCurrentUser finds and sets the logged in user
+func SetCurrentUser(next buffalo.Handler) buffalo.Handler {
+	return func(c buffalo.Context) error {
+		if uid := c.Session().Get("current_user_id"); uid != nil {
+			u := &models.User{}
+			tx := c.Value("tx").(*pop.Connection)
+			err := tx.Find(u, uid)
+			if err != nil {
+				errors.WithStack(err)
+			}
+			c.Set("current_user", u)
+		}
+		return next(c)
+	}
+}

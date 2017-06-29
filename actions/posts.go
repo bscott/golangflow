@@ -67,11 +67,10 @@ func (v PostsResource) New(c buffalo.Context) error {
 
 	// Checkfor session
 	session := c.Session()
-	provider_id := session.Get("user_id")
-	if provider_id == nil {
+	userid := session.Get("current_user_id")
+	if userid == nil {
 		return c.Redirect(301, "/auth/github")
 	}
-	c.Set("session", provider_id)
 
 	// Make post available inside the html template
 	c.Set("post", &models.Post{})
@@ -83,17 +82,12 @@ func (v PostsResource) New(c buffalo.Context) error {
 func (v PostsResource) Create(c buffalo.Context) error {
 
 	// Grab current user from session
-	providerID := c.Session().Get("userID")
-	provider := c.Session().Get("user_provider")
+	// Checkfor session
+	session := c.Session()
+	userid := session.Get("current_user_id")
 
-	if providerID == nil {
-		err := errors.New("Session ID can't be loaded, please re-login")
-		return c.Error(401, err)
-	}
-
-	if provider == nil {
-		err := errors.New("Session provider can't be loaded, please re-login")
-		return c.Error(401, err)
+	if userid == nil {
+		return c.Redirect(301, "/auth/github")
 	}
 
 	// Search for current logged in user
@@ -101,16 +95,15 @@ func (v PostsResource) Create(c buffalo.Context) error {
 	tx := c.Value("tx").(*pop.Connection)
 	// Allocate an empty User
 	usr := models.User{}
-	query := tx.Where("provider = ?", provider).Where("provider_userid = ?", providerID)
-	uerr := query.First(&usr)
-	if uerr != nil {
-		return errors.WithStack(uerr)
+	err := tx.Find(usr, userid)
+	if err != nil {
+		return errors.WithStack(err)
 	}
 
 	// Allocate an empty Post
 	post := &models.Post{UserID: usr.ID}
 	// Bind post to the html form elements
-	err := c.Bind(post)
+	err = c.Bind(post)
 
 	if err != nil {
 		return errors.WithStack(err)

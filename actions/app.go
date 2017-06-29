@@ -38,7 +38,7 @@ func App() *buffalo.App {
 		app.Use(middleware.CSRF)
 
 		app.Use(middleware.PopTransaction(models.DB))
-
+		app.Use(SetCurrentUser)
 		// Setup and use translations:
 		var err error
 		T, err = i18n.New(packr.NewBox("../locales"), "en-US")
@@ -46,13 +46,13 @@ func App() *buffalo.App {
 			log.Fatal(err)
 		}
 		app.Use(T.Middleware())
-		app.Use(UserExistsMW)
 		app.GET("/", HomeHandler)
 
 		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
 		auth := app.Group("/auth")
 		auth.GET("/{provider}", buffalo.WrapHandlerFunc(gothic.BeginAuthHandler))
 		auth.GET("/{provider}/callback", AuthCallback)
+		auth.DELETE("", AuthDestroy)
 
 		app.Resource("/users", UsersResource{&buffalo.BaseResource{}})
 

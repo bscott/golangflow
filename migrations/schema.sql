@@ -96,6 +96,13 @@ ALTER TABLE ONLY users
 
 
 --
+-- Name: users_provider_provider_userid_idx; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE UNIQUE INDEX users_provider_provider_userid_idx ON users USING btree (provider, provider_userid);
+
+
+--
 -- Name: version_idx; Type: INDEX; Schema: public; Owner: postgres
 --
 
