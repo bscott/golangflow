@@ -5,15 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/as27/setenv"
 	"github.com/bscott/golangflow/actions"
 	"github.com/gobuffalo/envy"
 )
-
-func init() {
-	setenv.File(".setenv")
-}
-
 
 func main() {
 	port := envy.Get("PORT", "3000")
