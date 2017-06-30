@@ -20,10 +20,8 @@ $(() => {
     $("#content-preview").html(marked(text));
   })
 
-  $("#show-preview").keyup((e)=>{
-    let text = $(e.target).val();
-    $("#post-preview").html(marked(text));
-  })
+
+
 
 });
 

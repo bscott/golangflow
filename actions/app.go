@@ -49,10 +49,9 @@ func App() *buffalo.App {
 		app.Use(Authorize)
 
 		app.GET("/", HomeHandler)
-		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
-
 		app.Middleware.Skip(Authorize, HomeHandler)
 
+		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
 		auth := app.Group("/auth")
 		gothwap := buffalo.WrapHandlerFunc(gothic.BeginAuthHandler)
 		auth.GET("/{provider}", gothwap)

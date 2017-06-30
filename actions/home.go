@@ -20,8 +20,9 @@ func HomeHandler(c buffalo.Context) error {
 	if err != nil {
 		return errors.WithStack(err)
 	}
-	// Make posts available inside the html template
+	// getAvatar helper retrieves the post user's avatar link
 
+	// Make posts available inside the html template
 	c.Set("posts", posts)
 	return c.Render(200, r.HTML("index.html"))
 }

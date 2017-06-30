@@ -1,8 +1,12 @@
 package actions
 
 import (
+	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/packr"
+	"github.com/gobuffalo/plush"
+	"github.com/markbates/pop"
+	uuid "github.com/satori/go.uuid"
 )
 
 var r *render.Engine
@@ -16,6 +20,21 @@ func init() {
 		TemplatesBox: packr.NewBox("../templates"),
 
 		// Add template helpers here:
-		Helpers: render.Helpers{},
+		Helpers: render.Helpers{
+			"getAvatar": func(id uuid.UUID, help plush.HelperContext) (string, error) {
+				tx := help.Value("tx").(*pop.Connection)
+				p := models.Post{}
+				err := tx.Find(&p, id)
+				if err != nil {
+					return "", err
+				}
+				u := models.User{}
+				erru := tx.Find(&u, p.UserID)
+				if erru != nil {
+					return "http://via.placeholder.com/140x100", nil
+				}
+				return u.GravatarID.String, nil
+			},
+		},
 	})
 }
