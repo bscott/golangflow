@@ -9,9 +9,13 @@ body {
 }
 
 img {
-    max-width: 48px;
-    max-height: 48px;
+    float: right;
+    max-width: 64px;
+    max-height: 64px;
+    background-size: cover;
 }
+
+
 
 textarea, #editor div {
   display: inline-block;
@@ -35,5 +39,10 @@ textarea {
 
 code {
   color: #f66;
+}
+
+.content-preview {
+  font-family: "proxima-nova", ubuntu, "helvetica neue", helvetica, sans-serif, "Droid Sans Mono", "Cousinex", "Liberation Monox", "Source Code Prox", "Input Monox", Menlo, Consolas, "Ubuntu Mono", monospace;
+  font-size: 16px;
 }
 

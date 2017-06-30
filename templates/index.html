@@ -1,28 +1,20 @@
-<section id="inner posts">
+
     <%= for (post) in posts { %>
-   <article class=postwithavatar>
     <div class="avatar"></div>
     <div class="post-Content">
-            <div class="row">
-                <div class="col-md-1">
-                    <p><img src="<%= getAvatar(post.ID) %>" class="img-circle"></p>
-                </div>
-                 <div class="col-md-8">
-                    <h1><%= post.Title %></h1>
-                 </div>
-             </div>
-             <div class="row">
-                 <div class="col-md-1"></div>
-             <div class="col-md-8">
-                    <div id="content-preview">
+        <div class="media">
+            <div class="media-left">
+                    <img src="<%= getAvatar(post.ID) %>" class="img-circle" class="media-object">
+            </div>  
+        
+             <div class="media-body">
+                 <h4 class="media-heading"><%= post.Title %></h4>
+                 <div id="content-preview">
                     <%= post.Content %>
-                    </div>
+                </div>
              </div>
-                    </div>
- </article>     
-
+             </div>
     <% } %>
-</section>
 
 
 
