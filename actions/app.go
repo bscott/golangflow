@@ -50,13 +50,16 @@ func App() *buffalo.App {
 
 		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
 		auth := app.Group("/auth")
-		auth.GET("/{provider}", buffalo.WrapHandlerFunc(gothic.BeginAuthHandler))
+		gothwap := buffalo.WrapHandlerFunc(gothic.BeginAuthHandler)
+		auth.GET("/{provider}", gothwap)
 		auth.GET("/{provider}/callback", AuthCallback)
 		auth.DELETE("", AuthDestroy)
-
+		auth.Middleware.Skip(Authorize, AuthCallback, gothwap)
 		app.Resource("/users", UsersResource{&buffalo.BaseResource{}})
-
-		app.Resource("/posts", PostsResource{&buffalo.BaseResource{}})
+		pr := PostsResource{&buffalo.BaseResource{}}
+		pg := app.Resource("/posts", pr)
+		pg.Use(Authorize)
+		pg.Middleware.Skip(Authorize, pr.List, pr.Show)
 	}
 
 	return app

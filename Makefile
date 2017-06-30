@@ -3,5 +3,6 @@ test:
 build:
 	buffalo build
 deploy:
-	heroku container:push web
-	heroku run ./bin/app migrate
+	heroku container:login
+	heroku container:push web --app golangflow
+	heroku run ./bin/app migrate --app golangflow

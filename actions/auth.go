@@ -91,7 +91,7 @@ func AuthDestroy(c buffalo.Context) error {
 	if err != nil {
 		errors.WithStack(err)
 	}
-	c.Flash().Add("success", "You have been logged out!")
+	c.Flash().Add("success", "You have been successfully logged out!")
 	return c.Redirect(302, "/")
 }
 
@@ -106,6 +106,17 @@ func SetCurrentUser(next buffalo.Handler) buffalo.Handler {
 				errors.WithStack(err)
 			}
 			c.Set("current_user", u)
+		}
+		return next(c)
+	}
+}
+
+// Authorize makes sure a user is authorized to visit a page
+func Authorize(next buffalo.Handler) buffalo.Handler {
+	return func(c buffalo.Context) error {
+		if uid := c.Session().Get("current_user_id"); uid == nil {
+			c.Flash().Add("danger", "You must be authorized!")
+			return c.Redirect(301, "/")
 		}
 		return next(c)
 	}
