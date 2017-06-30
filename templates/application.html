@@ -1,25 +1,47 @@
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Golangflow</title>
     <link rel="stylesheet" href="/assets/application.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="https://gitcdn.link/repo/Chalarangelo/mini.css/master/dist/mini-default.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <meta name="csrf-param" content="authenticity_token" />
     <meta name="csrf-token" content="<%= authenticity_token %>" />
     
   </head>
   <body>
-
-  <header class="sticky">
-    <a href="/" class="logo">GolangFlow</a> <button onclick="location.href='/posts/new'" class="fa fa-plus" aria-hidden="true"> Submit</button> <button class="fa fa-twitter" onclick="location.href='https://twitter.com/golangflow'" aria-hidden="true"> Twitter</button><%= if (!current_user) { %><button onclick="location.href='/auth/github'" class="fa fa-github" aria-hidden="true"> Login</button><% } else { %><button onclick="location.href='/auth'" data-method="DELETE" class="fa fa-github" aria-hidden="true"> Logout</button><% } %>
-  </header>
     <div class="container">
+      <nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      
+      <a class="navbar-brand" href="/">GolangFlow</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/posts/new" class="fa fa-plus"> Submit</a></li>
+        <li><a href="https://twitter.com/golangflow" class="fa fa-twitter"> Twitter</a></li>
+      <ul class="nav navbar-nav navbar-right">
+    <%= if (current_user) { %>
+         <li><a href="/auth" data-method="DELETE" class="fa fa-github"> Logout</a></li>
+         <% } else { %>
+         <li><a href="/auth/github" class="fa fa-github"> Login</a></li>
+         <% } %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+  <br />
       <%= partial("flash.html") %>
       <center>
       <div class="card fluid">
         <div class="section">
-          <h3>Golang Community Linklog</h3>
-          <p>Made a library? Written a blog post? Found a useful tutorial? Share it with the Golang community here or just enjoy what everyone else has found!</p>
+          <h3>Go Community Linklog</h3>
+          <p>Made a library? Written a blog post? Found a useful tutorial? Share it with the Go community here or just enjoy what everyone else has found!</p>
         </div>
       </div>
       </center>
@@ -27,6 +49,8 @@
 
       <%= yield %>
     </div>
+    <br />
+
   <footer>
     <p>2017 - Created by Brian Scott ( <a href="http://www.twitter.com/brainscott">Twitter</a> ), Inspired by <a href="http://www.rubyflow.com/">RubyFlow</a> | Powered by  <a href="http://gobuffalo.io/">Buffalo</a> | Hosted on <a href="http://www.heroku.com/">Heroku</a>
   </footer>
@@ -46,6 +70,9 @@
           s.parentNode.insertBefore(t, s);
       })();
   </script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <!--<script src="https://unpkg.com/vue@2.3.3"></script>-->
   <!--<script>
     document.getElementById('post-preview').innerHTML =

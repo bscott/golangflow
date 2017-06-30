@@ -22,26 +22,14 @@ func init() {
 	)
 }
 
-// TODO: Refactor this whole function...
-
+// AuthCallback handles Provider callbacks
 func AuthCallback(c buffalo.Context) error {
 	user, err := gothic.CompleteUserAuth(c.Response(), c.Request())
 	if err != nil {
-		return c.Error(401, err)
+		return errors.WithStack(err)
 	}
 	// Do something with the user, maybe register them/sign them in
 	// Adding the userID to the session to remember the logged in user
-
-	// u := models.User{
-	// 	Name:           user.Name,
-	// 	Email:          nulls.NewString(user.Email),
-	// 	ProviderUserid: user.UserID,
-	// 	GravatarID:     nulls.NewString(user.AvatarURL),
-	// 	Provider:       user.Provider,
-	// }
-
-	// check if user already exists
-	// Get the DB connection from the context
 	tx := c.Value("tx").(*pop.Connection)
 
 	// To find the User the parameter user_id is used.
@@ -58,26 +46,23 @@ func AuthCallback(c buffalo.Context) error {
 		err := q.First(u)
 		if err != nil {
 			return errors.WithStack(err)
-		} else {
-			u.Name = user.Name
-			u.ProviderUserid = user.UserID
-			u.Provider = user.Provider
-			u.GravatarID = nulls.NewString(user.AvatarURL)
-
-			err = tx.Save(u)
-			if err != nil {
-				return errors.WithStack(err)
-			}
 		}
+	} else {
+		u.Name = user.Name
+		u.ProviderUserid = user.UserID
+		u.Provider = user.Provider
+		u.GravatarID = nulls.NewString(user.AvatarURL)
 
-		session := c.Session()
-		session.Set("current_user_id", u.ID)
-		session.Set("current_user_provider_id", u.ProviderUserid)
-		err = session.Save()
+		err = tx.Save(u)
 		if err != nil {
-			errors.WithStack(err)
+			return errors.WithStack(err)
 		}
+	}
 
+	c.Session().Set("current_user_id", u.ID)
+	err = c.Session().Save()
+	if err != nil {
+		errors.WithStack(err)
 	}
 
 	c.Flash().Add("success", "You have been successfully logged in")
@@ -116,7 +101,7 @@ func Authorize(next buffalo.Handler) buffalo.Handler {
 	return func(c buffalo.Context) error {
 		if uid := c.Session().Get("current_user_id"); uid == nil {
 			c.Flash().Add("danger", "You must be authorized!")
-			return c.Redirect(301, "/")
+			return c.Redirect(302, "/")
 		}
 		return next(c)
 	}

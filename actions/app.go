@@ -46,9 +46,13 @@ func App() *buffalo.App {
 			log.Fatal(err)
 		}
 		app.Use(T.Middleware())
-		app.GET("/", HomeHandler)
+		app.Use(Authorize)
 
+		app.GET("/", HomeHandler)
 		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
+
+		app.Middleware.Skip(Authorize, HomeHandler)
+
 		auth := app.Group("/auth")
 		gothwap := buffalo.WrapHandlerFunc(gothic.BeginAuthHandler)
 		auth.GET("/{provider}", gothwap)
@@ -58,11 +62,8 @@ func App() *buffalo.App {
 		app.Resource("/users", UsersResource{&buffalo.BaseResource{}})
 		pr := PostsResource{&buffalo.BaseResource{}}
 		pg := app.Resource("/posts", pr)
-		pg.Use(Authorize)
 		pg.Middleware.Skip(Authorize, pr.List, pr.Show)
 	}
 
 	return app
 }
-
-// middlewares

@@ -64,14 +64,6 @@ func (v PostsResource) Show(c buffalo.Context) error {
 // New renders the formular for creating a new post.
 // This function is mapped to the path GET /posts/new
 func (v PostsResource) New(c buffalo.Context) error {
-
-	// Checkfor session
-	session := c.Session()
-	userid := session.Get("current_user_id")
-	if userid == nil {
-		return c.Redirect(301, "/auth/github")
-	}
-
 	// Make post available inside the html template
 	c.Set("post", &models.Post{})
 	return c.Render(200, r.HTML("posts/new.html"))
@@ -82,20 +74,17 @@ func (v PostsResource) New(c buffalo.Context) error {
 func (v PostsResource) Create(c buffalo.Context) error {
 
 	// Grab current user from session
-	// Checkfor session
-	session := c.Session()
-	userid := session.Get("current_user_id")
-
-	if userid == nil {
-		return c.Redirect(301, "/auth/github")
+	user := c.Session().Get("current_user_id")
+	if user == nil {
+		err := errors.New("User ID not found in session")
+		errors.WithStack(err)
 	}
-
 	// Search for current logged in user
 	// Get the DB connection from the context
 	tx := c.Value("tx").(*pop.Connection)
 	// Allocate an empty User
 	usr := models.User{}
-	err := tx.Find(usr, userid)
+	err := tx.Find(&usr, user)
 	if err != nil {
 		return errors.WithStack(err)
 	}
