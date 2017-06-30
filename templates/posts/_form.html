@@ -1,3 +1,13 @@
 <%= f.InputTag("Title") %>
-<%= f.InputTag("Content") %>
+<%= f.TextArea("Content", {rows: 10, input: "value"}) %>
+<br />
+<h3 class="section">Post Preview</h3>
+<p class="section double-padded" id="content-preview"></p>
+
+
+
+<%= if (current_user) { %>
 <button class="btn btn-success" role="submit">Save</button>
+<% } else { %>
+<button class="btn btn-error" onclick="location.href='/auth/github'">Authenticate with GitHub</button>
+<% } %>

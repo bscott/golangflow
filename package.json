@@ -23,13 +23,14 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "jquery-ujs": "^1.2.2",
+    "marked": "^0.3.6",
+    "mini.css": "*",
     "node-sass": "^4.5.2",
     "npm-install-webpack-plugin": "^4.0.4",
     "path": "^0.12.7",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
     "url-loader": "^0.5.8",
-    "webpack": "^2.3.3",
-    "mini.css": "*"
+    "webpack": "^2.3.3"
   }
 }

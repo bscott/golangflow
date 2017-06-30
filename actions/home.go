@@ -10,7 +10,6 @@ import (
 // HomeHandler is a default handler to serve up
 // a home page.
 func HomeHandler(c buffalo.Context) error {
-
 	// Get the DB connection from the context
 	tx := c.Value("tx").(*pop.Connection)
 	posts := &models.Posts{}
@@ -21,8 +20,9 @@ func HomeHandler(c buffalo.Context) error {
 	if err != nil {
 		return errors.WithStack(err)
 	}
+	// getAvatar helper retrieves the post user's avatar link
+
 	// Make posts available inside the html template
 	c.Set("posts", posts)
-
 	return c.Render(200, r.HTML("index.html"))
 }

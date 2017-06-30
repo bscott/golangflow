@@ -49,12 +49,14 @@ func (v PostsResource) Show(c buffalo.Context) error {
 	tx := c.Value("tx").(*pop.Connection)
 	// Allocate an empty Post
 	post := &models.Post{}
+
 	// To find the Post the parameter post_id is used.
 	err := tx.Find(post, c.Param("post_id"))
 	if err != nil {
 		return errors.WithStack(err)
 	}
 	// Make post available inside the html template
+	post.Content = trimQuotes(post.Content)
 	c.Set("post", post)
 	return c.Render(200, r.HTML("posts/show.html"))
 }
@@ -72,40 +74,29 @@ func (v PostsResource) New(c buffalo.Context) error {
 func (v PostsResource) Create(c buffalo.Context) error {
 
 	// Grab current user from session
-	providerID := c.Session().Get("userID")
-	provider := c.Session().Get("user_provider")
-
-
-	if providerID == nil {
-		err := errors.New("Session ID can't be loaded, please re-login")
-		return c.Error(401, err)
+	user := c.Session().Get("current_user_id")
+	if user == nil {
+		err := errors.New("User ID not found in session")
+		errors.WithStack(err)
 	}
-
-	if provider == nil {
-		err := errors.New("Session provider can't be loaded, please re-login")
-		return c.Error(401, err)
-	}
-
 	// Search for current logged in user
 	// Get the DB connection from the context
 	tx := c.Value("tx").(*pop.Connection)
 	// Allocate an empty User
 	usr := models.User{}
-	query := tx.Where("provider = ?", provider).Where("provider_userid = ?", providerID)
-	uerr := query.First(&usr)
-	if uerr != nil {
-		return errors.WithStack(uerr)
+	err := tx.Find(&usr, user)
+	if err != nil {
+		return errors.WithStack(err)
 	}
 
 	// Allocate an empty Post
 	post := &models.Post{UserID: usr.ID}
 	// Bind post to the html form elements
-	err := c.Bind(post)
+	err = c.Bind(post)
 
 	if err != nil {
 		return errors.WithStack(err)
 	}
-
 
 	// Get the DB connection from the context
 	//tx := c.Value("tx").(*pop.Connection)
@@ -202,4 +193,14 @@ func (v PostsResource) Destroy(c buffalo.Context) error {
 	c.Flash().Add("success", "Post was destroyed successfully")
 	// Redirect to the posts index page
 	return c.Redirect(302, "/posts")
+}
+
+// trimQuotes is my own helper function
+func trimQuotes(s string) string {
+	if len(s) >= 2 {
+		if s[0] == '"' && s[len(s)-1] == '"' {
+			return s[1 : len(s)-1]
+		}
+	}
+	return s
 }

@@ -10,8 +10,3 @@
   "addons": ["heroku-postgresql:hobby-dev"],
   "buildpacks": []
 }
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 7342f24640b0ea5e0743b41c5bd18daa82b89bb7

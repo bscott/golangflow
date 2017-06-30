@@ -6,3 +6,5 @@ create_table("users", func(t) {
 	t.Column("gravatar_id", "text", {"null": true})
 	t.Column("provider", "string", {})
 })
+
+add_index("users", ["provider", "provider_userid"], {"unique": true})
