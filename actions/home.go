@@ -14,7 +14,7 @@ func HomeHandler(c buffalo.Context) error {
 	tx := c.Value("tx").(*pop.Connection)
 	posts := &models.Posts{}
 	// You can order your list here. Just change
-	err := tx.All(posts)
+	err := tx.Order("created_at desc").All(posts)
 	// to:
 	// err := tx.Order("create_at desc").All(posts)
 	if err != nil {
