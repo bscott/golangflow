@@ -6,33 +6,38 @@
     <title>Golangflow</title>
     <link rel="stylesheet" href="/assets/application.css" type="text/css" media="all" />
      <link rel="stylesheet" href="/assets/golangflow.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <meta name="csrf-param" content="authenticity_token" />
     <meta name="csrf-token" content="<%= authenticity_token %>" />
     
   </head>
-  <body>
+  <body> 
     <div class="container">
-      <nav class="navbar navbar-default">
-  <div class="container-fluid">
+      <nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid" id="navfluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      
-      <a class="navbar-brand" href="/">GolangFlow</a>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Golangflow</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="collapse navbar-collapse" id="navbar1">
       <ul class="nav navbar-nav">
-        <li><a href="/posts/new" class="fa fa-plus"> Submit</a></li>
+        <li class="active"><a href="/posts/new" class="fa fa-plus"> Submit</a></li>
         <li><a href="https://twitter.com/golangflow" class="fa fa-twitter"> Twitter</a></li>
+      </ul>
       <ul class="nav navbar-nav navbar-right">
-    <%= if (current_user) { %>
-         <li><a href="/posts" class="fa fa-user-circle"> My Posts</a></li>
-         <li><a href="/auth" data-method="DELETE" class="fa fa-github"> Logout</a></li>
-         <% } else { %>
+        <%= if (current_user) { %>
+        <li><a href="/posts" class="fa fa-user-circle"> My Posts</a></li>
+        <li><a href="/auth" data-method="DELETE" class="fa fa-github"> Logout</a></li>
+        <% } else { %>
          <li><a href="/auth/github" class="fa fa-github"> Login</a></li>
-         <% } %>
+      <% } %>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -75,8 +80,5 @@
           s.parentNode.insertBefore(t, s);
       })();
   </script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   </body>
 </html>
