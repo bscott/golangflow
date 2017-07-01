@@ -35,6 +35,20 @@ func init() {
 				}
 				return u.GravatarID.String, nil
 			},
+			"getUser": func(id uuid.UUID, help plush.HelperContext) (string, error) {
+				tx := help.Value("tx").(*pop.Connection)
+				p := models.Post{}
+				err := tx.Find(&p, id)
+				if err != nil {
+					return " ", err
+				}
+				u := models.User{}
+				erru := tx.Find(&u, p.UserID)
+				if erru != nil {
+					return "User Not Found", erru
+				}
+				return u.Name, nil
+			},
 		},
 	})
 }

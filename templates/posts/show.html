@@ -13,6 +13,7 @@
              <div class="media-body">
                  <h2 class="media-heading"><a href="<%= postPath({ post_id: post.ID }) %>"><%= post.Title %></a></h2>
                     <%= markdown(post.Content) %>
+                     Posted by: <a href="" class="fa fa-github"> <%= getUser(post.ID) %></a>
              </div>
              </div>
              <br />
