@@ -2,11 +2,12 @@ package models
 
 import (
 	"encoding/json"
+	"time"
+
 	"github.com/markbates/pop"
 	"github.com/markbates/validate"
 	"github.com/markbates/validate/validators"
 	"github.com/satori/go.uuid"
-	"time"
 )
 
 type Post struct {
@@ -15,7 +16,7 @@ type Post struct {
 	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
 	Title     string    `json:"title" db:"title"`
 	Content   string    `json:"content" db:"content"`
-	UserID  uuid.UUID `json:"user_id" db:"user_id"`
+	UserID    uuid.UUID `json:"user_id" db:"user_id" form:"-"`
 }
 
 // String is not required by pop and may be deleted

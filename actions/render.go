@@ -1,6 +1,8 @@
 package actions
 
 import (
+	"html/template"
+
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/packr"
@@ -48,6 +50,15 @@ func init() {
 					return "User Not Found", erru
 				}
 				return u.Name, nil
+			},
+			"ownsPost": func(post *models.Post, help plush.HelperContext) (template.HTML, error) {
+				if cu := help.Value("current_user_id"); cu != nil {
+					if post.UserID == cu.(uuid.UUID) && help.HasBlock() {
+						s, err := help.Block()
+						return template.HTML(s), err
+					}
+				}
+				return "", nil
 			},
 		},
 	})

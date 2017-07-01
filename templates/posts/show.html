@@ -1,20 +1,28 @@
-<% if (current_user_own) { %>
-<ul class="list-unstyled list-inline">
-  <li><a href="<%= postsPath() %>" class="btn btn-info">Back to all Posts</a></li>
-  <li><a href="<%= editPostPath({ post_id: post.ID })%>" class="btn btn-warning">Edit</a></li>
-  <li><a href="<%= postPath({ post_id: post.ID })%>" data-method="DELETE" data-confirm="Are you sure?" class="btn btn-danger">Destroy</a>
-</ul>
+<%= ownsPost(post) { %>
+  <ul class="list-unstyled list-inline">
+    <li><a href="<%= postsPath() %>" class="btn btn-info">Back to all Posts</a></li>
+    <li><a href="<%= editPostPath({ post_id: post.ID })%>" class="btn btn-warning">Edit</a></li>
+    <li><a href="<%= postPath({ post_id: post.ID })%>" data-method="DELETE" data-confirm="Are you sure?" class="btn btn-danger">Destroy</a>
+  </ul>
 <% } %>
-        <div class="media">
-            <div class="media-left">
-                    <img src="<%= getAvatar(post.ID) %>" class="img-circle" class="media-object">
-            </div>  
-        
-             <div class="media-body">
-                 <h2 class="media-heading"><a href="<%= postPath({ post_id: post.ID }) %>"><%= post.Title %></a></h2>
-                    <%= markdown(post.Content) %>
-                     Posted by: <a href="" class="fa fa-github"> <%= getUser(post.ID) %></a>
-             </div>
-             </div>
-             <br />
-             <br />
+
+<div class="media">
+  <div class="media-left">
+    <img src="<%= getAvatar(post.ID) %>" class="img-circle" class="media-object">
+  </div>
+
+  <div class="media-body">
+    <h2 class="media-heading">
+      <a href="<%= postPath({ post_id: post.ID }) %>">
+        <%= post.Title %>
+      </a>
+    </h2>
+    <%= markdown(post.Content) %>
+      Posted by:
+      <a href="" class="fa fa-github">
+        <%= getUser(post.ID) %>
+      </a>
+  </div>
+</div>
+<br />
+<br />

@@ -27,8 +27,6 @@ type UsersResource struct {
 // List gets all Users. This function is mapped to the path
 // GET /users
 func (v UsersResource) List(c buffalo.Context) error {
-
-	return c.Redirect(302, "/")
 	// Get the DB connection from the context
 	tx := c.Value("tx").(*pop.Connection)
 

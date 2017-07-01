@@ -1,22 +1,24 @@
 <h1>Posts</h1>
 
 <p>
-  <a href="<%= newPostPath() %>" class="btn btn-primary">Submit a new post</a>
+  <a href="<%= newPostsPath() %>" class="btn btn-primary">Submit a new post</a>
 </p>
 
 <table class="table table-striped">
   <thead>
-  <th>Title</th>
+    <th>Title</th>
     <th>Content</th>
     <th>&nbsp;</th>
   </thead>
   <tbody>
     <%= for (post) in posts { %>
       <tr>
-      <td><%= post.Title %></td>
+        <td>
+          <%= post.Title %>
+        </td>
         <td id="content-preview">
-      <%= markdown(post.Content) %>
-          </td>
+          <%= markdown(post.Content) %>
+        </td>
 
         <td>
           <div class="pull-right">

@@ -53,7 +53,7 @@ func AuthCallback(c buffalo.Context) error {
 		u.Provider = user.Provider
 		u.GravatarID = nulls.NewString(user.AvatarURL)
 
-		err = tx.Save(u)
+		err = tx.Create(u)
 		if err != nil {
 			return errors.WithStack(err)
 		}
@@ -91,6 +91,7 @@ func SetCurrentUser(next buffalo.Handler) buffalo.Handler {
 				errors.WithStack(err)
 			}
 			c.Set("current_user", u)
+			c.Set("current_user_id", u.ID)
 		}
 		return next(c)
 	}

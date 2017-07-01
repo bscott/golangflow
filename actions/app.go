@@ -2,16 +2,18 @@ package actions
 
 import (
 	"log"
+	"os"
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/middleware"
+	"github.com/gobuffalo/buffalo/middleware/basicauth"
 	"github.com/gobuffalo/buffalo/middleware/i18n"
 
 	"github.com/bscott/golangflow/models"
 
 	"github.com/gobuffalo/envy"
 	"github.com/gobuffalo/packr"
-	
+
 	"github.com/markbates/goth/gothic"
 )
 
@@ -52,13 +54,19 @@ func App() *buffalo.App {
 		app.Middleware.Skip(Authorize, HomeHandler)
 
 		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
+
 		auth := app.Group("/auth")
 		gothwap := buffalo.WrapHandlerFunc(gothic.BeginAuthHandler)
 		auth.GET("/{provider}", gothwap)
 		auth.GET("/{provider}/callback", AuthCallback)
 		auth.DELETE("", AuthDestroy)
 		auth.Middleware.Skip(Authorize, AuthCallback, gothwap)
-		app.Resource("/users", UsersResource{&buffalo.BaseResource{}})
+
+		g := app.Resource("/users", UsersResource{&buffalo.BaseResource{}})
+		g.Use(basicauth.Middleware(func(c buffalo.Context, u string, p string) (bool, error) {
+			return (u == os.Getenv("ADMIN_USER") && p == os.Getenv("ADMIN_PASS")), nil
+		}))
+
 		pr := PostsResource{&buffalo.BaseResource{}}
 		pg := app.Resource("/posts", pr)
 		pg.Middleware.Skip(Authorize, pr.Show)
