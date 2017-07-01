@@ -11,7 +11,7 @@ import (
 
 	"github.com/gobuffalo/envy"
 	"github.com/gobuffalo/packr"
-
+	
 	"github.com/markbates/goth/gothic"
 )
 
@@ -61,7 +61,7 @@ func App() *buffalo.App {
 		app.Resource("/users", UsersResource{&buffalo.BaseResource{}})
 		pr := PostsResource{&buffalo.BaseResource{}}
 		pg := app.Resource("/posts", pr)
-		pg.Middleware.Skip(Authorize, pr.List, pr.Show)
+		pg.Middleware.Skip(Authorize, pr.Show)
 	}
 
 	return app

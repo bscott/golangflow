@@ -43,7 +43,7 @@ CREATE TABLE posts (
     updated_at timestamp without time zone NOT NULL,
     id uuid NOT NULL,
     title character varying(255) NOT NULL,
-    content character varying(255) NOT NULL,
+    content text NOT NULL,
     user_id uuid NOT NULL
 );
 

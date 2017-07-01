@@ -29,13 +29,17 @@ type PostsResource struct {
 func (v PostsResource) List(c buffalo.Context) error {
 	// Get the DB connection from the context
 	tx := c.Value("tx").(*pop.Connection)
+	user := c.Session().Get("current_user_id")
+	//useridn, err := uuid.FromString(userid.(string))
+
 	posts := &models.Posts{}
 	// You can order your list here. Just change
-	err := tx.All(posts)
+	errp := tx.Where("user_id = ?", user).All(posts)
+
 	// to:
 	// err := tx.Order("create_at desc").All(posts)
-	if err != nil {
-		return errors.WithStack(err)
+	if errp != nil {
+		return errors.WithStack(errp)
 	}
 	// Make posts available inside the html template
 	c.Set("posts", posts)
@@ -56,7 +60,7 @@ func (v PostsResource) Show(c buffalo.Context) error {
 		return errors.WithStack(err)
 	}
 	// Make post available inside the html template
-	post.Content = trimQuotes(post.Content)
+
 	c.Set("post", post)
 	return c.Render(200, r.HTML("posts/show.html"))
 }
