@@ -1,6 +1,8 @@
-hash: a740c57e486407fe74a0b83c3afb89246a10a09f5baf65f07186a6f615f28249
-updated: 2017-06-20T21:22:47.442954743-07:00
+hash: f0e61b40391d34bde6d492555ff6f905650f3a6bf5594117fec154a9eb97e0a8
+updated: 2017-06-30T21:35:40.875373915-07:00
 imports:
+- name: github.com/a8m/mark
+  version: 4018898df899ce1235497bb80ea318d4daebe712
 - name: github.com/as27/setenv
   version: 46b7822e5c54bc2f596fa421b7cbe0c741229998
 - name: github.com/daviddengcn/go-colortext
@@ -153,7 +155,7 @@ imports:
 - name: github.com/pkg/errors
   version: c605e284fe17294bda444b34710735b29d1a9d90
 - name: github.com/russross/blackfriday
-  version: 067529f716f4c3f5e37c8c95ddd59df1007290ae
+  version: 0b647d0506a698cca42caca173e55559b12a69f2
 - name: github.com/satori/go.uuid
   version: 5bf94b69c6b68ee1b541973bb8e1144db23a194b
 - name: github.com/serenize/snaker

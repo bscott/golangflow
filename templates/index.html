@@ -10,7 +10,7 @@
              <div class="media-body">
                  <h4 class="media-heading"><%= post.Title %></h4>
                  <div id="content-preview">
-                    <%= post.Content %>
+                    <%= markdown(post.Content) %>
                 </div>
              </div>
              </div>

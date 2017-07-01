@@ -14,7 +14,10 @@
     <%= for (post) in posts { %>
       <tr>
       <td><%= post.Title %></td>
-        <td><%= post.Content %></td>
+        <td id="content-preview">
+      <%= markdown(post.Content) %>
+          </td>
+
         <td>
           <div class="pull-right">
             <a href="<%= postPath({ post_id: post.ID }) %>" class="btn btn-info">View</a>

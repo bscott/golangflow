@@ -145,6 +145,8 @@ func (v PostsResource) Edit(c buffalo.Context) error {
 // Update changes a post in the DB. This function is mapped to
 // the path PUT /posts/{post_id}
 func (v PostsResource) Update(c buffalo.Context) error {
+
+	userid := c.Session().Get("current_user_id")
 	// Get the DB connection from the context
 	tx := c.Value("tx").(*pop.Connection)
 	// Allocate an empty Post
@@ -152,6 +154,10 @@ func (v PostsResource) Update(c buffalo.Context) error {
 	err := tx.Find(post, c.Param("post_id"))
 	if err != nil {
 		return errors.WithStack(err)
+	}
+	if post.UserID != userid {
+		c.Flash().Add("danger", "Unauthorized user trying to update post")
+		return c.Redirect(302, "/")
 	}
 	// Bind post to the html form elements
 	err = c.Bind(post)

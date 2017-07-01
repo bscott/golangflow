@@ -10,6 +10,8 @@
   <strong>Title</strong>: <%= post.Title %>
 </p>
 <p>
-  <strong>Content:</strong> <div id="post-preview"><%= post.Content %></div>
+  <strong>Content:</strong> <div id="post-content">
+    <%= markdown(post.Content) %>
+    </div>
 </p>
 </div>

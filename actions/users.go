@@ -27,8 +27,22 @@ type UsersResource struct {
 // List gets all Users. This function is mapped to the path
 // GET /users
 func (v UsersResource) List(c buffalo.Context) error {
+
+	return c.Redirect(302, "/")
 	// Get the DB connection from the context
 	tx := c.Value("tx").(*pop.Connection)
+
+	// //
+	// userid := c.Session().Get("current_user_id")
+	// u := &models.User{}
+	// erru := tx.Find(&u, userid)
+	// if erru != nil {
+	// 	return errors.WithStack(erru)
+	// }
+	// if "Brian Scott" != u.Name {
+	// 	c.Flash().Add("danger", "Unauthorized User")
+	// 	return c.Redirect(302, "/")
+	// }
 	users := &models.Users{}
 	// You can order your list here. Just change
 	err := tx.All(users)
@@ -53,6 +67,10 @@ func (v UsersResource) Show(c buffalo.Context) error {
 	err := tx.Find(user, c.Param("user_id"))
 	if err != nil {
 		return errors.WithStack(err)
+	}
+	if "Brian Scott" != user.Name {
+		c.Flash().Add("danger", "Unauthorized User")
+		return c.Redirect(302, "/")
 	}
 	// Make user available inside the html template
 	c.Set("user", user)
@@ -126,6 +144,10 @@ func (v UsersResource) Update(c buffalo.Context) error {
 	if err != nil {
 		return errors.WithStack(err)
 	}
+	if "Brian Scott" != user.Name {
+		c.Flash().Add("danger", "Unauthorized User")
+		return c.Redirect(302, "/")
+	}
 	// Bind user to the html form elements
 	err = c.Bind(user)
 	if err != nil {
@@ -161,6 +183,10 @@ func (v UsersResource) Destroy(c buffalo.Context) error {
 	err := tx.Find(user, c.Param("user_id"))
 	if err != nil {
 		return errors.WithStack(err)
+	}
+	if "Brian Scott" != user.Name {
+		c.Flash().Add("danger", "Unauthorized User")
+		return c.Redirect(302, "/")
 	}
 	err = tx.Destroy(user)
 	if err != nil {

@@ -28,6 +28,7 @@
         <li><a href="https://twitter.com/golangflow" class="fa fa-twitter"> Twitter</a></li>
       <ul class="nav navbar-nav navbar-right">
     <%= if (current_user) { %>
+         <li><a href="/posts" class="fa fa-user-circle"> My Posts</a></li>
          <li><a href="/auth" data-method="DELETE" class="fa fa-github"> Logout</a></li>
          <% } else { %>
          <li><a href="/auth/github" class="fa fa-github"> Login</a></li>
@@ -74,12 +75,7 @@
       })();
   </script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <!--<script src="https://unpkg.com/vue@2.3.3"></script>-->
-  <!--<script>
-    document.getElementById('post-preview').innerHTML =
-    marked('# Marked in browser\n\nRendered by **marked**.');
-  </script>-->
   </body>
 </html>
