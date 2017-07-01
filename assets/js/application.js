@@ -1,4 +1,4 @@
-require('expose-loader?$!expose-loader?jQuery!jquery');
+require("expose-loader?$!expose-loader?jQuery!jquery");
 require("bootstrap/dist/js/bootstrap.js");
 let marked = require("marked/lib/marked.js");
 
@@ -14,17 +14,8 @@ marked.setOptions({
 });
 
 $(() => {
-
-  $("#post-Content").keyup((e)=>{
+  $("#post-Content").keyup((e) => {
     let text = $(e.target).val();
     $("#content-preview").html(marked(text));
-  })
-
-
-
-
-
+  });
 });
-
-
-
