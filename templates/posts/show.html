@@ -5,13 +5,15 @@
   <li><a href="<%= postPath({ post_id: post.ID })%>" data-method="DELETE" data-confirm="Are you sure?" class="btn btn-danger">Destroy</a>
 </ul>
 <% } %>
-<div id="show-preview"> 
-<p>
-  <strong>Title</strong>: <%= post.Title %>
-</p>
-<p>
-  <strong>Content:</strong> <div id="post-content">
-    <%= markdown(post.Content) %>
-    </div>
-</p>
-</div>
+        <div class="media">
+            <div class="media-left">
+                    <img src="<%= getAvatar(post.ID) %>" class="img-circle" class="media-object">
+            </div>  
+        
+             <div class="media-body">
+                 <h2 class="media-heading"><a href="<%= postPath({ post_id: post.ID }) %>"><%= post.Title %></a></h2>
+                    <%= markdown(post.Content) %>
+             </div>
+             </div>
+             <br />
+             <br />

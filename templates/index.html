@@ -2,21 +2,23 @@
     <%= for (post) in posts { %>
     <div class="avatar"></div>
     <div class="post-Content">
+    <div class="row">
         <div class="media">
-            <div class="media-left">
+            <div class="media-left media-middle">
                     <img src="<%= getAvatar(post.ID) %>" class="img-circle" class="media-object">
             </div>  
         
              <div class="media-body">
-                 <h4 class="media-heading"><%= post.Title %></h4>
+                 <h2 class="media-heading"><a href="<%= postPath({ post_id: post.ID }) %>"><%= post.Title %></a></h2>
                  <div id="content-preview">
                     <%= markdown(post.Content) %>
                 </div>
              </div>
              </div>
+
              <br />
              <br />
-             
+        </div>   
     <% } %>
 
 
