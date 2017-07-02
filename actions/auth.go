@@ -101,7 +101,7 @@ func SetCurrentUser(next buffalo.Handler) buffalo.Handler {
 func Authorize(next buffalo.Handler) buffalo.Handler {
 	return func(c buffalo.Context) error {
 		if uid := c.Session().Get("current_user_id"); uid == nil {
-			c.Flash().Add("danger", "You must be authorized!")
+			c.Flash().Add("danger", "You must be authorized!, Please login")
 			return c.Redirect(302, "/")
 		}
 		return next(c)
