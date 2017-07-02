@@ -51,7 +51,7 @@ func App() *buffalo.App {
 		app.Use(Authorize)
 
 		app.GET("/", HomeHandler)
-		app.GET("/feed", RSSFeed)
+		app.GET("/rss", RSSFeed)
 		app.Middleware.Skip(Authorize, HomeHandler, RSSFeed)
 
 		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
