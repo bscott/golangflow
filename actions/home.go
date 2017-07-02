@@ -19,8 +19,9 @@ func HomeHandler(c buffalo.Context) error {
 	// Get the DB connection from the context
 	tx := c.Value("tx").(*pop.Connection)
 	posts := &models.Posts{}
+	q := tx.PaginateFromParams(c.Request().URL.Query())
 	// You can order your list here. Just change
-	err := tx.Order("created_at desc").All(posts)
+	err := q.Order("created_at desc").All(posts)
 	// to:
 	// err := tx.Order("create_at desc").All(posts)
 	if err != nil {
@@ -30,6 +31,7 @@ func HomeHandler(c buffalo.Context) error {
 
 	// Make posts available inside the html template
 	c.Set("posts", posts)
+	c.Set("pagination", q.Paginator)
 	return c.Render(200, r.HTML("index.html"))
 }
 
