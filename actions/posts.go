@@ -42,6 +42,7 @@ func (v PostsResource) List(c buffalo.Context) error {
 	}
 	// Make posts available inside the html template
 	c.Set("posts", posts)
+
 	return c.Render(200, r.HTML("posts/index.html"))
 }
 
