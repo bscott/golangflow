@@ -1,27 +1,50 @@
-
-    <%= for (post) in posts { %>
-    <div class="avatar"></div>
-    <div class="post-Content">
+<%= for (post) in posts { %>
+  <div class="avatar"></div>
+  <div class="post-Content">
     <div class="row">
-        <div class="media">
-            <div class="media-left">
-                    <img src="<%= getAvatar(post.ID) %>" class="img-circle" class="media-object">
-            </div>  
-        
-             <div class="media-body">
-                 <h2 class="media-heading"><a href="<%= postPath({ post_id: post.ID }) %>"><%= post.Title %></a></h2>
-                 <div id="content-preview">
-                    <%= markdown(post.Content) %>
-                </div>
-                <a href="" class="fa fa-github"> <%= getUser(post.ID) %></a>
-             </div>
-             </div>
+      <div class="media">
+        <div class="media-left">
+          <img src="<%= getAvatar(post.ID) %>" class="img-circle" class="media-object">
+        </div>
 
-             <br />
-             <br />
-        </div>   
+        <div class="media-body">
+          <h2 class="media-heading">
+            <a href="<%= postPath({ post_id: post.ID }) %>">
+              <%= post.Title %>
+            </a>
+          </h2>
+          <div id="content-preview">
+            <%= markdown(post.Content) %>
+          </div>
+          <a href="" class="fa fa-github">
+            <%= getUser(post.ID) %>
+          </a>
+        </div>
+      </div>
+
+    <br />
+    <br />
+  </div>
+<% } %>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <%= if (pagination.Page > 1) { %>
+      <li>
+        <a href="/?page=<%= pagination.Page - 1 %>" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
     <% } %>
-
-
-
-
+    <%= for (page) in until(pagination.TotalPages) { %>
+    <li class="<%= if (page == pagination.Page) { return "active" } %>"><a href="/?page=<%= page + 1 %>"><%= page + 1 %></a></li>
+    <% } %>
+    <%= if (pagination.Page < pagination.TotalPages) { %>
+      <li>
+        <a href="/?page=<%= pagination.Page + 1 %>" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    <% } %>
+  </ul>
+</nav>
