@@ -1,8 +1,12 @@
 package actions
 
 import (
+	"fmt"
+	"time"
+
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo"
+	"github.com/gobuffalo/buffalo/worker"
 	"github.com/markbates/pop"
 	"github.com/pkg/errors"
 	"github.com/satori/go.uuid"
@@ -19,6 +23,14 @@ import (
 // Resource: Plural (Posts)
 // Path: Plural (/posts)
 // View Template Folder: Plural (/templates/posts/)
+
+func init() {
+	w := App().Worker
+	w.Register("send_tweet", func(args worker.Args) error {
+		fmt.Printf("### args -> %+v\n", args)
+		return nil
+	})
+}
 
 // PostsResource is the resource for the post model
 type PostsResource struct {
@@ -109,6 +121,18 @@ func (v PostsResource) Create(c buffalo.Context) error {
 	}
 	// If there are no errors set a success message
 	c.Flash().Add("success", "Post was created successfully")
+
+	// Queue tweet
+	w := App().Worker
+	w.PerformIn(worker.Job{
+		Queue: "tweet",
+		Args: worker.Args{
+			"post_id":      post.ID,
+			"post_content": post.Title,
+		},
+		Handler: "send_tweet",
+	}, 15*time.Second)
+
 	// and redirect to the posts index page
 	return c.Redirect(302, "/posts/%s", post.ID)
 }
