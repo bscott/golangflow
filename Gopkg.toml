@@ -56,3 +56,7 @@
   [[constraint]]
   branch = "master"
   name = "github.com/gorilla/feeds"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/gobuffalo/tags"
