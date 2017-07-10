@@ -52,11 +52,11 @@ func AuthCallback(c buffalo.Context) error {
 		u.ProviderUserid = user.UserID
 		u.Provider = user.Provider
 		u.GravatarID = nulls.NewString(user.AvatarURL)
-
-		err = tx.Create(u)
-		if err != nil {
-			return errors.WithStack(err)
-		}
+	}
+	u.Nickname = nulls.NewString(user.NickName)
+	err = tx.Save(u)
+	if err != nil {
+		return errors.WithStack(err)
 	}
 
 	c.Session().Set("current_user_id", u.ID)

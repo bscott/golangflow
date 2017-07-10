@@ -2,12 +2,13 @@ package models
 
 import (
 	"encoding/json"
+	"time"
+
 	"github.com/markbates/pop"
 	"github.com/markbates/pop/nulls"
 	"github.com/markbates/validate"
 	"github.com/markbates/validate/validators"
 	"github.com/satori/go.uuid"
-	"time"
 )
 
 type User struct {
@@ -19,6 +20,7 @@ type User struct {
 	ProviderUserid string       `json:"provider_userid" db:"provider_userid"`
 	GravatarID     nulls.String `json:"gravatar_id" db:"gravatar_id"`
 	Provider       string       `json:"provider" db:"provider"`
+	Nickname       nulls.String `json:"nickname" db:"nickname"`
 }
 
 // String is not required by pop and may be deleted

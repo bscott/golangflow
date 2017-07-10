@@ -27,7 +27,6 @@ func HomeHandler(c buffalo.Context) error {
 	if err != nil {
 		return errors.WithStack(err)
 	}
-	// getAvatar helper retrieves the post user's avatar link
 
 	// Make posts available inside the html template
 	c.Set("posts", posts)

@@ -8,7 +8,7 @@
 
 <div class="media">
   <div class="media-left">
-    <img src="<%= getAvatar(post.ID) %>" class="img-circle" class="media-object">
+    <img src="<%= getAvatar(post.UserID) %>" class="img-circle" class="media-object">
   </div>
 
   <div class="media-body">
@@ -19,9 +19,7 @@
     </h2>
     <%= markdown(post.Content) %>
       Posted by:
-      <a href="" class="fa fa-github">
-        <%= getUser(post.ID) %>
-      </a>
+    <%= byLine(post.UserID) %>
   </div>
 </div>
 <br />

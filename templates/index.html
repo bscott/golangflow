@@ -4,7 +4,7 @@
   <div class="row">
     <div class="media">
       <div class="media-left">
-        <img src="<%= getAvatar(post.ID) %>" class="img-circle" class="media-object">
+        <img src="<%= getAvatar(post.UserID) %>" class="img-circle" class="media-object">
       </div>
 
       <div class="media-body">
@@ -16,9 +16,7 @@
         <div id="content-preview">
           <%= markdown(post.Content) %>
         </div>
-        <a href="" class="fa fa-github">
-          <%= getUser(post.ID) %>
-        </a>
+    <%= byLine(post.UserID) %>
       </div>
     </div>
 

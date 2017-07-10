@@ -83,7 +83,7 @@
   branch = "master"
   name = "github.com/gobuffalo/tags"
   packages = [".","form","form/bootstrap"]
-  revision = "97c2a34118a2b8b800f5d72a2ad48c5196f8d295"
+  revision = "b4f57593eb9ff9836b22211d27994520e6980fe7"
 
 [[projects]]
   branch = "master"
