@@ -83,7 +83,7 @@
   branch = "master"
   name = "github.com/gobuffalo/tags"
   packages = [".","form","form/bootstrap"]
-  revision = "307f20dcdf202535fa7006ffc67086ca4f721c37"
+  revision = "97c2a34118a2b8b800f5d72a2ad48c5196f8d295"
 
 [[projects]]
   branch = "master"
@@ -382,6 +382,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "459cb0d0bae8353e6f322947f610d3a1fd5d83d2a4c4dd3cebb659831c79eeb3"
+  inputs-digest = "57780294d1ac668136ff51328b7b55c342e00e7ec5f8fca3ce02e3db82c6dbde"
   solver-name = "gps-cdcl"
   solver-version = 1

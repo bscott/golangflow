@@ -12,7 +12,9 @@ import (
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/packr"
 	"github.com/gobuffalo/plush"
+	"github.com/gobuffalo/tags"
 	"github.com/markbates/pop"
+	"github.com/pkg/errors"
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -84,6 +86,13 @@ func init() {
 				}
 				url := "https://github.com/" + un
 				return url, nil
+			},
+			"paginator": func(pagination *pop.Paginator, opts map[string]interface{}) (template.HTML, error) {
+				t, err := tags.Pagination(pagination, opts)
+				if err != nil {
+					return "", errors.WithStack(err)
+				}
+				return t.HTML(), nil
 			},
 		},
 	})
