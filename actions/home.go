@@ -61,7 +61,7 @@ func RSSFeed(c buffalo.Context) error {
 		}
 		feed.Items[i] = &feeds.Item{
 			Title:       p.Title,
-			Link:        &feeds.Link{Href: fmt.Sprintf("/posts/%s", p.ID)},
+			Link:        &feeds.Link{Href: fmt.Sprintf("%s/posts/%s", App().Host, p.ID)},
 			Description: stripmd.Strip(p.Content),
 			Author:      &feeds.Author{Name: u.Name},
 			Created:     p.CreatedAt,
