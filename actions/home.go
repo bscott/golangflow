@@ -11,6 +11,7 @@ import (
 	"github.com/gorilla/feeds"
 	"github.com/markbates/pop"
 	"github.com/pkg/errors"
+	stripmd "github.com/writeas/go-strip-markdown"
 )
 
 // HomeHandler is a default handler to serve up
@@ -61,7 +62,7 @@ func RSSFeed(c buffalo.Context) error {
 		feed.Items[i] = &feeds.Item{
 			Title:       p.Title,
 			Link:        &feeds.Link{Href: fmt.Sprintf("/posts/%s", p.ID)},
-			Description: p.Content,
+			Description: stripmd.Strip(p.Content),
 			Author:      &feeds.Author{Name: u.Name},
 			Created:     p.CreatedAt,
 		}
