@@ -5,7 +5,7 @@ build:
 deploy:
 	heroku container:login
 	heroku container:push web --app golangflow
-	heroku run ./bin/app migrate --app golangflow
+	heroku run /bin/app migrate --app golangflow
 psql:
 	heroku pg:psql --app golangflow
 backup:
