@@ -170,10 +170,10 @@
   revision = "6cacb66d100482ef7cc366289ccb156020e57e76"
 
 [[projects]]
-  branch = "master"
   name = "github.com/markbates/pop"
   packages = [".","columns","fizz","fizz/translators","nulls"]
-  revision = "c6f59505fb697eb388312c1018b65fa6ed6c44bb"
+  revision = "7f9beae0b7cf44cb51ebfccc315f4cedfcb0c8ac"
+  version = "v3.25.3"
 
 [[projects]]
   name = "github.com/markbates/refresh"
@@ -388,6 +388,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "545aa7bb757a7fc68a49592f674888ec79f117c1633f92b89e15b60e258095c7"
+  inputs-digest = "c56330c97f842d773a4bf2ea1fd9473b313ead992354a870365c4797d9dda06c"
   solver-name = "gps-cdcl"
   solver-version = 1
