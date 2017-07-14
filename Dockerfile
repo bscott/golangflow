@@ -13,6 +13,7 @@ RUN buffalo build --static -o /bin/app
 
 FROM alpine
 RUN apk add --no-cache bash
+RUN apk add --no-cache ca-certificates
 
 # Comment out to run the binary in "production" mode:
 # ENV GO_ENV=production
