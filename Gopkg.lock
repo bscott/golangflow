@@ -351,6 +351,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/writeas/go-strip-markdown"
+  packages = ["."]
+  revision = "3db064872f5145db2dffef30382f24c4d278e799"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/net"
   packages = ["context","context/ctxhttp","html","html/atom"]
   revision = "1f9224279e98554b6a6432d4dd998a739f8b2b7c"
@@ -382,6 +388,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f287b9094882260fd1c9de350c2c014fefa615f8865b2763dfc9dc0b3e24c365"
+  inputs-digest = "545aa7bb757a7fc68a49592f674888ec79f117c1633f92b89e15b60e258095c7"
   solver-name = "gps-cdcl"
   solver-version = 1
