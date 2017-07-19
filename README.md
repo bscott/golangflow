@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bscott/golangflow.svg?branch=master)](https://travis-ci.org/bscott/golangflow)
+
 # Welcome to Buffalo!
 
 Thank you for choosing Buffalo for your web development needs.
