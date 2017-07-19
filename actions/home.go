@@ -35,6 +35,7 @@ func HomeHandler(c buffalo.Context) error {
 	return c.Render(200, r.HTML("index.html"))
 }
 
+// RSSFeed renders RSS feed
 func RSSFeed(c buffalo.Context) error {
 	tx := c.Value("tx").(*pop.Connection)
 	posts := models.Posts{}

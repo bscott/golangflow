@@ -10,6 +10,7 @@ import (
 	"github.com/satori/go.uuid"
 )
 
+// Post struct for user posts
 type Post struct {
 	ID        uuid.UUID `json:"id" db:"id"`
 	CreatedAt time.Time `json:"created_at" db:"created_at"`

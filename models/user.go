@@ -11,6 +11,7 @@ import (
 	"github.com/satori/go.uuid"
 )
 
+// User struct
 type User struct {
 	ID             uuid.UUID    `json:"id" db:"id"`
 	CreatedAt      time.Time    `json:"created_at" db:"created_at"`
