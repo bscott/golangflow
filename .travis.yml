@@ -12,3 +12,7 @@ go:
   - master
 
 go_import_path: github.com/bscott/golangflow
+  - 1.8
+
+script:
+  - docker build .
