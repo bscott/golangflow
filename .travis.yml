@@ -3,8 +3,8 @@ env:
 - GO_ENV=test
 
 before_script:
-  - psql -c 'create database t_test;' -U postgres
-	- mysql -e 'CREATE DATABASE t_test;'
+  - psql -c 'create database golangflow_test;' -U postgres
+	- mysql -e 'CREATE DATABASE golangflow_test;'
   - mkdir -p $TRAVIS_BUILD_DIR/public/assets
 
 go:
@@ -12,6 +12,3 @@ go:
   - master
 
 go_import_path: github.com/bscott/golangflow
-
-env:
-  CODECLIMATE_REPO_TOKEN: 10d08c6b4a92b000e1997e1281397a23d885d724cdce7ad344326398340d554d
