@@ -3,16 +3,29 @@ env:
 - GO_ENV=test
 
 before_script:
+<<<<<<< HEAD
   - psql -c 'create database golangflow_test;' -U postgres
 	- mysql -e 'CREATE DATABASE golangflow_test;'
+=======
+  - psql -c 'create database t_test;' -U postgres
+	- mysql -e 'CREATE DATABASE t_test;'
+>>>>>>> Updated travis
   - mkdir -p $TRAVIS_BUILD_DIR/public/assets
 
 go:
   - 1.7.x
   - master
+<<<<<<< HEAD
 
 go_import_path: github.com/bscott/golangflow
   - 1.8
 
 script:
   - docker build .
+=======
+
+go_import_path: github.com/bscott/golangflow
+
+env:
+  CODECLIMATE_REPO_TOKEN: 10d08c6b4a92b000e1997e1281397a23d885d724cdce7ad344326398340d554d
+>>>>>>> Updated travis
