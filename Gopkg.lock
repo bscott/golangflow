@@ -2,12 +2,6 @@
 
 
 [[projects]]
-  name = "github.com/Sirupsen/logrus"
-  packages = ["."]
-  revision = "202f25545ea4cf9b191ff7f846df5d87c9382c2b"
-  version = "v1.0.0"
-
-[[projects]]
   name = "github.com/ajg/form"
   packages = ["."]
   revision = "cc2954064ec9ea8d93917f0f87456e11d7b881ad"
@@ -52,8 +46,8 @@
 [[projects]]
   name = "github.com/gobuffalo/buffalo"
   packages = [".","binding","middleware","middleware/basicauth","middleware/csrf","middleware/i18n","render","worker"]
-  revision = "a4b2c6ddf9c191cb1f02e44584cf005abb8fe5db"
-  version = "v0.9.0"
+  revision = "c4ed92ec651e944b3bd4f08cb35773fb22321b84"
+  version = "v0.9.2"
 
 [[projects]]
   branch = "master"
@@ -170,10 +164,10 @@
   revision = "6cacb66d100482ef7cc366289ccb156020e57e76"
 
 [[projects]]
+  branch = "master"
   name = "github.com/markbates/pop"
   packages = [".","columns","fizz","fizz/translators","nulls"]
-  revision = "7f9beae0b7cf44cb51ebfccc315f4cedfcb0c8ac"
-  version = "v3.25.3"
+  revision = "660054126080e6e07f6844551c18421abc711828"
 
 [[projects]]
   name = "github.com/markbates/refresh"
@@ -332,6 +326,12 @@
   revision = "541ff5ee47f1dddf6a5281af78307d921524bcb5"
 
 [[projects]]
+  name = "github.com/sirupsen/logrus"
+  packages = ["."]
+  revision = "a3f95b5c423586578a4e099b11a46c2479628cac"
+  version = "1.0.2"
+
+[[projects]]
   branch = "master"
   name = "github.com/sourcegraph/annotate"
   packages = ["."]
@@ -354,6 +354,12 @@
   name = "github.com/writeas/go-strip-markdown"
   packages = ["."]
   revision = "3db064872f5145db2dffef30382f24c4d278e799"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/crypto"
+  packages = ["bcrypt","blowfish"]
+  revision = "6914964337150723782436d56b3f21610a74ce7b"
 
 [[projects]]
   branch = "master"
@@ -388,6 +394,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c56330c97f842d773a4bf2ea1fd9473b313ead992354a870365c4797d9dda06c"
+  inputs-digest = "b28766fd4c72facbd86db51dd980cbbc81800b1e24c46ba452311ab6e43b82a3"
   solver-name = "gps-cdcl"
   solver-version = 1
