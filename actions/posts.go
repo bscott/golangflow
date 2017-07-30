@@ -2,6 +2,7 @@ package actions
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/bscott/golangflow/models"
@@ -28,6 +29,10 @@ func init() {
 	w := App().Worker
 	w.Register("send_tweet", func(args worker.Args) error {
 		fmt.Printf("### args -> %+v\n", args)
+		shortURL, err := getBitly(args["post_id"])
+		if err != nil {
+			fmt.Errorf("Tweet Worker encountered an error with Bitly: %v", err)
+		}
 		return nil
 	})
 }
@@ -209,4 +214,20 @@ func (v PostsResource) Destroy(c buffalo.Context) error {
 	c.Flash().Add("success", "Post was destroyed successfully")
 	// Redirect to the posts index page
 	return c.Redirect(302, "/posts")
+}
+
+// Tweet functions
+
+func getBitly(id uuid.UUID) (bitly.ShortenResult, error) {
+	// Load Bitly config data
+	accessToken := os.Getenv("BITLY_ACCESS_TOKEN")
+	bitlyLogin := os.Getenv("BITLY_LOGIN")
+	bitlyAPIKey := os.Getenv("BITLY_API_KEY")
+
+	url := "http://golangflow.io/posts/" + string(id)
+
+	c := bitly.Client{AccessToken: accessToken, Login: bitlyLogin, APIKey: bitlyAPIKey}
+	c.s
+
+	return "", nil
 }
