@@ -2,7 +2,10 @@ package actions
 
 import (
 	"fmt"
+<<<<<<< HEAD
 	"os"
+=======
+>>>>>>> 3a663c0282a8aee8b3ec06c8f58df86db5f6cd07
 	"time"
 
 	"github.com/bscott/golangflow/models"
@@ -29,10 +32,13 @@ func init() {
 	w := App().Worker
 	w.Register("send_tweet", func(args worker.Args) error {
 		fmt.Printf("### args -> %+v\n", args)
+<<<<<<< HEAD
 		shortURL, err := getBitly(args["post_id"])
 		if err != nil {
 			fmt.Errorf("Tweet Worker encountered an error with Bitly: %v", err)
 		}
+=======
+>>>>>>> 3a663c0282a8aee8b3ec06c8f58df86db5f6cd07
 		return nil
 	})
 }
