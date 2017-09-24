@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.2
--- Dumped by pg_dump version 9.6.1
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -70,7 +70,7 @@ CREATE TABLE users (
     updated_at timestamp without time zone NOT NULL,
     id uuid NOT NULL,
     name character varying(255) NOT NULL,
-    email text,
+    email character varying(255),
     provider_userid character varying(255) NOT NULL,
     gravatar_id text,
     provider character varying(255) NOT NULL,

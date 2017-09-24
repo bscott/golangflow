@@ -23,40 +23,60 @@
 
 [[constraint]]
   name = "github.com/gobuffalo/buffalo"
-  version = "0.9.2"
+  version = "0.9.4"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/gobuffalo/envy"
+  version = "1.1.0"
 
 [[constraint]]
-  branch = "master"
   name = "github.com/gobuffalo/packr"
+  version = "1.2.0"
+
+[[constraint]]
+  name = "github.com/gobuffalo/plush"
+  version = "2.1.0"
 
 [[constraint]]
   branch = "master"
   name = "github.com/gobuffalo/suite"
 
 [[constraint]]
-  name = "github.com/markbates/goth"
-  version = "1.38.0"
+  name = "github.com/gobuffalo/tags"
+  version = "1.2.0"
 
 [[constraint]]
-  branch = "master"
-  name = "github.com/markbates/pop"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/pkg/errors"
-
-[[constraint]]
-  branch = "master"
-  name = "github.com/satori/go.uuid"
-
-  [[constraint]]
   branch = "master"
   name = "github.com/gorilla/feeds"
 
 [[constraint]]
+  name = "github.com/markbates/goth"
+  version = "1.42.0"
+
+[[constraint]]
   branch = "master"
-  name = "github.com/gobuffalo/tags"
+  name = "github.com/markbates/grift"
+
+[[constraint]]
+  name = "github.com/markbates/pop"
+  version = "3.37.0"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/markbates/validate"
+
+[[constraint]]
+  name = "github.com/pkg/errors"
+  version = "0.8.0"
+
+[[constraint]]
+  name = "github.com/satori/go.uuid"
+  version = "1.1.0"
+
+[[constraint]]
+  name = "github.com/stretchr/testify"
+  version = "1.1.4"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/writeas/go-strip-markdown"
