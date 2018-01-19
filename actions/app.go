@@ -15,6 +15,7 @@ import (
 	"github.com/gobuffalo/packr"
 
 	"github.com/markbates/goth/gothic"
+	"github.com/newrelic/go-agent"
 )
 
 // ENV is used to help switch settings based on where the
@@ -30,16 +31,39 @@ var T *i18n.Translator
 // application.
 func App() *buffalo.App {
 	if app == nil {
-		app = buffalo.Automatic(buffalo.Options{
+		app = buffalo.New(buffalo.Options{
 			Env:         ENV,
 			SessionName: "_golangflow_session",
 		})
 		if ENV == "development" {
 			app.Use(middleware.ParameterLogger)
 		}
+
+		// NewRelic Integration
+		config := newrelic.NewConfig("golangflow", os.Getenv("NEW_RELIC_LICENSE_KEY"))
+		config.Enabled = ENV == "production"
+		na, _ := newrelic.NewApplication(config)
+
+		app.Use(func(next buffalo.Handler) buffalo.Handler {
+			return func(c buffalo.Context) error {
+				req := c.Request()
+				txn := na.StartTransaction(req.URL.String(), c.Response(), req)
+				ri := c.Value("current_route").(buffalo.RouteInfo)
+				txn.AddAttribute("PathName", ri.PathName)
+				txn.AddAttribute("RequestID", c.Value("request_id"))
+				defer txn.End()
+				err := next(c)
+				if err != nil {
+					txn.NoticeError(err)
+					return err
+				}
+				return nil
+			}
+		})
+
 		// Protect against CSRF attacks. https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
 		// Remove to disable this.
-		app.Use(middleware.CSRF)
+		//app.Use(middleware.CSRF)
 
 		app.Use(middleware.PopTransaction(models.DB))
 		app.Use(SetCurrentUser)
