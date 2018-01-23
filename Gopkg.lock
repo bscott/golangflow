@@ -147,6 +147,12 @@
 
 [[projects]]
   branch = "master"
+  name = "github.com/heroku/x"
+  packages = ["hmetrics","hmetrics/onload"]
+  revision = "705849e307dd75c91728463dea5bfd08ef493e64"
+
+[[projects]]
+  branch = "master"
   name = "github.com/jmoiron/sqlx"
   packages = [".","reflectx"]
   revision = "de8647470aafe4854c976707c431dbe1eb2822c6"
@@ -302,7 +308,6 @@
   revision = "6d1ef893fcb01b4f50cb6e57ed7df3e2e627b6b2"
 
 [[projects]]
-  branch = "master"
   name = "github.com/satori/go.uuid"
   packages = ["."]
   revision = "36e9d2ebbde5e3f13ab2e25625fd453271d6522e"
@@ -442,6 +447,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ba3f9d195113e17c760001bd98cf29662009e0fa098ff1b5aac5eaf23c7dcd95"
+  inputs-digest = "b1384f262f5cbe0c72f96a92608d67df22795c976a87a0f7a0f2052932036d51"
   solver-name = "gps-cdcl"
   solver-version = 1
