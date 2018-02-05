@@ -31,11 +31,13 @@ func init() {
 	w.Register("send_tweet", func(args worker.Args) error {
 		fmt.Printf("### args -> %+v\n", args)
 
-		//shortURL, err := getBitly(args["post_id"])
+		shortURL, err := getShort(args["post_id"].(uuid.UUID))
 
-		// if err != nil {
-		// 	return fmt.Errorf("Tweet Worker encountered an error with Bitly: %v", err)
-		// }
+		if err != nil {
+			return fmt.Errorf("Tweet Worker encountered an error with Goo.gl: %v", err)
+		}
+
+		fmt.Printf("### Shorten URL: -> %+s\n", shortURL)
 
 		return nil
 	})
@@ -136,8 +138,8 @@ func (v PostsResource) Create(c buffalo.Context) error {
 	w.PerformIn(worker.Job{
 		Queue: "tweet",
 		Args: worker.Args{
-			"post_id":      post.ID,
-			"post_content": post.Title,
+			"post_id":    post.ID.String(),
+			"post_title": post.Title,
 		},
 		Handler: "send_tweet",
 	}, 15*time.Second)
@@ -223,7 +225,7 @@ func (v PostsResource) Destroy(c buffalo.Context) error {
 // Tweet functions
 
 func getShort(id uuid.UUID) (string, error) {
-	// Load Bitly config data
+	// Load Goo.gl URL shortener config data
 	accessToken := os.Getenv("GOOGLE_KEY")
 
 	if accessToken == "" {
@@ -231,7 +233,7 @@ func getShort(id uuid.UUID) (string, error) {
 	}
 
 	c := googl.NewClient(accessToken)
-	url := "https://golangflow.io/posts/" + string(id)
+	url := "https://golangflow.io/posts/" + id.String()
 
 	return c.Shorten(url), nil
 }
