@@ -7,6 +7,8 @@ import (
 
 	"github.com/bscott/golangflow/models"
 	"github.com/bscott/googl"
+	"github.com/dghubble/go-twitter/twitter"
+	"github.com/dghubble/oauth1"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/worker"
 	"github.com/markbates/pop"
@@ -38,6 +40,12 @@ func init() {
 		}
 
 		fmt.Printf("### Shorten URL: -> %+s\n", shortURL)
+
+		err = sendTweet(args["post_title"].(string), shortURL)
+
+		if err != nil {
+			return fmt.Errorf("Couldn't send tweet: %v", err)
+		}
 
 		return nil
 	})
@@ -240,3 +248,31 @@ func getShort(id string) (string, error) {
 }
 
 // sendTweet function sends tweet to Golangflow Account
+func sendTweet(title string, url string) error {
+
+	// Grab Creds
+	consumerKey := os.Getenv("CONSUMER_KEY")
+	consumerSecret := os.Getenv("CONSUMER_SECRET")
+	accessToken := os.Getenv("TWITTER_ACCESS_TOKEN")
+	accessSecret := os.Getenv("TWITTER_ACCESS_SECRET")
+
+	if consumerKey == "" || consumerSecret == "" || accessToken == "" || accessSecret == "" {
+		return errors.New("Twitter Consumer key/secret and Twitter Access token/secret required")
+	}
+
+	config := oauth1.NewConfig(consumerKey, consumerSecret)
+	token := oauth1.NewToken(accessToken, accessSecret)
+	httpClient := config.Client(oauth1.NoContext, token)
+	// Twitter client
+	client := twitter.NewClient(httpClient)
+	// Build Tweet
+	t := fmt.Sprintf("%s - %s #golang #programming", title, url)
+
+	_, _, err := client.Statuses.Update(t, nil)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

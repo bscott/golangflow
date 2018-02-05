@@ -20,6 +20,12 @@
   revision = "20c95f0c0203c2de9de1afe8e790fd05314c3e0e"
 
 [[projects]]
+  name = "github.com/cenkalti/backoff"
+  packages = ["."]
+  revision = "61153c768f31ee5f130071d08fc82b85208528de"
+  version = "v1.1.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/cockroachdb/cockroach-go"
   packages = ["crdb"]
@@ -36,6 +42,24 @@
   name = "github.com/daviddengcn/go-colortext"
   packages = ["."]
   revision = "17e75f6184bc9e727756cd0d82e0af58b1fc7191"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/dghubble/go-twitter"
+  packages = ["twitter"]
+  revision = "c4115fa44a928413e0b857e0eb47376ffde3a61a"
+
+[[projects]]
+  name = "github.com/dghubble/oauth1"
+  packages = ["."]
+  revision = "70562a5920ad9b6ff03ef697c0f90ae569abbd2b"
+  version = "v0.4.0"
+
+[[projects]]
+  name = "github.com/dghubble/sling"
+  packages = ["."]
+  revision = "eb56e89ac5088bebb12eef3cb4b293300f43608b"
+  version = "v1.1.0"
 
 [[projects]]
   branch = "master"
@@ -114,6 +138,12 @@
   packages = ["proto"]
   revision = "925541529c1fa6821df4e44ce2723319eb2be768"
   version = "v1.0.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/google/go-querystring"
+  packages = ["query"]
+  revision = "53e6ce116135b80d037921a7fdd5138cf32d7a8a"
 
 [[projects]]
   name = "github.com/gorilla/context"
@@ -471,6 +501,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "55efa38dc3b83b9b04958106ba243514f1c079e3b7a9265145e5fa3588db2ad2"
+  inputs-digest = "391d845e206165209f11057d6d1c96930eda8e2c7bb179dcbfbb33c38f12ac28"
   solver-name = "gps-cdcl"
   solver-version = 1

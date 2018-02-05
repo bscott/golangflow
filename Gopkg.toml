@@ -92,3 +92,11 @@
 [[constraint]]
   branch = "master"
   name = "github.com/bscott/googl"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/dghubble/go-twitter"
+
+[[constraint]]
+  name = "github.com/dghubble/oauth1"
+  version = "0.4.0"
