@@ -230,9 +230,8 @@ func getShort(id uuid.UUID) (string, error) {
 		return "", errors.New("Can't load Goo.gl API Key from ENV")
 	}
 
-	c := googl.NewClient{Key: accessToken}
+	c := googl.NewClient(accessToken)
 	url := "https://golangflow.io/posts/" + string(id)
 
-	c.Shorten(url)
-	return "", nil
+	return c.Shorten(url), nil
 }
