@@ -91,4 +91,4 @@
 
 [[constraint]]
   branch = "master"
-  name = "github.com/dimoreira/googl"
+  name = "github.com/bscott/googl"

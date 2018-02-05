@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/bscott/golangflow/models"
-	"github.com/dimoreira/googl"
+	"github.com/bscott/googl"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/worker"
 	"github.com/markbates/pop"
@@ -29,9 +29,9 @@ import (
 func init() {
 	w := App().Worker
 	w.Register("send_tweet", func(args worker.Args) error {
-		fmt.Printf("### args -> %+v\n", args)
+		//fmt.Printf("### args -> %+v\n", args)
 
-		shortURL, err := getShort(args["post_id"].(uuid.UUID))
+		shortURL, err := getShort(args["post_id"].(string))
 
 		if err != nil {
 			return fmt.Errorf("Tweet Worker encountered an error with Goo.gl: %v", err)
@@ -222,9 +222,8 @@ func (v PostsResource) Destroy(c buffalo.Context) error {
 	return c.Redirect(302, "/posts")
 }
 
-// Tweet functions
-
-func getShort(id uuid.UUID) (string, error) {
+// getShort takes a POST ID and returns a Short Googl struct with error value.
+func getShort(id string) (string, error) {
 	// Load Goo.gl URL shortener config data
 	accessToken := os.Getenv("GOOGLE_KEY")
 
@@ -232,8 +231,12 @@ func getShort(id uuid.UUID) (string, error) {
 		return "", errors.New("Can't load Goo.gl API Key from ENV")
 	}
 
+	// Create the Goo.gl client
 	c := googl.NewClient(accessToken)
-	url := "https://golangflow.io/posts/" + id.String()
-
-	return c.Shorten(url), nil
+	url := "https://golangflow.io/posts/" + id
+	data, err := c.Shorten(url)
+	// Return the shorten url
+	return data.ID, err
 }
+
+// sendTweet function sends tweet to Golangflow Account
