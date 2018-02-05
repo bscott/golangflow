@@ -2,17 +2,11 @@ package actions
 
 import (
 	"fmt"
-<<<<<<< HEAD
 	"os"
-=======
-<<<<<<< HEAD
-	"os"
-=======
->>>>>>> 3a663c0282a8aee8b3ec06c8f58df86db5f6cd07
->>>>>>> 1582cb28b925a0cfc9c32ca01f9590d3c9ab9cfe
 	"time"
 
 	"github.com/bscott/golangflow/models"
+	"github.com/dimoreira/googl"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/worker"
 	"github.com/markbates/pop"
@@ -36,19 +30,13 @@ func init() {
 	w := App().Worker
 	w.Register("send_tweet", func(args worker.Args) error {
 		fmt.Printf("### args -> %+v\n", args)
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 1582cb28b925a0cfc9c32ca01f9590d3c9ab9cfe
-		shortURL, err := getBitly(args["post_id"])
-		if err != nil {
-			fmt.Errorf("Tweet Worker encountered an error with Bitly: %v", err)
-		}
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 3a663c0282a8aee8b3ec06c8f58df86db5f6cd07
->>>>>>> 1582cb28b925a0cfc9c32ca01f9590d3c9ab9cfe
+
+		//shortURL, err := getBitly(args["post_id"])
+
+		// if err != nil {
+		// 	return fmt.Errorf("Tweet Worker encountered an error with Bitly: %v", err)
+		// }
+
 		return nil
 	})
 }
@@ -234,16 +222,17 @@ func (v PostsResource) Destroy(c buffalo.Context) error {
 
 // Tweet functions
 
-func getBitly(id uuid.UUID) (bitly.ShortenResult, error) {
+func getShort(id uuid.UUID) (string, error) {
 	// Load Bitly config data
-	accessToken := os.Getenv("BITLY_ACCESS_TOKEN")
-	bitlyLogin := os.Getenv("BITLY_LOGIN")
-	bitlyAPIKey := os.Getenv("BITLY_API_KEY")
+	accessToken := os.Getenv("GOOGLE_KEY")
 
-	url := "http://golangflow.io/posts/" + string(id)
+	if accessToken == "" {
+		return "", errors.New("Can't load Goo.gl API Key from ENV")
+	}
 
-	c := bitly.Client{AccessToken: accessToken, Login: bitlyLogin, APIKey: bitlyAPIKey}
-	c.s
+	c := googl.NewClient{Key: accessToken}
+	url := "https://golangflow.io/posts/" + string(id)
 
+	c.Shorten(url)
 	return "", nil
 }
