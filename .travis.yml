@@ -5,13 +5,17 @@ env:
 before_script:
   - psql -c 'create database golangflow_test;' -U postgres
 	- mysql -e 'CREATE DATABASE golangflow_test;'
+<<<<<<< HEAD
   - psql -c 'create database t_test;' -U postgres
 	- mysql -e 'CREATE DATABASE t_test;'
+=======
+>>>>>>> 1582cb28b925a0cfc9c32ca01f9590d3c9ab9cfe
   - mkdir -p $TRAVIS_BUILD_DIR/public/assets
 
 go:
   - 1.7.x
   - master
+<<<<<<< HEAD
 
 go_import_path: github.com/bscott/golangflow
   - 1.8
@@ -23,3 +27,7 @@ go_import_path: github.com/bscott/golangflow
 
 env:
   CODECLIMATE_REPO_TOKEN: 10d08c6b4a92b000e1997e1281397a23d885d724cdce7ad344326398340d554d
+=======
+
+go_import_path: github.com/bscott/golangflow
+>>>>>>> 1582cb28b925a0cfc9c32ca01f9590d3c9ab9cfe
