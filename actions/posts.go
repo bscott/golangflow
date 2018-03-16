@@ -33,6 +33,11 @@ func init() {
 	w.Register("send_tweet", func(args worker.Args) error {
 		//fmt.Printf("### args -> %+v\n", args)
 
+		if ENV == "development" {
+			fmt.Println("Tweets disabled: running in development mode")
+			return nil
+		}
+
 		shortURL, err := getShort(args["post_id"].(string))
 
 		if err != nil {
