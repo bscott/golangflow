@@ -13,7 +13,7 @@ import (
 
 	"github.com/gobuffalo/envy"
 	"github.com/gobuffalo/packr"
-
+	// Used for Heroku metrics
 	_ "github.com/heroku/x/hmetrics/onload"
 	"github.com/markbates/goth/gothic"
 	"github.com/newrelic/go-agent"
