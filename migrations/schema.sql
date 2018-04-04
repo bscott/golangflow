@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.3
--- Dumped by pg_dump version 9.6.3
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -39,12 +39,12 @@ SET default_with_oids = false;
 --
 
 CREATE TABLE posts (
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
     id uuid NOT NULL,
     title character varying(255) NOT NULL,
     content text NOT NULL,
-    user_id uuid NOT NULL
+    user_id uuid NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -66,14 +66,14 @@ ALTER TABLE schema_migration OWNER TO postgres;
 --
 
 CREATE TABLE users (
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
     id uuid NOT NULL,
     name character varying(255) NOT NULL,
     email character varying(255),
     provider_userid character varying(255) NOT NULL,
     gravatar_id text,
     provider character varying(255) NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
     nickname character varying(255)
 );
 
