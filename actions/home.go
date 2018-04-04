@@ -8,8 +8,8 @@ import (
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/render"
+	"github.com/gobuffalo/pop"
 	"github.com/gorilla/feeds"
-	"github.com/markbates/pop"
 	"github.com/pkg/errors"
 	stripmd "github.com/writeas/go-strip-markdown"
 )
@@ -20,6 +20,7 @@ func HomeHandler(c buffalo.Context) error {
 	// Get the DB connection from the context
 	tx := c.Value("tx").(*pop.Connection)
 	posts := &models.Posts{}
+
 	q := tx.PaginateFromParams(c.Request().URL.Query())
 	// You can order your list here. Just change
 	err := q.Order("created_at desc").All(posts)

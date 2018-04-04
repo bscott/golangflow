@@ -7,10 +7,10 @@ import (
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/packr"
 	"github.com/gobuffalo/plush"
+	"github.com/gobuffalo/pop"
 	"github.com/gobuffalo/tags"
-	"github.com/markbates/pop"
+	uuid "github.com/gobuffalo/uuid"
 	"github.com/pkg/errors"
-	uuid "github.com/satori/go.uuid"
 )
 
 var r *render.Engine

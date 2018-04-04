@@ -100,8 +100,8 @@
 [[projects]]
   name = "github.com/gobuffalo/buffalo"
   packages = [".","binding","middleware","middleware/basicauth","middleware/csrf","middleware/i18n","render","worker"]
-  revision = "932f95b2b4b7821a1b8369bd64845225ab1117b3"
-  version = "v0.11.0"
+  revision = "bfa77a8652f7c8ec0bede640656c8add3cb230c2"
+  version = "v0.10.3"
 
 [[projects]]
   name = "github.com/gobuffalo/envy"
@@ -260,6 +260,12 @@
   revision = "b5c853d089b86134926274bc7a98496fee5e1d6b"
 
 [[projects]]
+  name = "github.com/markbates/pop"
+  packages = [".","associations","columns","fizz","fizz/translators","nulls"]
+  revision = "f230643ae0f8fa01e9444c2fb857ba1f1a78eb1f"
+  version = "v4.0.0"
+
+[[projects]]
   name = "github.com/markbates/refresh"
   packages = ["refresh","refresh/web"]
   revision = "fab0ab1230a5772b04f3b736821822935b5a5279"
@@ -376,8 +382,7 @@
 [[projects]]
   name = "github.com/satori/go.uuid"
   packages = ["."]
-  revision = "f58768cc1a7a7e77a3bd49e98cdd21419399b6a3"
-  version = "v1.2.0"
+  revision = "36e9d2ebbde5e3f13ab2e25625fd453271d6522e"
 
 [[projects]]
   branch = "master"
@@ -520,6 +525,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "f3314ced3ee78002d5e1f6c169376e57b250ee879ff216457909a30f925ca198"
+  inputs-digest = "5751f1235b13db6948ddec612e76acbfed1fc40d15506ac5b6004489abd6de2a"
   solver-name = "gps-cdcl"
   solver-version = 1
