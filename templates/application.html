@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Golang Flow</title>
-  <link rel="stylesheet" href="/assets/application.css" type="text/css" media="all" />
+  <%= stylesheetTag("application.css") %>
   
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -83,7 +83,9 @@
       </center>
     </div>
   <br />
-  <script src="/assets/application.js" type="text/javascript" charset="utf-8"></script>
+
+  <%= javascriptTag("application.js") %>
+
   <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-59cc8bbb05397177"></script> 
   <script type="text/javascript">
     var _gauges = _gauges || [];

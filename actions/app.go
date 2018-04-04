@@ -81,7 +81,7 @@ func App() *buffalo.App {
 		app.GET("/rss", RSSFeed)
 		app.Middleware.Skip(Authorize, HomeHandler, RSSFeed)
 
-		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
+		app.ServeFiles("/assets", assetsBox)
 
 		auth := app.Group("/auth")
 		gothwap := buffalo.WrapHandlerFunc(gothic.BeginAuthHandler)
