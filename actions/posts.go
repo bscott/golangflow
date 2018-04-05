@@ -271,7 +271,7 @@ func sendTweet(title string, url string) error {
 	// Twitter client
 	client := twitter.NewClient(httpClient)
 	// Build Tweet
-	t := fmt.Sprintf("%s - %s #golang #programming", title, url)
+	t := fmt.Sprintf("%s - %s #golang #programming #coding #software #dev #tech", title, url)
 
 	_, _, err := client.Statuses.Update(t, nil)
 
