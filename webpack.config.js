@@ -6,6 +6,7 @@ var ManifestPlugin = require("webpack-manifest-plugin");
 var PROD = process.env.NODE_ENV || "development";
 var CleanWebpackPlugin = require("clean-webpack-plugin");
 
+
 var entries = {
   application: [
     './node_modules/jquery-ujs/src/rails.js',
@@ -103,6 +104,9 @@ module.exports = {
 if (PROD != "development") {
   module.exports.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
+      uglifyOptions: {
+        ecma: 8,
+      },
       beautify: false,
       mangle: {
         screw_ie8: true,

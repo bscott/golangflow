@@ -19,15 +19,19 @@
     "gopherjs-loader": "^0.0.1",
     "jquery": "~3.2.1",
     "jquery-ujs": "~1.2.2",
-    "marked": "^0.3.19",
+    "marked": "^0.3.18",
     "node-sass": "~4.7.2",
     "npm-install-webpack-plugin": "4.0.5",
     "path": "~0.12.7",
     "sass-loader": "~6.0.6",
     "style-loader": "~0.20.1",
-    "uglifyjs-webpack-plugin": "~0.4.6",
+    "uglifyjs-webpack-plugin": "~1.2.4",
     "url-loader": "~0.6.2",
     "webpack": "~3.10.0",
     "webpack-manifest-plugin": "~1.2.1"
+  },
+  "devDependencies": {
+    "uglifyjs-webpack-plugin": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
+    "webpack-cli": "^2.0.14"
   }
 }

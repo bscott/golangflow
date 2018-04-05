@@ -1,6 +1,6 @@
 require("expose-loader?$!expose-loader?jQuery!jquery");
 require("bootstrap-sass/assets/javascripts/bootstrap.js");
-let marked = require("marked/lib/marked.js");
+var marked = require("marked/lib/marked.js");
 
 marked.setOptions({
   renderer: new marked.Renderer(),
@@ -13,9 +13,9 @@ marked.setOptions({
   smartypants: false
 });
 
-$(() => {
-  $("#post-Content").keyup((e) => {
-    let text = $(e.target).val();
+$(function () {
+  $("#post-Content").keyup(function (e) {
+    var text = $(e.target).val();
     $("#content-preview").html(marked(text));
   });
 });
