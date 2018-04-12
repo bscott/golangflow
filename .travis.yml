@@ -10,18 +10,11 @@ before_script:
   - mkdir -p $TRAVIS_BUILD_DIR/public/assets
 
 go:
-  - 1.7.x
+  - "1.x"
   - master
-
-go_import_path: github.com/bscott/golangflow
-  - 1.8
 
 script:
   - docker build .
 
-go_import_path: github.com/bscott/golangflow
-
 env:
   CODECLIMATE_REPO_TOKEN: 10d08c6b4a92b000e1997e1281397a23d885d724cdce7ad344326398340d554d
-
-go_import_path: github.com/bscott/golangflow
