@@ -79,3 +79,15 @@ func RSSFeed(c buffalo.Context) error {
 		return nil
 	}))
 }
+
+//JSONFeed API
+func JSONFeed(c buffalo.Context) error {
+	tx := c.Value("tx").(*pop.Connection)
+	posts := models.Posts{}
+	err := tx.Order("created_at desc").All(&posts)
+	if err != nil {
+		return errors.WithStack(err)
+	}
+
+	return c.Render(200, r.JSON(posts))
+}
