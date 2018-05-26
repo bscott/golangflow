@@ -80,7 +80,8 @@ func App() *buffalo.App {
 		app.GET("/", HomeHandler)
 		app.GET("/rss", RSSFeed)
 		app.GET("/json", JSONFeed)
-		app.Middleware.Skip(Authorize, HomeHandler, RSSFeed, JSONFeed)
+		app.GET("/privacy", Privacy)
+		app.Middleware.Skip(Authorize, HomeHandler, RSSFeed, JSONFeed, Privacy)
 
 		app.ServeFiles("/assets", assetsBox)
 

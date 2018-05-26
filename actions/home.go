@@ -91,3 +91,8 @@ func JSONFeed(c buffalo.Context) error {
 
 	return c.Render(200, r.JSON(posts))
 }
+
+//Privacy
+func Privacy(c buffalo.Context) error {
+	return c.Render(200, r.HTML("privacy.html"))
+}
