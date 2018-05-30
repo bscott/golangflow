@@ -17,7 +17,7 @@
   ga('send', 'pageview');
 
 </script>
-
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 
 <body>
@@ -39,8 +39,9 @@
         <div class="collapse navbar-collapse" id="navbar1">
           <ul class="nav navbar-nav">
             <li class="active"><a href="/posts/new" class="fa fa-plus"> Submit</a></li>
-            <li><a href="https://twitter.com/golangflow" class="fa fa-twitter"> Twitter</a></li>
-            <li><a href="https://github.com/bscott/golangflow" class="fa fa-github"> Github - Contribute</a></li>
+            <li><a href="https://twitter.com/golangflow" class="fab fa-twitter-square"> Twitter</a></li>
+            <li><a href="https://github.com/bscott/golangflow" class="fab fa-github"> Github - Contribute</a></li>
+            <li><a href="https://play.google.com/store/apps/details?id=io.bscott.golangflow" class="fab fa-google-play"> Mobile App</a></li>
             <li>
               <a href="/rss" class="fa fa-rss">
                 RSS
@@ -50,9 +51,9 @@
           <ul class="nav navbar-nav navbar-right">
             <%= if (current_user) { %>
               <li><a href="/posts" class="fa fa-user-circle"> My Posts</a></li>
-              <li><a href="/auth" data-method="DELETE" class="fa fa-github"> Logout</a></li>
+              <li><a href="/auth" data-method="DELETE" class="fas fa-sign-out-alt"> Logout</a></li>
             <% } else { %>
-              <li><a href="/auth/github" class="fa fa-github"> Login</a></li>
+              <li><a href="/auth/github" class="fas fa-sign-in-alt"> Login</a></li>
             <% } %>
           </ul>
         </div>
