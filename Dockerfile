@@ -9,7 +9,7 @@ WORKDIR $GOPATH/src/github.com/bscott/golangflow
 ADD package.json .
 RUN npm install
 ADD . .
-RUN buffalo build --static -o /bin/app -d --environment=production
+RUN buffalo build --static -o /bin/app
 
 FROM alpine
 RUN apk add --no-cache bash
@@ -26,4 +26,4 @@ EXPOSE 3000
 
 # Comment out to run the migrations before running the binary:
 # CMD /bin/app migrate; /bin/app
-CMD exec /bin/app
+CMD /bin/app
