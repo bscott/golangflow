@@ -1,5 +1,7 @@
 dmitri.shuralyov.com/text/kebabcase v0.0.0-20180217051803-40e40b42552a/go.mod h1:3YpR/7A6nvWHA/oFH66Hp/dJ5A2gM63I3xkA/3FV6tY=
+github.com/BurntSushi/toml v0.3.0 h1:e1/Ivsx3Z0FVTV0NSOv/aVgbUWyQuzj7DDnFblkRvsY=
 github.com/BurntSushi/toml v0.3.0/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
+github.com/ajg/form v0.0.0-20160802194845-cc2954064ec9 h1:fJ4XPqxuZfm11zauw9XX7c30P8xwDyucdWu8H6Htrxs=
 github.com/ajg/form v0.0.0-20160802194845-cc2954064ec9/go.mod h1:uL1WgH+h2mgNtvBq0339dVnzXdBETtL2LeUXaIv25UY=
 github.com/bscott/googl v0.0.0-20180205080311-20c95f0c0203 h1:RxWV3n5OAWPxnyXLtcmboMq0xYKRPpA/JgUU88FtJuU=
 github.com/bscott/googl v0.0.0-20180205080311-20c95f0c0203/go.mod h1:g7CUvXOnoVboJoj17KwAM7gYXSYLND9EcM9lAHgKkHA=
@@ -7,6 +9,7 @@ github.com/cenkalti/backoff v1.1.0 h1:QnvVp8ikKCDWOsFheytRCoYWYPO/ObCTBGxT19Hc+y
 github.com/cenkalti/backoff v1.1.0/go.mod h1:90ReRw6GdpyfrHakVjL/QHaoyV4aDUVVkXQJJJ3NXXM=
 github.com/cockroachdb/cockroach-go v0.0.0-20180212155653-59c0560478b7 h1:XFqp7VFIbbJO1hlpGbzo45NVYWVIM2eMD9MAxrOTVzU=
 github.com/cockroachdb/cockroach-go v0.0.0-20180212155653-59c0560478b7/go.mod h1:XGLbWH/ujMcbPbhZq52Nv6UrCghb1yGn//133kEsvDk=
+github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/daviddengcn/go-colortext v0.0.0-20171126034257-17e75f6184bc h1:nqMZEdowWmtK9ysqvFibHJ56mTprkyE5c/6q8ZHwLc0=
 github.com/daviddengcn/go-colortext v0.0.0-20171126034257-17e75f6184bc/go.mod h1:dv4zxwHi5C/8AeI+4gX4dCWOIvNi7I6JCSX0HvlKPgE=
@@ -36,6 +39,7 @@ github.com/gobuffalo/plush v3.7.0+incompatible h1:iG6b7AacZXvB9OmQV1fbHvg9B9VhFi
 github.com/gobuffalo/plush v3.7.0+incompatible/go.mod h1:rQ4zdtUUyZNqULlc6bqd5scsPfLKfT0+TGMChgduDvI=
 github.com/gobuffalo/pop v4.2.2+incompatible h1:p8SkYg+9C37C/glJTJWmo8MWQjLTUkze3LPHsU6qdhI=
 github.com/gobuffalo/pop v4.2.2+incompatible/go.mod h1:DwBz3SD5SsHpTZiTubcsFWcVDpJWGsxjVjMPnkiThWg=
+github.com/gobuffalo/suite v2.1.0+incompatible h1:gbw+n1jKXnjNlCsQS76pyR418JVRzbjCW9IwPViKJwg=
 github.com/gobuffalo/suite v2.1.0+incompatible/go.mod h1:VCaZ8EgrnJKbt0QGkrEKIMsJlWFxMXWYSHXqjH2UJJE=
 github.com/gobuffalo/tags v1.9.6 h1:hEkzy2Vzygc20rtSSDImBocJ0IVKaoE5QeEnHV3Z2IU=
 github.com/gobuffalo/tags v1.9.6/go.mod h1:9XmhOkyaB7UzvuY4UoZO4s67q8/xRMVJEaakauVQYeY=
@@ -74,6 +78,7 @@ github.com/markbates/goth v1.45.4 h1:k2qeOdaBXIDJentR3too0dHWy7Wr118+TRHvULXfcqc
 github.com/markbates/goth v1.45.4/go.mod h1:ERjpUjiHOcJUNTBjgUhpKzkay5qNGcMdjRHYOIpF5Uk=
 github.com/markbates/grift v1.0.0 h1:ZFkAX0oQCLUYmiLErTvQ29W9J8dZeUGvQ447WAygprM=
 github.com/markbates/grift v1.0.0/go.mod h1:6qyNEZSY8v6duE2tBtO/tPgBvxhT7g7DnQoIYpEyCfw=
+github.com/markbates/hmax v1.0.0 h1:yo2N0gBoCnUMKhV/VRLHomT6Y9wUm+oQQENuWJqCdlM=
 github.com/markbates/hmax v1.0.0/go.mod h1:cOkR9dktiESxIMu+65oc/r/bdY4bE8zZw3OLhLx0X2c=
 github.com/markbates/inflect v0.0.0-20180314215004-b5c853d089b8 h1:DRJaGbD0WyZ4lCuW5bsLwV+4N89XomZFEK6ldug1Yfs=
 github.com/markbates/inflect v0.0.0-20180314215004-b5c853d089b8/go.mod h1:oTeZL2KHA7CUX6X+fovmK9OvIOFuqu0TwdQrZjLTh88=
@@ -83,6 +88,7 @@ github.com/markbates/sigtx v1.0.0 h1:y/xtkBvNPRjD4KeEplf4w9rJVSc23/xl+jXYGowTwy0
 github.com/markbates/sigtx v1.0.0/go.mod h1:QF1Hv6Ic6Ca6W+T+DL0Y/ypborFKyvUY9HmuCD4VeTc=
 github.com/markbates/validate v1.0.0 h1:S8c3GX3EJScCYy0SXaktwPTrqY8a6TlekYxcq4jHvsg=
 github.com/markbates/validate v1.0.0/go.mod h1:Um20kS5He4vfMjIo8ywA9/Lv1bz9j+GWD1Rf0Xo0Fm4=
+github.com/markbates/willie v0.0.0-20180214190312-1eede1f49c96 h1:STCxc/9MNmgTYZy1VZIkq73pBMyyalwnl1k6lJpmYS4=
 github.com/markbates/willie v0.0.0-20180214190312-1eede1f49c96/go.mod h1:XtK+fmQ7tgVMIVAS1ghwuqVPup3GtgrNY3UCvUlPdzM=
 github.com/mattn/anko v0.0.0-20171117072816-a1b6218ebacd h1:FrPz/ySHCjORb5VxhmKpGUH8VoTwfaebQnufRwznFag=
 github.com/mattn/anko v0.0.0-20171117072816-a1b6218ebacd/go.mod h1:C5D2zw4NIv/sB2SrQ3qs5wqPw0wKiA2GZqexy4ctNH0=
@@ -109,6 +115,7 @@ github.com/pelletier/go-toml v1.1.0 h1:cmiOvKzEunMsAxyhXSzpL5Q1CRKpVv0KQsnAIcSEV
 github.com/pelletier/go-toml v1.1.0/go.mod h1:5z9KED0ma1S8pY6P1sdut58dfprrGBbd/94hg7ilaic=
 github.com/pkg/errors v0.8.0 h1:WdK/asTD0HN+q6hsWO3/vpuAkAr+tw6aNJNDFFf0+qw=
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/russross/blackfriday v1.5.1 h1:B8ZN6pD4PVofmlDCDUdELeYrbsVIDM/bpjW3v3zgcRc=
 github.com/russross/blackfriday v1.5.1/go.mod h1:JO/DiYxRf+HjHt06OyowR9PTA263kcR/rfWxYHBV53g=
@@ -137,6 +144,7 @@ github.com/sourcegraph/annotate v0.0.0-20160123013949-f4cad6c6324d h1:yKm7XZV6j9
 github.com/sourcegraph/annotate v0.0.0-20160123013949-f4cad6c6324d/go.mod h1:UdhH50NIW0fCiwBSr0co2m7BnFLdv4fQTgdqdJTHFeE=
 github.com/sourcegraph/syntaxhighlight v0.0.0-20170531221838-bd320f5d308e h1:qpG93cPwA5f7s/ZPBJnGOYQNK/vKsaDaseuKT5Asee8=
 github.com/sourcegraph/syntaxhighlight v0.0.0-20170531221838-bd320f5d308e/go.mod h1:HuIsMU8RRBOtsCgI77wP899iHVBQpCmg4ErYMZB+2IA=
+github.com/stretchr/testify v1.2.1 h1:52QO5WkIUcHGIR7EnGagH88x1bUzqGXTC5/1bDTUQ7U=
 github.com/stretchr/testify v1.2.1/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/writeas/go-strip-markdown v0.0.0-20180226051418-6e12ec30f699 h1:F4l49enU6YUW0CuYyYCMiCDziy69/+TA0RMGpZ3cfzk=
 github.com/writeas/go-strip-markdown v0.0.0-20180226051418-6e12ec30f699/go.mod h1:Rsyu10ZhbEK9pXdk8V6MVnZmTzRG0alMNLMwa0J01fE=

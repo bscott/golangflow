@@ -13,10 +13,11 @@ import (
 
 	"github.com/gobuffalo/envy"
 	"github.com/gobuffalo/packr"
+
 	// Used for Heroku metrics
 	_ "github.com/heroku/x/hmetrics/onload"
 	"github.com/markbates/goth/gothic"
-	"github.com/newrelic/go-agent"
+	newrelic "github.com/newrelic/go-agent"
 )
 
 // ENV is used to help switch settings based on where the
@@ -78,6 +79,7 @@ func App() *buffalo.App {
 		app.Use(Authorize)
 
 		app.GET("/", HomeHandler)
+		app.GET("/favicon.ico", HomeHandler)
 		app.GET("/rss", RSSFeed)
 		app.GET("/json", JSONFeed)
 		app.GET("/privacy", Privacy)

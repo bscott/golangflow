@@ -22,7 +22,7 @@ var _ = grift.Add("db:seed", func(c *grift.Context) error {
 	if err != nil {
 		return errors.WithStack(err)
 	}
-	for i := 0; i < 500; i++ {
+	for i := 0; i < 100; i++ {
 		p := &models.Post{
 			Title:   fmt.Sprintf("Post %d", i),
 			Content: fmt.Sprintf("content for %d", i),
