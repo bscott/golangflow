@@ -1,0 +1,10 @@
+104702a050dbb1fc2460b9db86802bbbd19518d9		branch 'gh-pages' of https://github.com/jmoiron/sqlx
+27c2eb278029ef75df0477d9348d9e7922c63964		branch 'issue-237' of https://github.com/jmoiron/sqlx
+de3ea849acd66e7e1b279b97703b4ee27154c28f		branch 'jason/fix-230' of https://github.com/jmoiron/sqlx
+382d94a9edb36bfb115821b36f7a2cf4e48715af		branch 'jason/test-226' of https://github.com/jmoiron/sqlx
+82935fac6c1a317907c8f43ed3f7f85ea844a78b		branch 'master' of https://github.com/jmoiron/sqlx
+6fd86ec3d37898626576e1d6e875cdd8d8c8e89c		branch 'ptrs' of https://github.com/jmoiron/sqlx
+3a92b1fd96032c4490fa618370fbf98ec69b680c		branch 'qsnocopy' of https://github.com/jmoiron/sqlx
+0475b64a2b5be0ec5b28f1d638c2927805cbfe60		tag 'sqlx-v1.0' of https://github.com/jmoiron/sqlx
+69738bd209812c5a381786011aff17944a384554		tag 'sqlx-v1.1' of https://github.com/jmoiron/sqlx
+d161d7a76b5661016ad0b085869f77fd410f3e6a		tag 'v1.2.0' of https://github.com/jmoiron/sqlx

@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "extend": "~3.0.2",
     "babel-cli": "~6.26.0",
     "babel-core": "~6.26.0",
     "babel-loader": "~7.1.2",
@@ -19,7 +20,7 @@
     "jquery": "~3.2.1",
     "jquery-ujs": "~1.2.2",
     "marked": "^0.3.18",
-    "node-sass": "~4.7.2",
+    "node-sass": "~4.12.0",
     "npm-install-webpack-plugin": "4.0.5",
     "path": "~0.12.7",
     "sass-loader": "~6.0.6",

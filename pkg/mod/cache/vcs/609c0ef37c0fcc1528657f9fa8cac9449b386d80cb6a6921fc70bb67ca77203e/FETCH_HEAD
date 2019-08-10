@@ -1,0 +1,6 @@
+092b971bfcefd7af48a6ef994f088cfd9f68b842		branch 'RaduBerinde-patch-1' of https://github.com/cockroachdb/cockroach-go
+e0a95dfd547cc9c3ebaaba1a12c2afe4bf621ac5		branch 'master' of https://github.com/cockroachdb/cockroach-go
+94759bfed5ac0a24dce50b2b39f01a856acb67e3		branch 'radu-conn' of https://github.com/cockroachdb/cockroach-go
+3eaa990c64fa781670052c2c7af79399e40e22e4		branch 'stderr-fix' of https://github.com/cockroachdb/cockroach-go
+ad105a3b69240726de726fc9414496c1d80b41ea		branch 'tschottdorf/acct-transfer' of https://github.com/cockroachdb/cockroach-go
+2730d28971ed81478ac38e47bfec903cd98fc060		branch 'wrapped-retryable' of https://github.com/cockroachdb/cockroach-go

@@ -1,0 +1,9 @@
+2218fb6c9c59f92427a81cb9263e7e93114ba2a4		branch 'Xe/exp/CORS-middleware' of https://github.com/heroku/x
+fac6511214f89ac370ca9953819657d53a284b03		branch 'Xe/feat/id' of https://github.com/heroku/x
+838a40ce1eff4ab96112acac9a6660eb5c4b34b5		branch 'Xe/fix/hredis-cleanup' of https://github.com/heroku/x
+6ed42b46be7bbf1e35ee04b29d6f2e86aa04d04e		branch 'Xe/fix/onload-spews' of https://github.com/heroku/x
+405853a879262f9db02eb410577a3a5a43a02190		branch 'Xe/fix/scrub-cleanup' of https://github.com/heroku/x
+c985e18d960445b755cbe3848fdb01aff834adbc		branch 'bv-s3env-fix' of https://github.com/heroku/x
+4da6d6390b69aa66302e7711cd36f0c4bb8c57b5		branch 'cd-tag-support-phase1' of https://github.com/heroku/x
+170e61d88907aeb725e80d17dbb8a04d038e5070		branch 'hkafka' of https://github.com/heroku/x
+85e5aa5e6aa19919252eec6561dcafafba3be425		branch 'master' of https://github.com/heroku/x
