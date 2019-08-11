@@ -1,18 +1,17 @@
 package actions
 
 import (
-	"log"
 	"os"
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/middleware"
 	"github.com/gobuffalo/buffalo/middleware/basicauth"
 	"github.com/gobuffalo/buffalo/middleware/i18n"
+	"github.com/gobuffalo/packr/v2"
 
 	"github.com/bscott/golangflow/models"
 
 	"github.com/gobuffalo/envy"
-	"github.com/gobuffalo/packr"
 
 	// Used for Heroku metrics
 	_ "github.com/heroku/x/hmetrics/onload"
@@ -71,9 +70,8 @@ func App() *buffalo.App {
 		app.Use(SetCurrentUser)
 		// Setup and use translations:
 		var err error
-		T, err = i18n.New(packr.NewBox("../locales"), "en-US")
-		if err != nil {
-			log.Fatal(err)
+		if T, err = i18n.New(packr.New("../locales", "../locales"), "en"); err != nil {
+			app.Stop(err)
 		}
 		app.Use(T.Middleware())
 		app.Use(Authorize)

@@ -5,7 +5,7 @@ import (
 
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo/render"
-	"github.com/gobuffalo/packr"
+	"github.com/gobuffalo/packr/v2"
 	"github.com/gobuffalo/plush"
 	"github.com/gobuffalo/pop"
 	"github.com/gobuffalo/tags"
@@ -23,7 +23,7 @@ func init() {
 		HTMLLayout: "application.html",
 
 		// Box containing all of the templates:
-		TemplatesBox: packr.NewBox("../templates"),
+		TemplatesBox: packr.New("../templates", "../templates"),
 		AssetsBox:    assetsBox,
 
 		// Add template helpers here:
