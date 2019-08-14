@@ -4,12 +4,11 @@ import (
 	"os"
 
 	"github.com/gobuffalo/buffalo"
-	"github.com/gobuffalo/buffalo/middleware"
-	"github.com/gobuffalo/buffalo/middleware/basicauth"
-	"github.com/gobuffalo/buffalo/middleware/i18n"
-	"github.com/gobuffalo/packr/v2"
-
-	"github.com/bscott/golangflow/models"
+	basicauth "github.com/gobuffalo/mw-basicauth"
+	forcessl "github.com/gobuffalo/mw-forcessl"
+	i18n "github.com/gobuffalo/mw-i18n"
+	paramlogger "github.com/gobuffalo/mw-paramlogger"
+	"github.com/unrolled/secure"
 
 	"github.com/gobuffalo/envy"
 
@@ -37,47 +36,54 @@ func App() *buffalo.App {
 			SessionName: "_golangflow_session",
 		})
 		if ENV == "development" {
-			app.Use(middleware.ParameterLogger)
+			app.Use(paramlogger.ParameterLogger)
 		}
 
 		// NewRelic Integration
-		config := newrelic.NewConfig("golangflow", os.Getenv("NEW_RELIC_LICENSE_KEY"))
-		config.Enabled = ENV == "production"
-		na, _ := newrelic.NewApplication(config)
+		if ENV == "production" {
 
-		app.Use(func(next buffalo.Handler) buffalo.Handler {
-			return func(c buffalo.Context) error {
-				req := c.Request()
-				txn := na.StartTransaction(req.URL.String(), c.Response(), req)
-				ri := c.Value("current_route").(buffalo.RouteInfo)
-				txn.AddAttribute("PathName", ri.PathName)
-				txn.AddAttribute("RequestID", c.Value("request_id"))
-				defer txn.End()
-				err := next(c)
-				if err != nil {
-					txn.NoticeError(err)
-					return err
+			config := newrelic.NewConfig("golangflow", os.Getenv("NEW_RELIC_LICENSE_KEY"))
+			config.Enabled = ENV == "production"
+			na, _ := newrelic.NewApplication(config)
+
+			app.Use(func(next buffalo.Handler) buffalo.Handler {
+				return func(c buffalo.Context) error {
+					req := c.Request()
+					txn := na.StartTransaction(req.URL.String(), c.Response(), req)
+					ri := c.Value("current_route").(buffalo.RouteInfo)
+					txn.AddAttribute("PathName", ri.PathName)
+					txn.AddAttribute("RequestID", c.Value("request_id"))
+					defer txn.End()
+					err := next(c)
+					if err != nil {
+						txn.NoticeError(err)
+						return err
+					}
+					return nil
 				}
-				return nil
-			}
-		})
+			})
+		}
 
 		// Protect against CSRF attacks. https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)
 		// Remove to disable this.
 		//app.Use(middleware.CSRF)
 
-		app.Use(middleware.PopTransaction(models.DB))
+		// Not  sure what this is for yet?
+		//app.Use(popmw.Transaction(models.DB))
+
 		app.Use(SetCurrentUser)
+
+		// Automatically redirect to SSL version
+		app.Use(forceSSL())
 		// Setup and use translations:
-		var err error
-		if T, err = i18n.New(packr.New("../locales", "../locales"), "en"); err != nil {
-			app.Stop(err)
-		}
+		// var err error
+		// if T, err = i18n.New(packr.Box("../locales", "../locales"), "en"); err != nil {
+		// 	app.Stop(err)
+		// }
 		app.Use(T.Middleware())
 		app.Use(Authorize)
 
 		app.GET("/", HomeHandler)
-		app.GET("/favicon.ico", HomeHandler)
 		app.GET("/rss", RSSFeed)
 		app.GET("/json", JSONFeed)
 		app.GET("/privacy", Privacy)
@@ -85,6 +91,7 @@ func App() *buffalo.App {
 
 		app.ServeFiles("/assets", assetsBox)
 
+		// Auth Group
 		auth := app.Group("/auth")
 		gothwap := buffalo.WrapHandlerFunc(gothic.BeginAuthHandler)
 		auth.GET("/{provider}", gothwap)
@@ -103,4 +110,11 @@ func App() *buffalo.App {
 	}
 
 	return app
+}
+
+func forceSSL() buffalo.MiddlewareFunc {
+	return forcessl.Middleware(secure.Options{
+		SSLRedirect:     ENV == "production",
+		SSLProxyHeaders: map[string]string{"X-Forwarded-Proto": "https"},
+	})
 }

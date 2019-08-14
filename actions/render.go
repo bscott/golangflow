@@ -23,7 +23,7 @@ func init() {
 		HTMLLayout: "application.html",
 
 		// Box containing all of the templates:
-		TemplatesBox: packr.New("../templates", "../templates"),
+		TemplatesBox: packr.NewBox("../templates"),
 		AssetsBox:    assetsBox,
 
 		// Add template helpers here:

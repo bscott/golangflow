@@ -1,10 +1,10 @@
-create_table("users", func(t) {
+create_table("users") {
 	t.Column("id", "uuid", {"primary": true})
 	t.Column("name", "string", {})
 	t.Column("email", "string", {"null": true})
 	t.Column("provider_userid", "string", {})
 	t.Column("gravatar_id", "text", {"null": true})
 	t.Column("provider", "string", {})
-})
-
+	t.Timestamps()
+}
 add_index("users", ["provider", "provider_userid"], {"unique": true})

@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"net/http"
 
 	"github.com/bscott/golangflow/actions"
 	"github.com/gobuffalo/envy"
@@ -12,5 +10,7 @@ import (
 func main() {
 	port := envy.Get("PORT", "3000")
 	log.Printf("Starting golangflow on port %s\n", port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), actions.App()))
+	app := actions.App()
+	log.Fatal(app.Serve())
+	//log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), actions.App()))
 }

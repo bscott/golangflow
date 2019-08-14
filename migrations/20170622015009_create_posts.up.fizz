@@ -1,6 +1,7 @@
-create_table("posts", func(t) {
+create_table("posts") {
 	t.Column("id", "uuid", {"primary": true})
 	t.Column("title", "string", {})
 	t.Column("content", "text", {})
 	t.Column("user_id", "uuid", {})
-})
+	t.Timestamps()
+}
