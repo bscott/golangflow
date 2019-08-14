@@ -14,6 +14,7 @@ require (
 	github.com/elazarl/goproxy v0.0.0-20190711103511-473e67f1d7d2 // indirect
 	github.com/elazarl/goproxy/ext v0.0.0-20190711103511-473e67f1d7d2 // indirect
 	github.com/gobuffalo/buffalo v0.14.9
+	github.com/gobuffalo/buffalo-pop v1.16.0
 	github.com/gobuffalo/envy v1.7.0
 	github.com/gobuffalo/mw-basicauth v1.0.7
 	github.com/gobuffalo/mw-csrf v0.0.0-20190129204204-25460a055517 // indirect

@@ -3,11 +3,14 @@ package actions
 import (
 	"os"
 
+	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo"
+	"github.com/gobuffalo/buffalo-pop/pop/popmw"
 	basicauth "github.com/gobuffalo/mw-basicauth"
 	forcessl "github.com/gobuffalo/mw-forcessl"
 	i18n "github.com/gobuffalo/mw-i18n"
 	paramlogger "github.com/gobuffalo/mw-paramlogger"
+	"github.com/gobuffalo/packr/v2"
 	"github.com/unrolled/secure"
 
 	"github.com/gobuffalo/envy"
@@ -68,18 +71,18 @@ func App() *buffalo.App {
 		// Remove to disable this.
 		//app.Use(middleware.CSRF)
 
-		// Not  sure what this is for yet?
-		//app.Use(popmw.Transaction(models.DB))
+		// Pop Trans
+		app.Use(popmw.Transaction(models.DB))
 
 		app.Use(SetCurrentUser)
 
 		// Automatically redirect to SSL version
 		app.Use(forceSSL())
 		// Setup and use translations:
-		// var err error
-		// if T, err = i18n.New(packr.Box("../locales", "../locales"), "en"); err != nil {
-		// 	app.Stop(err)
-		// }
+		var err error
+		if T, err = i18n.New(packr.NewBox("../locales"), "en"); err != nil {
+			app.Stop(err)
+		}
 		app.Use(T.Middleware())
 		app.Use(Authorize)
 

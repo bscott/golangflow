@@ -3,6 +3,7 @@ ignored_folders:
 - vendor
 - log
 - logs
+- pkg
 - assets
 - public
 - grifts
