@@ -1,31 +1,20 @@
 <%= for (post) in posts { %>
-<div class="avatar"></div>
 <div class="post-Content">
   <div class="row">
     <div class="media">
-      <div class="media-left">
-        <img src="<%= getAvatar(post.UserID) %>" class="img-circle" class="media-object">
-      </div>
-
-      <div class="media-body">
-        <h2 class="media-heading">
-          <a href="<%= postsPath({ post_id: post.ID }) %>">
-          <%= post.Title %>
-          </a>
-        </h2>
-        <div id="content-preview">
+  <img src="<%= getAvatar(post.UserID) %>" class="mr-3" class="align-self-start mr-3">
+  <div class="media-body">
+    <h2 class="mt-0"><%= post.Title %></h2>
+    <div id="content-preview">
           <%= markdown(post.Content) %>
-        </div>
-    <%= byLine(post.UserID) %>
-      </div>
     </div>
-
-    <br />
-    <br />
+    <h6 class="mt-1"><%= byLine(post.UserID) %></h6>
   </div>
 </div>
+    </div>
+<br />
+  </div>
 <% } %>
-
 <div class="row">
   <div class="col-md-12">
     <div style="text-align: center">

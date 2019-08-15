@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/bscott/golangflow/models"
+	"github.com/gobuffalo/nulls"
 	"github.com/markbates/grift/grift"
 	"github.com/pkg/errors"
 )
@@ -14,6 +15,7 @@ var _ = grift.Add("db:seed", func(c *grift.Context) error {
 		Name:           "DB Seed",
 		Provider:       "github",
 		ProviderUserid: "1234",
+		GravatarID:     nulls.NewString("https://avatars1.githubusercontent.com/u/191290?v=4"),
 	}
 	err = models.DB.Create(u)
 	if err != nil {
@@ -22,7 +24,7 @@ var _ = grift.Add("db:seed", func(c *grift.Context) error {
 	if err != nil {
 		return errors.WithStack(err)
 	}
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 10; i++ {
 		p := &models.Post{
 			Title:   fmt.Sprintf("Post %d", i),
 			Content: fmt.Sprintf("content for %d", i),

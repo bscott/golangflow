@@ -22,50 +22,47 @@
 
 <body>
   <div class="container">
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid" id="navfluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar1" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-          <a class="navbar-brand" href="/">Golang Flow</a>
-        </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">GolangFlow</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="navbar1">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="/posts/new" class="fa fa-plus"> Submit</a></li>
-            <li><a href="https://twitter.com/golangflow" class="fab fa-twitter-square"> Twitter</a></li>
-            <li><a href="https://github.com/bscott/golangflow" class="fab fa-github"> Github - Contribute</a></li>
-            <li><a href="https://play.google.com/store/apps/details?id=io.bscott.golangflow" class="fab fa-google-play"> Mobile App</a></li>
-            <li><a href="https://www.patreon.com/golangflow" class="fab fa-google-play"> Support us on Patreon</a></li>
-            <li>
-              <a href="/rss" class="fa fa-rss">
-                RSS
-              </a>
-            </li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <%= if (current_user) { %>
-              <li><a href="/posts" class="fa fa-user-circle"> My Posts</a></li>
-              <li><a href="/auth" data-method="DELETE" class="fas fa-sign-out-alt"> Logout</a></li>
-            <% } else { %>
-              <li><a href="/auth/github" class="fas fa-sign-in-alt"> Login</a></li>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/posts/new">Submit!</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Account
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= if (current_user) { %>
+          <a href="/posts" class="dropdown-item"> My Posts</a>
+          <a href="/auth" data-method="DELETE" class="dropdown-item"> Logout</a>
+          <% } else { %>
+          <a href="/auth/github" class="dropdown-item"> Login</a>
             <% } %>
-          </ul>
         </div>
-        <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container-fluid -->
-    </nav>
+      </li>
+        <a class="nav-link fab fa-twitter-square" href="https://twitter.com/golangflow"> Twitter</a>
+        <a class="nav-link fab fa-github" href="https://github.com/bscott/golangflow"> Github</a>
+        <a href="https://www.patreon.com/golangflow" class="nav-link fab fa-google-play"> Support us on Patreon</a>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
     <br />
     <%= partial("flash.html") %>
       <center>
-        <div class="card fluid">
+        <div class="container">
           <div class="section">
             <h3>Go Community Linklog</h3>
             <p>Made a library? Written a blog post? Found a useful tutorial? Share it with the Go community here or just enjoy what everyone else has found!</p>
@@ -73,12 +70,13 @@
         </div>
       </center>
       <br />
-
+ <div class="container">
       <%= yield %>
+       </div>
       <center>
         <footer>
           <div class="container" </div>
-            <p>2019 - Created by <a href="https://www.twitter.com/brainscott">Brian Scott</a>, Inspired by <a href="http://www.rubyflow.com/">RubyFlow</a> | Powered by <a href="http://gobuffalo.io/">Buffalo</a> | Hosted on <a href="http://www.heroku.com/">Heroku</a></p>
+            <p>2019 - Created by <a href="https://www.twitter.com/brainscott">Brian Scott</a>, Inspired by <a href="http://www.rubyflow.com/">RubyFlow</a> | Powered by <a href="http://gobuffalo.io/">Buffalo </a> | Hosted on <a href="http://www.heroku.com/">Heroku</a></p>
             <p><a href="mailto:feedback@golangflow.io">Feedback</a> | <a href="/privacy">Terms & Privacy Policy</a>
           </div>
         </footer>
