@@ -8,6 +8,8 @@ deploy:
 	heroku maintenance:on --app golangflow
 	heroku run /bin/app migrate --app golangflow
 	heroku maintenance:off --app golangflow
+release:
+	heroku container:release web --app golangflow
 psql:
 	heroku pg:psql --app golangflow
 backup:
