@@ -1,6 +1,7 @@
 package actions
 
 import (
+	"database/sql"
 	"fmt"
 	"os"
 
@@ -87,8 +88,13 @@ func SetCurrentUser(next buffalo.Handler) buffalo.Handler {
 			u := &models.User{}
 			tx := c.Value("tx").(*pop.Connection)
 			err := tx.Find(u, uid)
+			if errors.Cause(err) == sql.ErrNoRows {
+				// User could not be found, drop the session and continue.
+				c.Session().Delete("current_user_id")
+				return next(c)
+			}
 			if err != nil {
-				errors.WithStack(err)
+				return errors.WithStack(err)
 			}
 			c.Set("current_user", u)
 			c.Set("current_user_id", u.ID)
@@ -100,7 +106,7 @@ func SetCurrentUser(next buffalo.Handler) buffalo.Handler {
 // Authorize makes sure a user is authorized to visit a page
 func Authorize(next buffalo.Handler) buffalo.Handler {
 	return func(c buffalo.Context) error {
-		if uid := c.Session().Get("current_user_id"); uid == nil {
+		if uid := c.Value("current_user_id"); uid == nil {
 			c.Flash().Add("danger", "You must be authorized!, Please login")
 			return c.Redirect(302, "/")
 		}
