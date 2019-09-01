@@ -45,6 +45,11 @@ func App() *buffalo.App {
 		// NewRelic Integration
 		if ENV == "production" {
 
+			// Ensure SESSION_SECRET is set to secure the session storage in production
+			if os.Getenv("SESSION_SECRET") == "" {
+				panic("SESSION_SECRET is not set")
+			}
+
 			config := newrelic.NewConfig("golangflow", os.Getenv("NEW_RELIC_LICENSE_KEY"))
 			config.Enabled = ENV == "production"
 			na, _ := newrelic.NewApplication(config)

@@ -25,7 +25,7 @@ WORKDIR /bin/
 
 COPY --from=builder /bin/app .
 
-EXPOSE 3000
+#EXPOSE 3000
 
 # Comment out to run the migrations before running the binary:
 # CMD /bin/app migrate; /bin/app
