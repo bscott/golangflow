@@ -10,4 +10,7 @@ test:
   url: {{envOr "TEST_DATABASE_URL" "postgres://postgres:postgres@127.0.0.1:5432/golangflow_test?sslmode=disable"}}
 
 production:
-  url: {{envOr "DATABASE_URL" "postgres://postgres:postgres@127.0.0.1:5432/golangflow_production?sslmode=disable"}}
+  url: {{env "DATABASE_URL"}}
+  dialect: postgres
+  pool: 1
+  idle_pool: 1S
