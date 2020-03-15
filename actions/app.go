@@ -85,7 +85,7 @@ func App() *buffalo.App {
 		app.Use(forceSSL())
 		// Setup and use translations:
 		var err error
-		if T, err = i18n.New(packr.NewBox("../locales"), "en"); err != nil {
+		if T, err = i18n.New(packr.New("../locales", "../locales"), "en"); err != nil {
 			app.Stop(err)
 		}
 		app.Use(T.Middleware())
