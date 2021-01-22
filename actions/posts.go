@@ -11,7 +11,7 @@ import (
 	"github.com/dghubble/oauth1"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/worker"
-	"github.com/gobuffalo/pop"
+	"github.com/gobuffalo/pop/v5"
 	"github.com/gofrs/uuid"
 	"github.com/pkg/errors"
 )

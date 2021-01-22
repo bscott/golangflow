@@ -5,7 +5,7 @@ import (
 
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo"
-	"github.com/gobuffalo/buffalo-pop/pop/popmw"
+	"github.com/gobuffalo/buffalo-pop/v2/pop/popmw"
 	basicauth "github.com/gobuffalo/mw-basicauth"
 	forcessl "github.com/gobuffalo/mw-forcessl"
 	i18n "github.com/gobuffalo/mw-i18n"
