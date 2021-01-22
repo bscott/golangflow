@@ -20,24 +20,25 @@ require (
 	github.com/gobuffalo/mw-paramlogger v0.0.0-20190224201358-0d45762ab655
 	github.com/gobuffalo/nulls v0.2.0
 	github.com/gobuffalo/packr/v2 v2.8.0
-	github.com/gobuffalo/plush/v4 v4.0.0
 	github.com/gobuffalo/pop/v5 v5.3.1
 	github.com/gobuffalo/suite/v3 v3.0.0
 	github.com/gobuffalo/tags v2.1.7+incompatible
 	github.com/gobuffalo/uuid v2.0.5+incompatible
 	github.com/gobuffalo/validate/v3 v3.3.0
 	github.com/gofrs/uuid v3.2.0+incompatible
-	github.com/golang/protobuf v1.3.2 // indirect
+	github.com/google/go-cmp v0.5.4 // indirect
 	github.com/gorilla/feeds v1.0.0
 	github.com/heroku/x v0.0.0-20180313230747-10acf83061b8
-	github.com/markbates/goth v1.45.4
+	github.com/markbates/goth v1.66.1
 	github.com/markbates/grift v1.5.0
 	github.com/moul/http2curl v1.0.0 // indirect
 	github.com/newrelic/go-agent v1.11.0
 	github.com/parnurzeal/gorequest v0.2.15 // indirect
 	github.com/pkg/errors v0.9.1
+	github.com/rogpeppe/go-internal v1.6.2 // indirect
 	github.com/unrolled/secure v1.0.1
 	github.com/writeas/go-strip-markdown v0.0.0-20180226051418-6e12ec30f699
-	golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45 // indirect
-	golang.org/x/tools/gopls v0.6.4 // indirect
+	golang.org/x/net v0.0.0-20201021035429-f5854403a974 // indirect
+	golang.org/x/sync v0.0.0-20201020160332-67f06af15bc9 // indirect
+	golang.org/x/sys v0.0.0-20210119212857-b64e53b001e4 // indirect
 )
