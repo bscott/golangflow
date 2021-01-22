@@ -13,3 +13,4 @@ golangflow
 .setenv
 .vscode
 debug
+.env
