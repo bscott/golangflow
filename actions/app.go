@@ -93,6 +93,7 @@ func App() *buffalo.App {
 
 		app.GET("/", HomeHandler)
 		app.GET("/rss", RSSFeed)
+		app.GET("/robots.txt", RobotsHandler)
 		app.GET("/json", JSONFeed)
 		app.GET("/privacy", Privacy)
 		app.Middleware.Skip(Authorize, HomeHandler, RSSFeed, JSONFeed, Privacy)
