@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	port := envy.Get("PORT", "3000")
+	port := envy.Get("PORT", "8080")
 	log.Printf("Starting golangflow on port %s\n", port)
 	app := actions.App()
 	log.Fatal(app.Serve())

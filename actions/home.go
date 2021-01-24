@@ -8,7 +8,7 @@ import (
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/render"
-	"github.com/gobuffalo/pop"
+	"github.com/gobuffalo/pop/v5"
 	"github.com/gorilla/feeds"
 	"github.com/pkg/errors"
 	stripmd "github.com/writeas/go-strip-markdown"

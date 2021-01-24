@@ -1,6 +1,7 @@
   
 @import "~bootstrap/scss/bootstrap.scss";
-@import "~font-awesome/css/font-awesome.css";
+// $fa-font-path: "~font-awesome/fonts";
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

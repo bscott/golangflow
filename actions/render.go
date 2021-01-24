@@ -6,8 +6,9 @@ import (
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/packr/v2"
-	"github.com/gobuffalo/plush"
-	"github.com/gobuffalo/pop"
+	//"github.com/gobuffalo/plush/v4"
+	"github.com/gobuffalo/helpers/hctx"
+	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/tags"
 	uuid "github.com/gobuffalo/uuid"
 	"github.com/pkg/errors"
@@ -23,12 +24,13 @@ func init() {
 		HTMLLayout: "application.html",
 
 		// Box containing all of the templates:
-		TemplatesBox: packr.NewBox("../templates"),
+		TemplatesBox: packr.New("../templates", "../templates"),
 		AssetsBox:    assetsBox,
 
 		// Add template helpers here:
+		// https://github.com/gobuffalo/plush/issues/111
 		Helpers: render.Helpers{
-			"getAvatar": func(id uuid.UUID, help plush.HelperContext) (string, error) {
+			"getAvatar": func(id uuid.UUID, help hctx.HelperContext) (string, error) {
 				tx := help.Value("tx").(*pop.Connection)
 				u := models.User{}
 				erru := tx.Find(&u, id)
@@ -37,7 +39,7 @@ func init() {
 				}
 				return u.GravatarID.String, nil
 			},
-			"ownsPost": func(post *models.Post, help plush.HelperContext) (template.HTML, error) {
+			"ownsPost": func(post *models.Post, help hctx.HelperContext) (template.HTML, error) {
 				if cu := help.Value("current_user_id"); cu != nil {
 					if post.UserID == cu.(uuid.UUID) && help.HasBlock() {
 						s, err := help.Block()
@@ -58,7 +60,7 @@ func init() {
 	})
 }
 
-func byLineHelper(id uuid.UUID, help plush.HelperContext) (template.HTML, error) {
+func byLineHelper(id uuid.UUID, help hctx.HelperContext) (template.HTML, error) {
 	tx := help.Value("tx").(*pop.Connection)
 	u := models.User{}
 	err := tx.Find(&u, id)

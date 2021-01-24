@@ -1,6 +1,7 @@
 require("expose-loader?$!expose-loader?jQuery!jquery");
 import "bootstrap/dist/js/bootstrap.bundle"
-var marked = require("marked");
+
+
 
 marked.setOptions({
   renderer: new marked.Renderer(),

@@ -3,6 +3,7 @@ vendor/
 **/*.sqlite
 .idea/
 bin/
+*.dump
 tmp/
 node_modules/
 .sass-cache/
@@ -12,3 +13,4 @@ golangflow
 .setenv
 .vscode
 debug
+.env

@@ -1,9 +1,8 @@
 package models_test
 
 import (
+	"github.com/gobuffalo/suite/v3"
 	"testing"
-
-	"github.com/gobuffalo/suite"
 )
 
 type ModelSuite struct {

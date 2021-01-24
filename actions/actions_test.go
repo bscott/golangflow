@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/bscott/golangflow/actions"
-	"github.com/gobuffalo/suite"
+	"github.com/gobuffalo/suite/v3"
 )
 
 type ActionSuite struct {

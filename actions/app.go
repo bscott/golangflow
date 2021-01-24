@@ -5,7 +5,7 @@ import (
 
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo"
-	"github.com/gobuffalo/buffalo-pop/pop/popmw"
+	"github.com/gobuffalo/buffalo-pop/v2/pop/popmw"
 	basicauth "github.com/gobuffalo/mw-basicauth"
 	forcessl "github.com/gobuffalo/mw-forcessl"
 	i18n "github.com/gobuffalo/mw-i18n"
@@ -85,7 +85,7 @@ func App() *buffalo.App {
 		app.Use(forceSSL())
 		// Setup and use translations:
 		var err error
-		if T, err = i18n.New(packr.NewBox("../locales"), "en"); err != nil {
+		if T, err = i18n.New(packr.New("../locales", "../locales"), "en"); err != nil {
 			app.Stop(err)
 		}
 		app.Use(T.Middleware())
