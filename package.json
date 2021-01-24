@@ -17,7 +17,7 @@
     "marked": "1.2.7"
   },
   "devDependencies": {
-    "yargs-parser": ">=5.0.0-security.0",
+    "yargs-parser": ">=13.1.2",
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
