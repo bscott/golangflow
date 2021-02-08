@@ -14,7 +14,7 @@
     "@fortawesome/fontawesome-free": "^5.15.2",
     "jquery": "3.5.1",
     "jquery-ujs": "~1.2.2",
-    "marked": "1.2.7"
+    "marked": "2.0.0"
   },
   "devDependencies": {
     "yargs-parser": ">=13.1.2",
