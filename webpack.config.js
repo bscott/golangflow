@@ -70,6 +70,20 @@ const configurator = {
     return {
       rules: [
         {
+          test: require.resolve('jquery'),
+          use: [
+            {
+              loader: 'expose-loader',
+              options: {
+                exposes: {
+                  globalName: 'jQuery',
+                  moduleLocalName: 'jquery',
+                },
+              },
+            },
+          ],
+        },
+        {
           test: /\.s[ac]ss$/,
           use: [
             MiniCssExtractPlugin.loader,

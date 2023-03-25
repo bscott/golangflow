@@ -70,12 +70,12 @@ func byLineHelper(id uuid.UUID, help hctx.HelperContext) (template.HTML, error) 
 	}
 	if !u.Nickname.Valid {
 		return tags.New("span", tags.Options{
-			"class": "fab fa-github",
+			"class": "",
 			"body":  "&nbsp;" + u.Name,
 		}).HTML(), nil
 	}
 	return tags.New("a", tags.Options{
-		"class":  "fab fa-github",
+		"class":  "",
 		"href":   "https://github.com/" + u.Nickname.String,
 		"target": "_blank",
 		"body":   "&nbsp;" + u.Name,

@@ -1,97 +1,133 @@
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Go Flow</title>
+    <%= stylesheetTag("application.css") %>
+    <meta name="csrf-param" content="authenticity_token" />
+    <meta name="csrf-token" content="<%= authenticity_token %>" />
+    <link rel="icon" href="<%= assetPath("images/favicon.ico") %>">
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Go Flow</title>
-  <%= stylesheetTag("application.css") %>
-  
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
-</head>
+  <body>
+    <!-- container for the nav bar -->
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">GolangFlow</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-<body>
-  <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">GolangFlow</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/posts/new">Submit!</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Account
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= if (current_user) { %>
-          <a href="/posts" class="dropdown-item"> My Posts</a>
-          <a href="/auth" data-method="DELETE" class="dropdown-item"> Logout</a>
-          <% } else { %>
-          <a href="/auth/github" class="dropdown-item"> Login</a>
-            <% } %>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/posts/new">Submit!</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Account
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <%= if (current_user) { %>
+                <a href="/posts" class="dropdown-item"> My Posts</a>
+                <a href="/auth" data-method="DELETE" class="dropdown-item">
+                  Logout</a
+                >
+                <% } else { %>
+                <a href="/auth/github" class="dropdown-item"> Login</a>
+                <% } %>
+              </div>
+            </li>
+            <a class="nav-link" href="https://twitter.com/golangflow">
+              Twitter</a
+            >
+            <a class="nav-link" href="https://github.com/bscott/golangflow">
+              Github</a
+            >
+            <a class="nav-link" href="https://golangflow.io/rss"> RSS</a>
+            <a href="https://www.patreon.com/golangflow" class="nav-link">
+              Support us on Patreon</a
+            >
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+              Search
+            </button>
+          </form>
         </div>
-      </li>
-        <a class="nav-link fab fa-twitter-square" href="https://twitter.com/golangflow"> Twitter</a>
-        <a class="nav-link fab fa-github" href="https://github.com/bscott/golangflow"> Github</a>
-        <a class="nav-link fab fa-rss" href="https://golangflow.io/rss"> RSS</a>
-        <a href="https://www.patreon.com/golangflow" class="nav-link fab fa-google-play"> Support us on Patreon</a>
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
-    <br />
-    <%= partial("flash.html") %>
-      <center>
-        <div class="container">
-          <div class="section">
-            <h3>Go Community Linklog</h3>
-            <p>Made a library? Written a blog post? Found a useful tutorial? Share it with the Go community here or just enjoy what everyone else has found!</p>
-          </div>
-        </div>
-      </center>
-      <br />
- <div class="container">
-      <%= yield %>
-       </div>
-      <center>
-        <footer>
-          <div class="container" </div>
-            <p>2021 - Created by <a href="https://www.twitter.com/brainscott">Brian Scott</a>, Inspired by <a href="http://www.rubyflow.com/">RubyFlow</a> | Powered by <a href="http://gobuffalo.io/">Buffalo </a> | Hosted on <a href="https://cloud.google.com/run">Cloud Run</a></p>
-            <p><a href="/privacy">Terms & Privacy Policy</a> | <a href="mailto:bscott@hey.com">Email</a>
-          </div>
-        </footer>
-      </center>
+      </nav>
     </div>
-  <br />
+    <!-- ... -->
+    <br class="br" />
+    <%= partial("flash.html") %>
+    <center class="center">
+      <!-- ... -->
 
-  <%= javascriptTag("application.js") %>
+      <div class="container">
+        <div class="section">
+          <h3>Go Community Linklog</h3>
+          <p>
+            Made a library? Written a blog post? Found a useful tutorial? Share
+            it with the Go community here or just enjoy what everyone else has
+            found!
+          </p>
+        </div>
+      </div>
+    </center>
+    <br />
+    <div class="container"><%= yield %></div>
+    <br />
+    <center>
+      <footer>
+        <div class="container">
+          <p>
+            2023 - Created by
+            <a href="https://www.twitter.com/brainscott">Brian Scott</a>,
+            Inspired by <a href="http://www.rubyflow.com/">RubyFlow</a> |
+            Powered by <a href="http://gobuffalo.io/">Buffalo</a> | Hosted on
+            <a href="https://cloud.google.com/run">Cloud Run</a>
+          </p>
+          <p>
+            <a href="/privacy">Terms & Privacy Policy</a> |
+            <a href="mailto:bscott@hey.com">Email</a>
+          </p>
+        </div>
+      </footer>
+    </center>
+    <br />
 
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script type="text/javascript">
-    var _gauges = _gauges || [];
-    (function() {
-      var t   = document.createElement('script');
-      t.type  = 'text/javascript';
-      t.async = true;
-      t.id    = 'gauges-tracker';
-      t.setAttribute('data-site-id', '58f46b9ebb922a6e9002c714');
-      t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
-      t.src = 'https://d2fuc4clr7gvcn.cloudfront.net/track.js';
-      var s = document.getElementsByTagName('script')[0];
-      s.parentNode.insertBefore(t, s);
-    })();
-  </script>
-</body>
-
+    <%= javascriptTag("application.js") %>
+  </body>
 </html>
