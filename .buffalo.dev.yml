@@ -1,4 +1,12 @@
 app_root: .
+binary_name: golangflow-build
+build_delay: 200ns
+build_flags: []
+build_path: tmp
+build_target_path: ./cmd/app
+command_env: []
+command_flags: []
+enable_colors: true
 ignored_folders:
 - vendor
 - log
@@ -13,9 +21,4 @@ ignored_folders:
 - .sass-cache
 included_extensions:
 - .go
-build_path: tmp
-build_delay: 200ns
-binary_name: golangflow-build
-command_flags: []
-enable_colors: true
 log_name: buffalo

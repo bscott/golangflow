@@ -6,7 +6,7 @@ import (
 	"text/tabwriter"
 
 	"github.com/bscott/golangflow/actions"
-	. "github.com/markbates/grift/grift"
+	. "github.com/gobuffalo/grift/grift"
 )
 
 var _ = Add("routes", func(c *Context) error {

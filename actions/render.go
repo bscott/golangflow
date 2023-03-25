@@ -4,28 +4,29 @@ import (
 	"html/template"
 
 	"github.com/bscott/golangflow/models"
+	"github.com/bscott/golangflow/public"
+	"github.com/bscott/golangflow/templates"
 	"github.com/gobuffalo/buffalo/render"
-	"github.com/gobuffalo/packr/v2"
+	"github.com/gobuffalo/pop/v6"
+	uuid "github.com/gofrs/uuid"
+
 	//"github.com/gobuffalo/plush/v4"
 	"github.com/gobuffalo/helpers/hctx"
-	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/tags"
-	uuid "github.com/gobuffalo/uuid"
 	"github.com/pkg/errors"
 )
 
 var r *render.Engine
-var assetsBox = packr.NewBox("../public/assets")
 
 func init() {
 
 	r = render.New(render.Options{
 		// HTML layout to be used for all HTML requests:
-		HTMLLayout: "application.html",
+		HTMLLayout: "application.plush.html",
 
 		// Box containing all of the templates:
-		TemplatesBox: packr.New("../templates", "../templates"),
-		AssetsBox:    assetsBox,
+		TemplatesFS: templates.FS(),
+		AssetsFS:    public.FS(),
 
 		// Add template helpers here:
 		// https://github.com/gobuffalo/plush/issues/111

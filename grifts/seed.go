@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/bscott/golangflow/models"
+	"github.com/gobuffalo/grift/grift"
 	"github.com/gobuffalo/nulls"
-	"github.com/markbates/grift/grift"
 	"github.com/pkg/errors"
 )
 

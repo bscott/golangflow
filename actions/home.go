@@ -8,7 +8,7 @@ import (
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/render"
-	"github.com/gobuffalo/pop/v5"
+	"github.com/gobuffalo/pop/v6"
 	"github.com/gorilla/feeds"
 	"github.com/pkg/errors"
 	stripmd "github.com/writeas/go-strip-markdown"
@@ -33,7 +33,7 @@ func HomeHandler(c buffalo.Context) error {
 	// Make posts available inside the html template
 	c.Set("posts", posts)
 	c.Set("pagination", q.Paginator)
-	return c.Render(200, r.HTML("index.html"))
+	return c.Render(200, r.HTML("index.plush.html"))
 }
 
 // RSSFeed renders RSS feed
@@ -80,7 +80,7 @@ func RSSFeed(c buffalo.Context) error {
 	}))
 }
 
-//JSONFeed API
+// JSONFeed API
 func JSONFeed(c buffalo.Context) error {
 	tx := c.Value("tx").(*pop.Connection)
 	posts := models.Posts{}
@@ -92,7 +92,7 @@ func JSONFeed(c buffalo.Context) error {
 	return c.Render(200, r.JSON(posts))
 }
 
-//Privacy
+// Privacy
 func Privacy(c buffalo.Context) error {
 	return c.Render(200, r.HTML("privacy.html"))
 }
