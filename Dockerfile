@@ -10,8 +10,8 @@ ENV GOPROXY="https://proxy.golang.org"
 ENV GO111MODULE="on"
 ENV CGO_ENABLED=1
 
-# Install Buffalo CLI for v1.1.3
-RUN go install github.com/gobuffalo/cli/cmd/buffalo@v1.1.3
+# Install Buffalo CLI (latest compatible with Buffalo v1.1.3)
+RUN go install github.com/gobuffalo/cli/cmd/buffalo@v0.18.14
 
 # Create and set working directory
 RUN mkdir -p /app
