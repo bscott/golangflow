@@ -3,18 +3,14 @@
 FROM golang:1.23-alpine as builder
 
 # Install build dependencies
-RUN apk add --no-cache git nodejs npm build-base
+RUN apk add --no-cache git nodejs npm build-base python3
 
 # Set up Go environment
 ENV GOPROXY="https://proxy.golang.org"
 ENV GO111MODULE="on"
 ENV CGO_ENABLED=1
 
-# Install Buffalo CLI (latest compatible with Buffalo v1.1.3)
-RUN go install github.com/gobuffalo/cli/cmd/buffalo@v0.18.14
-
 # Create and set working directory
-RUN mkdir -p /app
 WORKDIR /app
 
 # Copy package.json and install Node dependencies first (for caching)
@@ -28,8 +24,12 @@ RUN go mod download
 # Copy the entire application
 COPY . .
 
-# Build the Buffalo application
-RUN buffalo build --static -o /bin/app -v --skip-template-validation
+# Build webpack assets (NODE_OPTIONS for webpack 4 compatibility with Node.js 22)
+ENV NODE_OPTIONS=--openssl-legacy-provider
+RUN npm run build
+
+# Build the Go application with static linking
+RUN go build -o /bin/app -v -ldflags='-linkmode external -extldflags "-static"' .
 
 # Final stage - minimal alpine image
 FROM alpine:latest
