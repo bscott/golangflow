@@ -7,7 +7,6 @@ bin/
 tmp/
 node_modules/
 .sass-cache/
-*-packr.go
 public/assets/
 golangflow
 .setenv

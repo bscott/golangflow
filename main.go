@@ -8,6 +8,10 @@ import (
 )
 
 func main() {
+	// Set embedded filesystems before initializing the app
+	actions.SetEmbedFS(TemplatesFS, AssetsFS)
+	actions.SetLocalesFS(LocalesFS)
+
 	port := envy.Get("PORT", "8080")
 	log.Printf("Starting golangflow on port %s\n", port)
 	app := actions.App()

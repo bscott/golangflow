@@ -1,32 +1,54 @@
 # This is a multi-stage Dockerfile and requires >= Docker 17.05
 # https://docs.docker.com/engine/userguide/eng-image/multistage-build/
-FROM gobuffalo/buffalo:latest as builder
+FROM golang:1.23-alpine as builder
 
-RUN mkdir -p $GOPATH/src/github.com/bscott/golangflow
-WORKDIR $GOPATH/src/github.com/bscott/golangflow
+# Install build dependencies
+RUN apk add --no-cache git nodejs npm build-base
+
+# Set up Go environment
 ENV GOPROXY="https://proxy.golang.org"
 ENV GO111MODULE="on"
-# this will cache the npm install step, unless package.json changes
-ADD package.json .
+ENV CGO_ENABLED=1
+
+# Install Buffalo CLI for v1.1.3
+RUN go install github.com/gobuffalo/cli/cmd/buffalo@v1.1.3
+
+# Create and set working directory
+RUN mkdir -p /app
+WORKDIR /app
+
+# Copy package.json and install Node dependencies first (for caching)
+COPY package.json .
 RUN npm install
-ADD . .
+
+# Copy go mod files and download dependencies (for caching)
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy the entire application
+COPY . .
+
+# Build the Buffalo application
 RUN buffalo build --static -o /bin/app -v --skip-template-validation
-ENV ADDR=0.0.0.0
+
+# Final stage - minimal alpine image
+FROM alpine:latest
+
+# Install runtime dependencies
+RUN apk add --no-cache bash ca-certificates tzdata
+
+# Set production environment variables
 ENV GO_ENV=production
-
-FROM alpine
-RUN apk add --no-cache bash
-RUN apk add --no-cache ca-certificates
-
-# Comment out to run the binary in "production" mode:
-# ENV GO_ENV=production
+ENV ADDR=0.0.0.0
+ENV PORT=8080
 
 WORKDIR /bin/
 
+# Copy the built binary from builder stage
 COPY --from=builder /bin/app .
 
-#EXPOSE 3000
+# Cloud Run expects the container to listen on $PORT
+EXPOSE 8080
 
-# Comment out to run the migrations before running the binary:
-# CMD /bin/app migrate; /bin/app
+# Run the binary
 CMD exec /bin/app
