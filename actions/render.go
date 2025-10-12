@@ -1,21 +1,27 @@
 package actions
 
 import (
+	"embed"
 	"html/template"
 
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo/render"
-	"github.com/gobuffalo/packr/v2"
-	//"github.com/gobuffalo/plush/v4"
 	"github.com/gobuffalo/helpers/hctx"
 	"github.com/gobuffalo/pop/v5"
 	"github.com/gobuffalo/tags"
-	uuid "github.com/gobuffalo/uuid"
+	"github.com/gofrs/uuid"
 	"github.com/pkg/errors"
 )
 
 var r *render.Engine
-var assetsBox = packr.NewBox("../public/assets")
+var templatesFS embed.FS
+var assetsFS embed.FS
+
+// SetEmbedFS sets the embedded filesystems for templates and assets
+func SetEmbedFS(templates, assets embed.FS) {
+	templatesFS = templates
+	assetsFS = assets
+}
 
 func init() {
 
@@ -23,9 +29,9 @@ func init() {
 		// HTML layout to be used for all HTML requests:
 		HTMLLayout: "application.html",
 
-		// Box containing all of the templates:
-		TemplatesBox: packr.New("../templates", "../templates"),
-		AssetsBox:    assetsBox,
+		// Embedded filesystems for templates and assets:
+		TemplatesFS: templatesFS,
+		AssetsFS:    assetsFS,
 
 		// Add template helpers here:
 		// https://github.com/gobuffalo/plush/issues/111

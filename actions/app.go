@@ -1,6 +1,8 @@
 package actions
 
 import (
+	"embed"
+	"net/http"
 	"os"
 
 	"github.com/bscott/golangflow/models"
@@ -8,9 +10,8 @@ import (
 	"github.com/gobuffalo/buffalo-pop/v2/pop/popmw"
 	basicauth "github.com/gobuffalo/mw-basicauth"
 	forcessl "github.com/gobuffalo/mw-forcessl"
-	i18n "github.com/gobuffalo/mw-i18n"
+	i18n "github.com/gobuffalo/mw-i18n/v2"
 	paramlogger "github.com/gobuffalo/mw-paramlogger"
-	"github.com/gobuffalo/packr/v2"
 	"github.com/unrolled/secure"
 
 	"github.com/gobuffalo/envy"
@@ -18,7 +19,7 @@ import (
 	// Used for Heroku metrics
 	_ "github.com/heroku/x/hmetrics/onload"
 	"github.com/markbates/goth/gothic"
-	newrelic "github.com/newrelic/go-agent"
+	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
 // ENV is used to help switch settings based on where the
@@ -28,6 +29,13 @@ var app *buffalo.App
 
 // T i18n Translator
 var T *i18n.Translator
+
+var localesFS embed.FS
+
+// SetLocalesFS sets the embedded filesystem for locales
+func SetLocalesFS(locales embed.FS) {
+	localesFS = locales
+}
 
 // App is where all routes and middleware for buffalo
 // should be defined. This is the nerve center of your
@@ -50,18 +58,22 @@ func App() *buffalo.App {
 				panic("SESSION_SECRET is not set")
 			}
 
-			config := newrelic.NewConfig("golangflow", os.Getenv("NEW_RELIC_LICENSE_KEY"))
-			config.Enabled = ENV == "production"
-			na, _ := newrelic.NewApplication(config)
+			na, _ := newrelic.NewApplication(
+				newrelic.ConfigAppName("golangflow"),
+				newrelic.ConfigLicense(os.Getenv("NEW_RELIC_LICENSE_KEY")),
+				newrelic.ConfigEnabled(ENV == "production"),
+			)
 
 			app.Use(func(next buffalo.Handler) buffalo.Handler {
 				return func(c buffalo.Context) error {
 					req := c.Request()
-					txn := na.StartTransaction(req.URL.String(), c.Response(), req)
+					txn := na.StartTransaction(req.URL.String())
+					defer txn.End()
+
 					ri := c.Value("current_route").(buffalo.RouteInfo)
 					txn.AddAttribute("PathName", ri.PathName)
 					txn.AddAttribute("RequestID", c.Value("request_id"))
-					defer txn.End()
+
 					err := next(c)
 					if err != nil {
 						txn.NoticeError(err)
@@ -85,7 +97,7 @@ func App() *buffalo.App {
 		app.Use(forceSSL())
 		// Setup and use translations:
 		var err error
-		if T, err = i18n.New(packr.New("../locales", "../locales"), "en"); err != nil {
+		if T, err = i18n.New(localesFS, "en"); err != nil {
 			app.Stop(err)
 		}
 		app.Use(T.Middleware())
@@ -97,7 +109,7 @@ func App() *buffalo.App {
 		app.GET("/privacy", Privacy)
 		app.Middleware.Skip(Authorize, HomeHandler, RSSFeed, JSONFeed, Privacy)
 
-		app.ServeFiles("/assets", assetsBox)
+		app.ServeFiles("/assets", http.FS(assetsFS))
 
 		// Auth Group
 		auth := app.Group("/auth")
