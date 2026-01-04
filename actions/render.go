@@ -3,7 +3,6 @@ package actions
 import (
 	"embed"
 	"html/template"
-	"io/fs"
 
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo"
