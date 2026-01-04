@@ -18,7 +18,11 @@ import (
 // a home page.
 func HomeHandler(c buffalo.Context) error {
 	// Get the DB connection from the context
-	tx := c.Value("tx").(*pop.Connection)
+	txValue := c.Value("tx")
+	if txValue == nil {
+		return errors.New("database transaction not available")
+	}
+	tx := txValue.(*pop.Connection)
 	posts := &models.Posts{}
 
 	q := tx.PaginateFromParams(c.Request().URL.Query())
@@ -38,7 +42,11 @@ func HomeHandler(c buffalo.Context) error {
 
 // RSSFeed renders RSS feed
 func RSSFeed(c buffalo.Context) error {
-	tx := c.Value("tx").(*pop.Connection)
+	txValue := c.Value("tx")
+	if txValue == nil {
+		return errors.New("database transaction not available")
+	}
+	tx := txValue.(*pop.Connection)
 	posts := models.Posts{}
 	err := tx.Order("created_at desc").All(&posts)
 	if err != nil {
@@ -82,7 +90,11 @@ func RSSFeed(c buffalo.Context) error {
 
 //JSONFeed API
 func JSONFeed(c buffalo.Context) error {
-	tx := c.Value("tx").(*pop.Connection)
+	txValue := c.Value("tx")
+	if txValue == nil {
+		return errors.New("database transaction not available")
+	}
+	tx := txValue.(*pop.Connection)
 	posts := models.Posts{}
 	err := tx.Order("created_at desc").All(&posts)
 	if err != nil {
