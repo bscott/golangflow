@@ -17,32 +17,7 @@ import (
 // HomeHandler is a default handler to serve up
 // a home page.
 func HomeHandler(c buffalo.Context) error {
-	// Get the DB connection from the context
-	txValue := c.Value("tx")
-	if txValue == nil {
-		return c.Render(200, r.String("Database connection not available"))
-	}
-	tx := txValue.(*pop.Connection)
-	posts := &models.Posts{}
-
-	q := tx.PaginateFromParams(c.Request().URL.Query())
-	err := q.Order("created_at desc").All(posts)
-	if err != nil {
-		return c.Render(200, r.String("Database error: " + err.Error()))
-	}
-
-	// Simple HTML response without template helpers
-	html := "<h1>GolangFlow</h1><ul>"
-	for _, post := range *posts {
-		content := post.Content
-		if len(content) > 100 {
-			content = content[:100] + "..."
-		}
-		html += fmt.Sprintf("<li><strong>%s</strong><br>%s</li>", post.Title, content)
-	}
-	html += "</ul>"
-	
-	return c.Render(200, r.String(html))
+	return c.Render(200, r.String("<h1>GolangFlow - Maintenance Mode</h1><p>Site is temporarily under maintenance. Please check back soon.</p><p><a href='/rss'>RSS Feed</a> | <a href='/privacy'>Privacy</a></p>"))
 }
 
 // RSSFeed renders RSS feed
