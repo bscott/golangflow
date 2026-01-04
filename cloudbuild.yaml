@@ -1,0 +1,31 @@
+steps:
+  # Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Build'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-docker.pkg.dev/$PROJECT_ID/golangflow/golangflow-production:$COMMIT_SHA'
+      - '-t'
+      - 'us-docker.pkg.dev/$PROJECT_ID/golangflow/golangflow-production:latest'
+      - '.'
+
+  # Push the Docker image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'Push'
+    args:
+      - 'push'
+      - '--all-tags'
+      - 'us-docker.pkg.dev/$PROJECT_ID/golangflow/golangflow-production'
+
+# Images to push to Artifact Registry
+images:
+  - 'us-docker.pkg.dev/$PROJECT_ID/golangflow/golangflow-production:$COMMIT_SHA'
+  - 'us-docker.pkg.dev/$PROJECT_ID/golangflow/golangflow-production:latest'
+
+# Build timeout (default is 10 minutes, increase if needed)
+timeout: 1200s
+
+# Machine type (optional - use if builds are slow)
+options:
+  machineType: 'N1_HIGHCPU_8'
