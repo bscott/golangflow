@@ -20,24 +20,25 @@ func HomeHandler(c buffalo.Context) error {
 	// Get the DB connection from the context
 	txValue := c.Value("tx")
 	if txValue == nil {
-		return errors.New("database transaction not available")
+		return c.Render(200, r.String("Database connection not available"))
 	}
 	tx := txValue.(*pop.Connection)
 	posts := &models.Posts{}
 
 	q := tx.PaginateFromParams(c.Request().URL.Query())
-	// You can order your list here. Just change
 	err := q.Order("created_at desc").All(posts)
-	// to:
-	// err := tx.Order("create_at desc").All(posts)
 	if err != nil {
-		return errors.WithStack(err)
+		return c.Render(200, r.String("Database error: " + err.Error()))
 	}
 
-	// Make posts available inside the html template
-	c.Set("posts", posts)
-	c.Set("pagination", q.Paginator)
-	return c.Render(200, r.HTML("templates/index.html"))
+	// Simple HTML response without template helpers
+	html := "<h1>GolangFlow</h1><ul>"
+	for _, post := range *posts {
+		html += fmt.Sprintf("<li><strong>%s</strong><br>%s</li>", post.Title, post.Content[:100]+"...")
+	}
+	html += "</ul>"
+	
+	return c.Render(200, r.String(html))
 }
 
 // RSSFeed renders RSS feed
