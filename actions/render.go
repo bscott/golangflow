@@ -36,29 +36,6 @@ func initRender() {
 		// Add template helpers here:
 		// https://github.com/gobuffalo/plush/issues/111
 		Helpers: render.Helpers{
-			"getAvatar": func(id uuid.UUID, help hctx.HelperContext) (string, error) {
-				txValue := help.Value("tx")
-				if txValue == nil {
-					return "http://via.placeholder.com/140x100", nil
-				}
-				tx := txValue.(*pop.Connection)
-				u := models.User{}
-				erru := tx.Find(&u, id)
-				if erru != nil {
-					return "http://via.placeholder.com/140x100", nil
-				}
-				return u.GravatarID.String, nil
-			},
-			"ownsPost": func(post *models.Post, help hctx.HelperContext) (template.HTML, error) {
-				if cu := help.Value("current_user_id"); cu != nil {
-					if post.UserID == cu.(uuid.UUID) && help.HasBlock() {
-						s, err := help.Block()
-						return template.HTML(s), err
-					}
-				}
-				return "", nil
-			},
-			"byLine": byLineHelper,
 			"paginator": func(pagination *pop.Paginator, opts map[string]interface{}) (template.HTML, error) {
 				t, err := tags.Pagination(pagination, opts)
 				if err != nil {
@@ -70,27 +47,4 @@ func initRender() {
 	})
 }
 
-func byLineHelper(id uuid.UUID, help hctx.HelperContext) (template.HTML, error) {
-	txValue := help.Value("tx")
-	if txValue == nil {
-		return "", nil
-	}
-	tx := txValue.(*pop.Connection)
-	u := models.User{}
-	err := tx.Find(&u, id)
-	if err != nil {
-		return "", err
-	}
-	if !u.Nickname.Valid {
-		return tags.New("span", tags.Options{
-			"class": "fab fa-github",
-			"body":  "&nbsp;" + u.Name,
-		}).HTML(), nil
-	}
-	return tags.New("a", tags.Options{
-		"class":  "fab fa-github",
-		"href":   "https://github.com/" + u.Nickname.String,
-		"target": "_blank",
-		"body":   "&nbsp;" + u.Name,
-	}).HTML(), nil
-}
+

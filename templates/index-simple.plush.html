@@ -1,0 +1,24 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="mb-4">GolangFlow - Go Community Linklog</h1>
+            
+            <%= for (post) in posts { %>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><%= post.Title %></h5>
+                    <p class="card-text"><%= post.Content %></p>
+                    <small class="text-muted">
+                        Posted: <%= post.CreatedAt.Format("Jan 2, 2006") %>
+                        | ID: <%= post.UserID %>
+                    </small>
+                </div>
+            </div>
+            <% } %>
+            
+            <div class="text-center mt-4">
+                <%= paginator(pagination) %>
+            </div>
+        </div>
+    </div>
+</div>
