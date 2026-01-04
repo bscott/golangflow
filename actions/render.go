@@ -3,6 +3,7 @@ package actions
 import (
 	"embed"
 	"html/template"
+	"io/fs"
 
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo"
@@ -26,9 +27,21 @@ func SetEmbedFS(templates, assets embed.FS) {
 }
 
 func initRender() {
-	// Wrap with Buffalo's FS which will handle the templates/ prefix
-	// Buffalo.NewFS expects the embed.FS and the directory path within it
-	wrappedTemplatesFS := buffalo.NewFS(templatesFS, "templates")
+	// Create a sub-filesystem rooted at templates/
+	templatesSubFS, err := fs.Sub(templatesFS, "templates")
+	if err != nil {
+		panic(err)
+	}
+
+	// Cast to fs.ReadDirFS for buffalo.NewFS
+	templatesReadDirFS, ok := templatesSubFS.(fs.ReadDirFS)
+	if !ok {
+		panic("templatesSubFS does not implement fs.ReadDirFS")
+	}
+
+	// Use Buffalo's FS wrapper with the sub-filesystem
+	// The second parameter is the disk path for development (won't exist in production)
+	wrappedTemplatesFS := buffalo.NewFS(templatesReadDirFS, "templates")
 
 	r = render.New(render.Options{
 		// HTML layout to be used for all HTML requests:
