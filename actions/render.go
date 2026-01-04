@@ -27,14 +27,9 @@ func SetEmbedFS(templates, assets embed.FS) {
 }
 
 func initRender() {
-	// Use fs.Sub to create a filesystem rooted at templates/
-	templatesSubFS, err := fs.Sub(templatesFS, "templates")
-	if err != nil {
-		panic(err)
-	}
-
-	// Wrap with Buffalo's FS for proper handling
-	wrappedTemplatesFS := buffalo.NewFS(templatesSubFS, "templates")
+	// Wrap with Buffalo's FS which will handle the templates/ prefix
+	// Buffalo.NewFS expects the embed.FS and the directory path within it
+	wrappedTemplatesFS := buffalo.NewFS(templatesFS, "templates")
 
 	r = render.New(render.Options{
 		// HTML layout to be used for all HTML requests:
