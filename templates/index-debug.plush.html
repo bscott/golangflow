@@ -1,0 +1,24 @@
+<%= for (post) in posts { %>
+<div class="post-Content">
+  <div class="row">
+    <div class="media">
+  <img src="http://via.placeholder.com/140x100" class="mr-3" class="align-self-start mr-3">
+  <div class="media-body">
+    <h2 class="mt-0"><%= post.Title %></h2>
+    <div id="content-preview">
+          <p>Content preview disabled for debugging</p>
+    </div>
+    <h6 class="mt-1">Author: <%= post.UserID %></h6>
+  </div>
+</div>
+    </div>
+<br />
+  </div>
+<% } %>
+<div class="row">
+  <div class="col-md-12">
+    <div style="text-align: center">
+      <%= paginator(pagination) %>
+    </div>
+  </div>
+</div>
