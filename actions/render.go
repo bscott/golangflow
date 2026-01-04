@@ -32,6 +32,16 @@ func initRender() {
 		panic(err)
 	}
 
+	// Debug: List files in the sub-filesystem
+	println("=== Debug: Listing files in templatesSubFS ===")
+	fs.WalkDir(templatesSubFS, ".", func(path string, d fs.DirEntry, err error) error {
+		if err == nil && !d.IsDir() {
+			println("  Found file:", path)
+		}
+		return nil
+	})
+	println("=== End file listing ===")
+
 	r = render.New(render.Options{
 		// HTML layout to be used for all HTML requests:
 		HTMLLayout: "application.html",
