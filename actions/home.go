@@ -58,9 +58,11 @@ func HomeHandler(c buffalo.Context) error {
     </div>
 </body>
 </html>`
-	c.Response().Header().Set("Content-Type", "text/html; charset=utf-8")
-	c.Response().WriteHeader(200)
-	c.Response().Write([]byte(html))
+	
+	w := c.Response()
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.WriteHeader(200)
+	w.Write([]byte(html))
 	return nil
 }
 
