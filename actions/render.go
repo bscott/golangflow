@@ -6,6 +6,7 @@ import (
 	"io/fs"
 
 	"github.com/bscott/golangflow/models"
+	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/render"
 	"github.com/gobuffalo/helpers/hctx"
 	"github.com/gobuffalo/pop/v5"
@@ -32,22 +33,15 @@ func initRender() {
 		panic(err)
 	}
 
-	// Debug: List files in the sub-filesystem
-	println("=== Debug: Listing files in templatesSubFS ===")
-	fs.WalkDir(templatesSubFS, ".", func(path string, d fs.DirEntry, err error) error {
-		if err == nil && !d.IsDir() {
-			println("  Found file:", path)
-		}
-		return nil
-	})
-	println("=== End file listing ===")
+	// Wrap with Buffalo's FS for proper handling
+	wrappedTemplatesFS := buffalo.NewFS(templatesSubFS, "templates")
 
 	r = render.New(render.Options{
 		// HTML layout to be used for all HTML requests:
 		HTMLLayout: "application.html",
 
 		// Embedded filesystems for templates and assets:
-		TemplatesFS: templatesSubFS,
+		TemplatesFS: wrappedTemplatesFS,
 		AssetsFS:    assetsFS,
 
 		// Add template helpers here:
