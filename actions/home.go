@@ -17,7 +17,48 @@ import (
 // HomeHandler is a default handler to serve up
 // a home page.
 func HomeHandler(c buffalo.Context) error {
-	return c.Render(200, r.String("<h1>GolangFlow - Maintenance Mode</h1><p>Site is temporarily under maintenance. Please check back soon.</p><p><a href='/rss'>RSS Feed</a> | <a href='/privacy'>Privacy</a></p>"))
+	html := `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GolangFlow - Maintenance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+</head>
+<body class="bg-light">
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8 text-center">
+                <h1 class="display-4 mb-4">🔧 GolangFlow</h1>
+                <div class="card shadow">
+                    <div class="card-body p-5">
+                        <h2 class="card-title">Under Maintenance</h2>
+                        <p class="card-text lead">We're currently upgrading our systems to serve you better.</p>
+                        <p class="card-text">The site will be back online shortly. Thank you for your patience!</p>
+                        <hr>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="/rss" class="btn btn-outline-primary">
+                                <i class="fas fa-rss"></i> RSS Feed
+                            </a>
+                            <a href="https://twitter.com/golangflow" class="btn btn-outline-info">
+                                <i class="fab fa-twitter"></i> Twitter
+                            </a>
+                            <a href="https://github.com/bscott/golangflow" class="btn btn-outline-dark">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-4 text-muted">
+                    <small>Go Community Linklog - Powered by <a href="https://gobuffalo.io">Buffalo</a></small>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>`
+	return c.Render(200, r.String(html))
 }
 
 // RSSFeed renders RSS feed
