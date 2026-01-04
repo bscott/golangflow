@@ -13,3 +13,6 @@ golangflow
 .vscode
 debug
 .env
+
+# Debug/troubleshooting documentation
+TEMPLATE_MIGRATION_DEBUG.md
