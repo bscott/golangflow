@@ -37,7 +37,11 @@ func initRender() {
 		// https://github.com/gobuffalo/plush/issues/111
 		Helpers: render.Helpers{
 			"getAvatar": func(id uuid.UUID, help hctx.HelperContext) (string, error) {
-				tx := help.Value("tx").(*pop.Connection)
+				txValue := help.Value("tx")
+				if txValue == nil {
+					return "http://via.placeholder.com/140x100", nil
+				}
+				tx := txValue.(*pop.Connection)
 				u := models.User{}
 				erru := tx.Find(&u, id)
 				if erru != nil {
@@ -67,7 +71,11 @@ func initRender() {
 }
 
 func byLineHelper(id uuid.UUID, help hctx.HelperContext) (template.HTML, error) {
-	tx := help.Value("tx").(*pop.Connection)
+	txValue := help.Value("tx")
+	if txValue == nil {
+		return "", nil
+	}
+	tx := txValue.(*pop.Connection)
 	u := models.User{}
 	err := tx.Find(&u, id)
 	if err != nil {
