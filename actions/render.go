@@ -26,18 +26,12 @@ func SetEmbedFS(templates, assets embed.FS) {
 }
 
 func initRender() {
-	// Create sub-filesystem starting at "templates" directory
-	templatesSubFS, err := fs.Sub(templatesFS, "templates")
-	if err != nil {
-		panic(err)
-	}
-
 	r = render.New(render.Options{
 		// HTML layout to be used for all HTML requests:
 		HTMLLayout: "application.html",
 
 		// Embedded filesystems for templates and assets:
-		TemplatesFS: templatesSubFS,
+		TemplatesFS: templatesFS,
 		AssetsFS:    assetsFS,
 
 		// Add template helpers here:
