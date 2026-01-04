@@ -33,7 +33,7 @@ func HomeHandler(c buffalo.Context) error {
 	// Make posts available inside the html template
 	c.Set("posts", posts)
 	c.Set("pagination", q.Paginator)
-	return c.Render(200, r.HTML("index.html"))
+	return c.Render(200, r.HTML("templates/index.html"))
 }
 
 // RSSFeed renders RSS feed
@@ -94,5 +94,5 @@ func JSONFeed(c buffalo.Context) error {
 
 //Privacy
 func Privacy(c buffalo.Context) error {
-	return c.Render(200, r.HTML("privacy.html"))
+	return c.Render(200, r.HTML("templates/privacy.html"))
 }

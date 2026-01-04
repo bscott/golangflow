@@ -79,7 +79,7 @@ func (v PostsResource) List(c buffalo.Context) error {
 	// Make posts available inside the html template
 	c.Set("posts", posts)
 
-	return c.Render(200, r.HTML("posts/index.html"))
+	return c.Render(200, r.HTML("templates/posts/index.html"))
 }
 
 // Show gets the data for one Post. This function is mapped to
@@ -98,7 +98,7 @@ func (v PostsResource) Show(c buffalo.Context) error {
 	// Make post available inside the html template
 
 	c.Set("post", post)
-	return c.Render(200, r.HTML("posts/show.html"))
+	return c.Render(200, r.HTML("templates/posts/show.html"))
 }
 
 // New renders the formular for creating a new post.
@@ -106,7 +106,7 @@ func (v PostsResource) Show(c buffalo.Context) error {
 func (v PostsResource) New(c buffalo.Context) error {
 	// Make post available inside the html template
 	c.Set("post", &models.Post{})
-	return c.Render(200, r.HTML("posts/new.html"))
+	return c.Render(200, r.HTML("templates/posts/new.html"))
 }
 
 // Create adds a post to the DB. This function is mapped to the
@@ -141,7 +141,7 @@ func (v PostsResource) Create(c buffalo.Context) error {
 		c.Set("errors", verrs)
 		// Render again the new.html template that the user can
 		// correct the input.
-		return c.Render(422, r.HTML("posts/new.html"))
+		return c.Render(422, r.HTML("templates/posts/new.html"))
 	}
 	// If there are no errors set a success message
 	c.Flash().Add("success", "Post was created successfully")
@@ -174,7 +174,7 @@ func (v PostsResource) Edit(c buffalo.Context) error {
 	}
 	// Make post available inside the html template
 	c.Set("post", post)
-	return c.Render(200, r.HTML("posts/edit.html"))
+	return c.Render(200, r.HTML("templates/posts/edit.html"))
 }
 
 // Update changes a post in the DB. This function is mapped to
@@ -205,7 +205,7 @@ func (v PostsResource) Update(c buffalo.Context) error {
 		c.Set("errors", verrs)
 		// Render again the edit.html template that the user can
 		// correct the input.
-		return c.Render(422, r.HTML("posts/edit.html"))
+		return c.Render(422, r.HTML("templates/posts/edit.html"))
 	}
 	// If there are no errors set a success message
 	c.Flash().Add("success", "Post was updated successfully")

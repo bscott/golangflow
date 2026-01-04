@@ -3,7 +3,6 @@ package actions
 import (
 	"embed"
 	"html/template"
-	"io/fs"
 
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo/render"
@@ -26,20 +25,12 @@ func SetEmbedFS(templates, assets embed.FS) {
 }
 
 func initRender() {
-	// Create a sub-filesystem rooted at templates/
-	// This allows Buffalo to find templates at root level (index.plush.html)
-	// instead of with prefix (templates/index.plush.html)
-	templatesSubFS, err := fs.Sub(templatesFS, "templates")
-	if err != nil {
-		panic(err)
-	}
-
 	r = render.New(render.Options{
 		// HTML layout to be used for all HTML requests:
-		HTMLLayout: "application.html",
+		HTMLLayout: "templates/application.html",
 
 		// Embedded filesystems for templates and assets:
-		TemplatesFS: templatesSubFS,
+		TemplatesFS: templatesFS,
 		AssetsFS:    assetsFS,
 
 		// Add template helpers here:
