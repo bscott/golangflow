@@ -47,6 +47,9 @@ WORKDIR /bin/
 # Copy the built binary from builder stage
 COPY --from=builder /bin/app .
 
+# Copy database configuration file
+COPY --from=builder /app/database.yml .
+
 # Cloud Run expects the container to listen on $PORT
 EXPOSE 8080
 

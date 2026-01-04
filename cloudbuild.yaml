@@ -18,6 +18,18 @@ steps:
       - '--all-tags'
       - 'us-docker.pkg.dev/$PROJECT_ID/golangflow/golangflow-production'
 
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'Deploy'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'golangflow-production'
+      - '--image=us-docker.pkg.dev/$PROJECT_ID/golangflow/golangflow-production:$COMMIT_SHA'
+      - '--region=us-west1'
+      - '--platform=managed'
+
 # Images to push to Artifact Registry
 images:
   - 'us-docker.pkg.dev/$PROJECT_ID/golangflow/golangflow-production:$COMMIT_SHA'
