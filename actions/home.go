@@ -37,7 +37,7 @@ func HomeHandler(c buffalo.Context) error {
 	// Make posts available inside the html template
 	c.Set("posts", posts)
 	c.Set("pagination", q.Paginator)
-	return c.Render(200, r.HTML("templates/index-debug.html"))
+	return c.Render(200, r.HTML("templates/index.html"))
 }
 
 // RSSFeed renders RSS feed
