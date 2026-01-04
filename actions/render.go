@@ -30,8 +30,9 @@ func initRender() {
 		HTMLLayout: "application.html",
 
 		// Embedded filesystems for templates and assets:
-		TemplatesFS: templatesFS,
-		AssetsFS:    assetsFS,
+		TemplatesFS:     templatesFS,
+		TemplateBaseDir: "templates",
+		AssetsFS:        assetsFS,
 
 		// Add template helpers here:
 		// https://github.com/gobuffalo/plush/issues/111
