@@ -3,6 +3,7 @@ package actions
 import (
 	"embed"
 	"html/template"
+	"io/fs"
 
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo/render"
@@ -14,12 +15,19 @@ import (
 )
 
 var r *render.Engine
-var templatesFS embed.FS
+var templatesFS fs.FS
 var assetsFS embed.FS
 
 // SetEmbedFS sets the embedded filesystems for templates and assets
 func SetEmbedFS(templates, assets embed.FS) {
-	templatesFS = templates
+	// Strip "templates/" prefix from embedded filesystem
+	// so Buffalo sees "index.plush.html" instead of "templates/index.plush.html"
+	var err error
+	templatesFS, err = fs.Sub(templates, "templates")
+	if err != nil {
+		panic(err)
+	}
+
 	assetsFS = assets
 	initRender()
 }
