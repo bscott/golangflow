@@ -58,7 +58,7 @@ func HomeHandler(c buffalo.Context) error {
     </div>
 </body>
 </html>`
-	return c.Render(200, r.String(html))
+	return c.Render(200, r.HTML(html))
 }
 
 // RSSFeed renders RSS feed
