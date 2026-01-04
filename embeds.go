@@ -2,11 +2,11 @@ package main
 
 import "embed"
 
-//go:embed templates
+//go:embed templates/*
 var TemplatesFS embed.FS
 
-//go:embed assets
+//go:embed assets/*
 var AssetsFS embed.FS
 
-//go:embed locales
+//go:embed locales/*
 var LocalesFS embed.FS
