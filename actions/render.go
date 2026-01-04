@@ -3,6 +3,7 @@ package actions
 import (
 	"embed"
 	"html/template"
+	"io/fs"
 
 	"github.com/bscott/golangflow/models"
 	"github.com/gobuffalo/buffalo/render"
@@ -25,14 +26,19 @@ func SetEmbedFS(templates, assets embed.FS) {
 }
 
 func initRender() {
+	// Create sub-filesystem starting at "templates" directory
+	templatesSubFS, err := fs.Sub(templatesFS, "templates")
+	if err != nil {
+		panic(err)
+	}
+
 	r = render.New(render.Options{
 		// HTML layout to be used for all HTML requests:
 		HTMLLayout: "application.html",
 
 		// Embedded filesystems for templates and assets:
-		TemplatesFS:     templatesFS,
-		TemplateBaseDir: "templates",
-		AssetsFS:        assetsFS,
+		TemplatesFS: templatesSubFS,
+		AssetsFS:    assetsFS,
 
 		// Add template helpers here:
 		// https://github.com/gobuffalo/plush/issues/111
