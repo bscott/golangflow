@@ -34,7 +34,11 @@ func HomeHandler(c buffalo.Context) error {
 	// Simple HTML response without template helpers
 	html := "<h1>GolangFlow</h1><ul>"
 	for _, post := range *posts {
-		html += fmt.Sprintf("<li><strong>%s</strong><br>%s</li>", post.Title, post.Content[:100]+"...")
+		content := post.Content
+		if len(content) > 100 {
+			content = content[:100] + "..."
+		}
+		html += fmt.Sprintf("<li><strong>%s</strong><br>%s</li>", post.Title, content)
 	}
 	html += "</ul>"
 	
