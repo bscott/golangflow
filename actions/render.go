@@ -21,10 +21,10 @@ var assetsFS embed.FS
 func SetEmbedFS(templates, assets embed.FS) {
 	templatesFS = templates
 	assetsFS = assets
+	initRender()
 }
 
-func init() {
-
+func initRender() {
 	r = render.New(render.Options{
 		// HTML layout to be used for all HTML requests:
 		HTMLLayout: "application.html",
