@@ -51,7 +51,7 @@ func (v UsersResource) List(c buffalo.Context) error {
 	}
 	// Make users available inside the html template
 	c.Set("users", users)
-	return c.Render(200, r.HTML("templates/users/index.html"))
+	return c.Render(200, r.HTML("users/index.html"))
 }
 
 // Show gets the data for one User. This function is mapped to
@@ -72,7 +72,7 @@ func (v UsersResource) Show(c buffalo.Context) error {
 	}
 	// Make user available inside the html template
 	c.Set("user", user)
-	return c.Render(200, r.HTML("templates/users/show.html"))
+	return c.Render(200, r.HTML("users/show.html"))
 }
 
 // New renders the formular for creating a new user.
@@ -80,7 +80,7 @@ func (v UsersResource) Show(c buffalo.Context) error {
 func (v UsersResource) New(c buffalo.Context) error {
 	// Make user available inside the html template
 	c.Set("user", &models.User{})
-	return c.Render(200, r.HTML("templates/users/new.html"))
+	return c.Render(200, r.HTML("users/new.html"))
 }
 
 // Create adds a user to the DB. This function is mapped to the
@@ -107,7 +107,7 @@ func (v UsersResource) Create(c buffalo.Context) error {
 		c.Set("errors", verrs)
 		// Render again the new.html template that the user can
 		// correct the input.
-		return c.Render(422, r.HTML("templates/users/new.html"))
+		return c.Render(422, r.HTML("users/new.html"))
 	}
 	// If there are no errors set a success message
 	c.Flash().Add("success", "User was created successfully")
@@ -128,7 +128,7 @@ func (v UsersResource) Edit(c buffalo.Context) error {
 	}
 	// Make user available inside the html template
 	c.Set("user", user)
-	return c.Render(200, r.HTML("templates/users/edit.html"))
+	return c.Render(200, r.HTML("users/edit.html"))
 }
 
 // Update changes a user in the DB. This function is mapped to
@@ -162,7 +162,7 @@ func (v UsersResource) Update(c buffalo.Context) error {
 		c.Set("errors", verrs)
 		// Render again the edit.html template that the user can
 		// correct the input.
-		return c.Render(422, r.HTML("templates/users/edit.html"))
+		return c.Render(422, r.HTML("users/edit.html"))
 	}
 	// If there are no errors set a success message
 	c.Flash().Add("success", "User was updated successfully")

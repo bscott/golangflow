@@ -30,16 +30,12 @@ func HomeHandler(c buffalo.Context) error {
 	// Make posts available inside the html template
 	c.Set("posts", posts)
 	c.Set("pagination", q.Paginator)
-	return c.Render(200, r.HTML("templates/index-standalone.html"))
+	return c.Render(200, r.HTML("index.html"))
 }
 
 // RSSFeed renders RSS feed
 func RSSFeed(c buffalo.Context) error {
-	txValue := c.Value("tx")
-	if txValue == nil {
-		return errors.New("database transaction not available")
-	}
-	tx := txValue.(*pop.Connection)
+	tx := c.Value("tx").(*pop.Connection)
 	posts := models.Posts{}
 	err := tx.Order("created_at desc").All(&posts)
 	if err != nil {
@@ -83,11 +79,7 @@ func RSSFeed(c buffalo.Context) error {
 
 //JSONFeed API
 func JSONFeed(c buffalo.Context) error {
-	txValue := c.Value("tx")
-	if txValue == nil {
-		return errors.New("database transaction not available")
-	}
-	tx := txValue.(*pop.Connection)
+	tx := c.Value("tx").(*pop.Connection)
 	posts := models.Posts{}
 	err := tx.Order("created_at desc").All(&posts)
 	if err != nil {
@@ -99,5 +91,5 @@ func JSONFeed(c buffalo.Context) error {
 
 //Privacy
 func Privacy(c buffalo.Context) error {
-	return c.Render(200, r.HTML("templates/privacy.html"))
+	return c.Render(200, r.HTML("privacy.html"))
 }
