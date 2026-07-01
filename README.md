@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/bscott/golangflow.svg?branch=master)](https://travis-ci.org/bscott/golangflow)
+[![CI](https://github.com/bscott/golangflow/actions/workflows/ci.yml/badge.svg)](https://github.com/bscott/golangflow/actions/workflows/ci.yml)
 
 # Welcome to Buffalo!
 
