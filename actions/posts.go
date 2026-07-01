@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/bscott/golangflow/models"
-	"github.com/bscott/googl"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
 	"github.com/gobuffalo/buffalo"
@@ -38,15 +37,11 @@ func init() {
 			return nil
 		}
 
-		shortURL, err := getShort(args["post_id"].(string))
+		url := postURL(args["post_id"].(string))
 
-		if err != nil {
-			return fmt.Errorf("Tweet Worker encountered an error with Goo.gl: %v", err)
-		}
+		fmt.Printf("Post URL: -> %+s\n", url)
 
-		fmt.Printf("Shorten URL: -> %+s\n", shortURL)
-
-		err = sendTweet(args["post_title"].(string), shortURL)
+		err := sendTweet(args["post_title"].(string), url)
 
 		if err != nil {
 			return fmt.Errorf("Couldn't send tweet: %v", err)
@@ -235,21 +230,16 @@ func (v PostsResource) Destroy(c buffalo.Context) error {
 	return c.Redirect(302, "/posts")
 }
 
-// getShort takes a POST ID and returns a Short Googl struct with error value.
-func getShort(id string) (string, error) {
-	// Load Goo.gl URL shortener config data
-	accessToken := os.Getenv("GOOGLE_KEY")
-
-	if accessToken == "" {
-		return "", errors.New("Can't load Goo.gl API Key from ENV")
-	}
-
-	// Create the Goo.gl client
-	c := googl.NewClient(accessToken)
-	url := "https://golangflow.io/posts/" + id
-	data, err := c.Shorten(url)
-	// Return the shorten url
-	return data.ID, err
+// postURL takes a Post ID and returns the canonical, first-party URL for it.
+//
+// This previously used the goo.gl URL shortener (github.com/bscott/googl),
+// but Google shut goo.gl down — the link-shortening API was deprecated in
+// 2018 and the service was fully turned off in 2025, so every goo.gl link
+// now returns an error page. Rather than swap in another shortener that can
+// meet the same fate, we tweet the canonical golangflow.io URL directly:
+// no third-party dependency, no API key, and the links never break.
+func postURL(id string) string {
+	return "https://golangflow.io/posts/" + id
 }
 
 // sendTweet function sends tweet to Golangflow Account
