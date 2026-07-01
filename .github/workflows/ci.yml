@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    name: Buffalo test suite
+    runs-on: ubuntu-latest
+
+    env:
+      GO_ENV: test
+      # database.yml reads TEST_DATABASE_URL for the test connection.
+      TEST_DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/golangflow_test?sslmode=disable
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: golangflow_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.16'
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+
+      - name: Install the Buffalo CLI
+        # Pinned to match the buffalo library version in go.mod (v0.15.5).
+        # If the maintainer bumps the buffalo dependency, bump this to match.
+        run: |
+          go install github.com/gobuffalo/buffalo/buffalo@v0.15.5
+
+      - name: Install Go dependencies
+        run: go mod download
+
+      - name: Install front-end assets
+        run: npm install
+
+      - name: Create the test database
+        run: buffalo pop create -e test
+
+      - name: Run migrations
+        run: buffalo pop migrate up -e test
+
+      - name: Run the test suite
+        run: buffalo test
