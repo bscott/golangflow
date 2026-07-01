@@ -22,10 +22,10 @@ func HomeHandler(c buffalo.Context) error {
 	posts := &models.Posts{}
 
 	q := tx.PaginateFromParams(c.Request().URL.Query())
-	// You can order your list here. Just change
-	err := q.Order("created_at desc").All(posts)
-	// to:
-	// err := tx.Order("create_at desc").All(posts)
+	// Sort by post date. "?sort=oldest" shows the oldest posts first;
+	// anything else (including no param) defaults to newest first.
+	sort := c.Param("sort")
+	err := q.Order(models.PostsOrder(sort)).All(posts)
 	if err != nil {
 		return errors.WithStack(err)
 	}
@@ -33,6 +33,8 @@ func HomeHandler(c buffalo.Context) error {
 	// Make posts available inside the html template
 	c.Set("posts", posts)
 	c.Set("pagination", q.Paginator)
+	// Expose the active sort so the template can highlight it.
+	c.Set("sort", sort)
 	return c.Render(200, r.HTML("index.html"))
 }
 

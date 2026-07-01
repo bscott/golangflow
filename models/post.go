@@ -29,6 +29,21 @@ func (p Post) String() string {
 // Posts is not required by pop and may be deleted
 type Posts []Post
 
+// PostsOrder returns the SQL "ORDER BY" clause for the homepage post list
+// given a requested sort direction. It powers the date sort on the homepage.
+//
+// Supported values:
+//   - "oldest" -> oldest posts first (created_at asc)
+//   - anything else, including "newest" and "" -> newest posts first (created_at desc)
+//
+// It is a pure function so it can be unit-tested without a database.
+func PostsOrder(sort string) string {
+	if sort == "oldest" {
+		return "created_at asc"
+	}
+	return "created_at desc"
+}
+
 // String is not required by pop and may be deleted
 func (p Posts) String() string {
 	jp, _ := json.Marshal(p)

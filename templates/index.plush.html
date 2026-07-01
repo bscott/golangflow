@@ -1,3 +1,13 @@
+<div class="row">
+  <div class="col-md-12" style="text-align: right">
+    Sort by date:
+    <%= if (sort == "oldest") { %>
+      <a href="/?sort=newest">Newest</a> | <strong>Oldest</strong>
+    <% } else { %>
+      <strong>Newest</strong> | <a href="/?sort=oldest">Oldest</a>
+    <% } %>
+  </div>
+</div>
 <%= for (post) in posts { %>
 <div class="post-Content">
   <div class="row">
